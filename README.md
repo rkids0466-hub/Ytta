@@ -16,46 +16,121 @@ local AdminList = {
 local userRole = AdminList[LocalPlayer.Name]
 local isAdmin = userRole ~= nil
 
--- DAFTAR KODE REDEEM VALID
-local validCodes = {
-    "PREMIUM-5507-94D1-5DDE", "PREMIUM-3C67-3C31-19D5", "PREMIUM-C281-258A-C204",
-    "PREMIUM-C520-3CC1-56D7", "PREMIUM-D831-75F9-E9F9", "PREMIUM-922A-53EB-B46A",
-    "PREMIUM-3591-6C44-AA13", "PREMIUM-1DB6-6E61-3DC8", "PREMIUM-76A8-88A6-1BF4",
-    "PREMIUM-5F69-769A-9213", "PREMIUM-BEA0-9EE0-438C", "PREMIUM-F037-037C-4CCB",
-    "PREMIUM-0AE7-8837-1157", "PREMIUM-DC5D-F2D4-07C4", "PREMIUM-2A1A-438D-C3F6",
-    "PREMIUM-1122-2C84-ACB3", "PREMIUM-0D3F-6D09-F8DB", "PREMIUM-F4E8-2813-102D",
-    "PREMIUM-6E71-2A5C-7F03", "PREMIUM-D7B7-A1DF-ED23", "PREMIUM-45FB-A953-72C3",
-    "PREMIUM-A00F-B2CD-4596", "PREMIUM-043C-33E4-3C46", "PREMIUM-C6D8-D5F5-10BB",
-    "PREMIUM-4C27-F0DB-8873", "PREMIUM-475B-891F-8AF4", "PREMIUM-8784-76FF-8574",
-    "PREMIUM-EE5F-E620-23A3", "PREMIUM-D1EC-8C43-01A5", "PREMIUM-8C5C-C78A-508C",
-    "PREMIUM-FA25-FE4A-F3D9", "PREMIUM-CEAC-92E4-7FD5", "PREMIUM-0D7A-0E23-0DA3",
-    "PREMIUM-EC48-B3FC-B61E", "PREMIUM-49E0-AC7B-6F2C", "PREMIUM-D49E-8214-DE61",
-    "PREMIUM-8EA0-A762-D8D4", "PREMIUM-5771-9D0B-0979", "PREMIUM-895E-296C-0C1C",
-    "PREMIUM-A680-5242-CF06", "PREMIUM-446B-7D7F-80EF", "PREMIUM-485E-ADC4-829C",
-    "PREMIUM-4AEF-FDD0-13E5", "PREMIUM-1388-A198-6A49", "PREMIUM-F787-E7DF-676B",
-    "PREMIUM-9E5E-9FB9-74E2", "PREMIUM-5DB7-C188-6E7C", "PREMIUM-4FC3-D713-B8F5",
-    "PREMIUM-C64E-392D-D332", "PREMIUM-7540-4CE8-19EF", "PREMIUM-22B7-5785-3704",
-    "PREMIUM-C7A6-5DD1-9280", "PREMIUM-2C00-4A54-A69B", "PREMIUM-CB06-DFC1-4137",
-    "PREMIUM-F65A-21C8-A810", "PREMIUM-DF3F-937D-D37D", "PREMIUM-6336-DC8B-A1E5",
-    "PREMIUM-74C4-10C0-B6F8", "PREMIUM-79CB-68E6-85BD", "PREMIUM-D5AC-1C87-2738",
-    "PREMIUM-0E59-414E-65D2", "PREMIUM-FA4D-8934-7C3C", "PREMIUM-77DF-1FC5-7ADD",
-    "PREMIUM-345C-546C-BD19", "PREMIUM-536B-E925-C97B", "PREMIUM-1F3F-32EF-B160",
-    "PREMIUM-38A0-5077-9AB7", "PREMIUM-7858-A28D-34FD", "PREMIUM-04C5-24ED-3556",
-    "PREMIUM-C8B5-F119-2CDD", "PREMIUM-1EC1-5860-32D1", "PREMIUM-E6DD-C9BC-5ECA",
-    "PREMIUM-356B-2F92-C653", "PREMIUM-273C-71EC-0A2C", "PREMIUM-77D1-533B-198A",
-    "PREMIUM-7F50-EFD8-292D", "PREMIUM-0EF6-896D-EE26", "PREMIUM-82DE-F9C4-58C2",
-    "PREMIUM-0E5F-DA3A-BD9C", "PREMIUM-ACCA-9389-E997", "PREMIUM-11DD-9376-561E",
-    "PREMIUM-AD30-D18F-337A", "PREMIUM-FF18-F92F-160C", "PREMIUM-86B1-3DDE-DAF3",
-    "PREMIUM-7D6B-B443-6796", "PREMIUM-0A44-070A-4C3F", "PREMIUM-992C-22EF-E5B6",
-    "PREMIUM-530A-122A-1CA9", "PREMIUM-6658-6807-4DD7", "PREMIUM-96EC-5400-B4E3",
-    "PREMIUM-0B88-979B-BEF9", "PREMIUM-1912-C597-887D", "PREMIUM-FC5D-7654-DEB5",
-    "PREMIUM-4197-E4CC-1E0E", "PREMIUM-A12C-20A7-84CC", "PREMIUM-F5D5-BC52-8508",
-    "PREMIUM-8E7F-E564-25EF", "PREMIUM-5FB9-E39D-D48F", "PREMIUM-5DB7-3A53-89F1",
-    "PREMIUM-F8B0-1C2B-15EA"
+-- DAFTAR KODE REDEEM VALID (OBFUSCATED)
+local _0x4a2b_c = {
+    {122,120,111,103,99,127,103,7,31,31,26,29,7,19,30,110,27,7,31,110,110,111},
+    {122,120,111,103,99,127,103,7,25,105,28,29,7,25,105,25,27,7,27,19,110,31},
+    {122,120,111,103,99,127,103,7,105,24,18,27,7,24,31,18,107,7,105,24,26,30},
+    {122,120,111,103,99,127,103,7,105,31,24,26,7,25,105,105,27,7,31,28,110,29},
+    {122,120,111,103,99,127,103,7,110,18,25,27,7,29,31,108,19,7,111,19,108,19},
+    {122,120,111,103,99,127,103,7,19,24,24,107,7,31,25,111,104,7,104,30,28,107},
+    {122,120,111,103,99,127,103,7,25,31,19,27,7,28,105,30,30,7,107,107,27,25},
+    {122,120,111,103,99,127,103,7,27,110,104,28,7,28,111,28,27,7,25,110,105,18},
+    {122,120,111,103,99,127,103,7,29,28,107,18,7,18,18,107,28,7,27,104,108,30},
+    {122,120,111,103,99,127,103,7,31,108,28,19,7,29,28,19,107,7,19,24,27,25},
+    {122,120,111,103,99,127,103,7,104,111,107,26,7,19,111,111,26,7,30,25,18,105},
+    {122,120,111,103,99,127,103,7,108,26,25,29,7,26,25,29,105,7,30,105,105,104},
+    {122,120,111,103,99,127,103,7,26,107,111,29,7,18,18,25,29,7,27,27,31,29},
+    {122,120,111,103,99,127,103,7,110,105,31,110,7,108,24,110,30,7,26,29,105,30},
+    {122,120,111,103,99,127,103,7,24,107,27,107,7,30,25,18,110,7,105,25,108,28},
+    {122,120,111,103,99,127,103,7,27,27,24,24,7,24,105,18,30,7,107,105,104,25},
+    {122,120,111,103,99,127,103,7,26,110,25,108,7,28,110,26,19,7,108,18,110,104},
+    {122,120,111,103,99,127,103,7,108,30,111,18,7,24,18,27,25,7,27,26,24,110},
+    {122,120,111,103,99,127,103,7,28,111,29,27,7,24,107,31,105,7,29,108,26,25},
+    {122,120,111,103,99,127,103,7,110,29,104,29,7,107,27,110,108,7,111,110,24,25},
+    {122,120,111,103,99,127,103,7,30,31,108,104,7,107,19,31,25,7,29,24,105,25},
+    {122,120,111,103,99,127,103,7,107,26,26,108,7,104,24,105,110,7,30,31,19,28},
+    {122,120,111,103,99,127,103,7,26,30,25,105,7,25,25,111,30,7,25,105,30,28},
+    {122,120,111,103,99,127,103,7,105,28,110,18,7,110,31,108,31,7,27,26,104,104},
+    {122,120,111,103,99,127,103,7,30,105,29,29,7,108,26,110,104,7,18,18,29,25},
+    {122,120,111,103,99,127,103,7,30,29,25,104,7,18,19,27,7,108,107,108,30},
+    {122,120,111,103,99,127,103,7,18,29,29,30,7,29,28,108,108,7,18,25,29,28},
+    {122,120,111,103,99,127,103,7,111,111,31,108,7,111,28,26,24,7,25,23,107,25},
+    {122,120,111,103,99,127,103,7,110,27,111,105,7,18,105,30,25,7,27,27,107,31},
+    {122,120,111,103,99,127,103,7,18,105,25,105,7,105,29,28,107,7,31,25,18,105},
+    {122,120,111,103,99,127,103,7,108,107,25,27,7,108,111,107,107,7,108,25,110,29},
+    {122,120,111,103,99,127,103,7,105,111,107,105,7,19,24,111,7,29,108,110,31},
+    {122,120,111,103,99,127,103,7,26,110,29,107,7,26,111,25,27,7,26,110,107,25},
+    {122,120,111,103,99,127,103,7,111,105,30,18,7,104,25,108,105,7,104,28,27,111},
+    {122,120,111,103,99,127,103,7,30,19,111,26,7,107,105,29,104,7,28,108,24,105},
+    {122,120,111,103,99,127,103,7,110,30,19,111,7,18,24,27,26,7,110,111,28,27},
+    {122,120,111,103,99,127,103,7,18,111,107,26,7,107,29,28,30,7,110,18,110,30},
+    {122,120,111,103,99,127,103,7,25,29,29,27,7,19,110,26,104,7,26,29,29,29},
+    {122,120,111,103,99,127,103,7,18,19,29,25,7,24,19,28,105,7,26,105,27,105},
+    {122,120,111,103,99,127,103,7,107,28,18,26,7,25,24,30,24,7,105,108,26,28},
+    {122,120,111,103,99,127,103,7,30,30,28,104,7,29,110,29,108,7,18,26,111,108},
+    {122,120,111,103,99,127,103,7,30,18,25,111,7,107,110,105,30,7,18,24,29,105},
+    {122,120,111,103,99,127,103,7,30,107,111,108,7,108,110,110,26,7,27,25,111,25},
+    {122,120,111,103,99,127,103,7,27,25,25,18,7,107,27,19,28,7,28,107,30,29},
+    {122,120,111,103,99,127,103,7,108,29,25,29,7,111,29,110,108,7,28,29,28,104},
+    {122,120,111,103,99,127,103,7,19,111,31,111,7,19,108,104,29,7,28,31,111,25},
+    {122,120,111,103,99,127,103,7,31,108,105,25,7,110,29,27,25,7,104,18,108,31},
+    {122,120,111,103,99,127,103,7,105,28,30,111,7,25,19,24,110,7,110,25,25,24},
+    {122,120,111,103,99,127,103,7,29,25,30,30,7,30,105,111,18,7,27,19,111,108},
+    {122,120,111,103,99,127,103,7,24,24,104,29,7,25,29,18,25,7,25,29,26,30},
+    {122,120,111,103,99,127,103,7,105,29,107,26,7,25,110,110,27,7,19,24,18,26},
+    {122,120,111,103,99,127,103,7,24,105,26,26,7,30,107,28,30,7,107,28,19,104},
+    {122,120,111,103,99,127,103,7,105,104,26,26,7,110,108,105,27,7,30,27,25,29},
+    {122,120,111,103,99,127,103,7,108,28,26,107,7,24,27,105,105,7,107,18,27,26},
+    {122,120,111,103,99,127,103,7,110,108,25,29,7,19,25,29,110,7,110,25,29,110},
+    {122,120,111,103,99,127,103,7,25,25,25,28,7,110,105,18,104,7,107,27,111,25},
+    {122,120,111,103,99,127,103,7,29,30,105,30,7,26,26,105,26,7,104,28,108,30},
+    {122,120,111,103,99,127,103,7,29,29,105,104,7,28,111,111,26,7,18,25,104,110},
+    {122,120,111,103,99,127,103,7,110,25,107,105,7,27,105,18,29,7,29,29,25,28},
+    {122,120,111,103,99,127,103,7,26,111,25,29,7,27,27,107,111,7,28,31,110,111},
+    {122,120,111,103,99,127,103,7,108,107,24,110,7,29,19,25,25,7,29,105,25,105},
+    {122,120,111,103,99,127,103,7,29,29,110,108,7,27,108,105,31,7,29,107,110,110},
+    {122,120,111,103,99,127,103,7,25,24,31,105,7,25,30,28,105,7,104,110,27,29},
+    {122,120,111,103,99,127,103,7,25,25,30,104,7,111,19,27,25,7,105,19,28,26},
+    {122,120,111,103,99,127,103,7,27,108,25,29,7,30,25,29,29,7,104,27,26,28},
+    {122,120,111,103,99,127,103,7,24,18,107,26,7,25,26,29,29,7,19,107,104,29},
+    {122,120,111,103,99,127,103,7,29,28,18,18,7,107,24,18,110,7,25,30,108,110},
+    {122,120,111,103,99,127,103,7,26,24,105,25,7,24,111,110,7,25,25,25,28},
+    {122,120,111,103,99,127,103,7,105,28,110,110,7,105,28,104,105,7,25,111,105,107},
+    {122,120,111,103,99,127,103,7,25,25,30,104,7,24,108,29,24,7,105,28,28,107},
+    {122,120,111,103,99,127,103,7,29,29,110,27,7,25,25,25,104,7,27,19,18,107},
+    {122,120,111,103,99,127,103,7,29,108,25,26,7,111,108,110,18,7,29,29,27,110},
+    {122,120,111,103,99,127,103,7,26,111,108,28,7,18,19,28,110,7,111,111,24,28},
+    {122,120,111,103,99,127,103,7,26,111,108,28,7,110,107,105,26,7,111,111,24,28},
+    {122,120,111,103,99,127,103,7,107,105,105,107,7,25,25,25,28,7,111,28,29,24},
+    {122,120,111,103,99,127,103,7,29,29,110,108,7,27,108,105,31,7,29,107,110,110},
+    {122,120,111,103,99,127,103,7,107,105,25,28,7,25,28,105,107,7,28,28,28,111},
+    {122,120,111,103,99,127,103,7,107,105,25,28,7,25,28,105,107,7,28,28,28,111},
+    {122,120,111,103,99,127,103,7,105,111,29,28,7,29,111,111,28,7,108,104,110,105},
+    {122,120,111,103,99,127,103,7,24,107,27,107,7,28,105,110,108,7,105,29,105,29},
+    {122,120,111,103,99,127,103,7,28,26,28,104,7,26,26,28,28,7,24,107,104,29},
+    {122,120,111,103,99,127,103,7,108,18,25,25,7,24,25,25,28,7,28,25,108,105},
+    {122,120,111,103,99,127,103,7,29,104,111,28,7,24,107,105,28,7,111,108,29,105},
+    {122,120,111,103,99,127,103,7,28,25,28,104,7,28,105,110,28,7,26,107,104,105},
+    {122,120,111,103,99,127,103,7,108,107,105,107,7,29,110,24,107,7,108,25,28,24},
+    {122,120,111,103,99,127,103,7,25,25,110,110,7,19,25,25,28,7,25,28,27,111},
+    {122,120,111,103,99,127,103,7,107,110,25,29,7,19,25,28,111,7,24,107,104,29},
+    {122,120,111,103,99,127,103,7,28,18,25,29,7,28,105,29,28,7,28,104,104,28},
+    {122,120,111,103,99,127,103,7,25,108,104,111,7,111,29,28,105,7,110,18,108,104},
+    {122,120,111,103,99,127,103,7,28,104,107,28,7,28,104,25,28,7,26,105,28,28},
+    {122,120,111,103,99,127,103,7,108,29,104,29,7,25,104,31,24,7,110,111,104,25},
+    {122,120,111,103,99,127,103,7,107,26,26,108,7,104,24,105,110,7,30,31,19,28},
+    {122,120,111,103,99,127,103,7,29,25,110,25,7,104,105,25,25,7,18,18,108,24},
+    {122,120,111,103,99,127,103,7,108,18,25,25,7,24,25,25,28,7,28,25,108,105},
+    {122,120,111,103,99,127,103,7,25,108,104,111,7,111,29,28,105,7,110,18,108,104},
+    {122,120,111,103,99,127,103,7,25,110,104,29,7,25,107,25,27,7,18,18,108,24}
 }
 
+local function _0x4a2b_d(_0x4a2b_e)
+    local _0x4a2b_f = ""
+    for _0x4a2b_i = 1, #_0x4a2b_e do
+        _0x4a2b_f = _0x4a2b_f .. string.char(_0x4a2b_e[_0x4a2b_i] ^ 42)
+    end
+    return _0x4a2b_f
+end
+
+local _0x4a2b_validCodes = {}
+for _0x4a2b_i, _0x4a2b_v in ipairs(_0x4a2b_c) do
+    table.insert(_0x4a2b_validCodes, _0x4a2b_d(_0x4a2b_v))
+end
+
 -- Simpan status apakah sudah pernah redeem di sesi ini
-local hasRedeemed = false
+local _0x4a2b_hasRedeemed = false
 
 if game.CoreGui:FindFirstChild("StealAnEggGUI") then
     game.CoreGui.StealAnEggGUI:Destroy()
@@ -263,7 +338,7 @@ local ShopBannerCorner = Instance.new("UICorner")
 ShopBannerCorner.CornerRadius = UDim.new(0, 8)
 ShopBannerCorner.Parent = ShopBanner
 
--- 3. REDEEM CODE SECTION (BARU)
+-- 3. REDEEM CODE SECTION
 local RedeemFrame = Instance.new("Frame")
 RedeemFrame.Size = UDim2.new(1, -20, 0, 100)
 RedeemFrame.BackgroundColor3 = Color3.fromRGB(25, 15, 38)
@@ -326,28 +401,16 @@ ResultLabel.TextSize = 11
 ResultLabel.TextXAlignment = Enum.TextXAlignment.Left
 ResultLabel.Parent = RedeemFrame
 
--- Fungsi Logika Redeem
-local function updatePlayerStatusToPremium()
-    -- Update Label Status di Halaman Player
+-- Fungsi Logika Redeem (OBFUSCATED)
+local function _0x4a2b_updatePlayerStatusToPremium()
     if StatusLabelRef then
         StatusLabelRef.Text = "PREMIUM"
         StatusLabelRef.TextColor3 = Color3.fromRGB(255, 215, 0)
     end
     
-    -- Buka Tab Admin jika belum ada
     if not AdminPageInstance then
         AdminPageInstance = CreateTab("ADMIN", 8)
         
-        -- Isi konten dasar untuk tab admin baru (mengambil dari struktur asli jika diperlukan, 
-        -- tapi karena kita membuat dinamis, kita biarkan kosong dulu atau copy logic admin asli)
-        -- Untuk kemudahan, kita asumsikan fitur admin lain sudah ada di script asli, 
-        -- di sini kita hanya memastikan tab muncul.
-        
-        -- Note: Karena script asli membangun AdminPage secara kondisional di awal,
-        -- jika kita membuatnya sekarang, kita harus menyalin blok kode 'if isAdmin...' ke dalam fungsi ini
-        -- Atau lebih baik, kita buat ulang elemen-elemen penting Admin di sini.
-        
-        -- Mengulangi pembuatan konten Admin Sederhana agar tidak error
         local MessageFrame = Instance.new("Frame")
         MessageFrame.Size = UDim2.new(1, -20, 0, 100)
         MessageFrame.Position = UDim2.new(0, 10, 0, 40)
@@ -388,7 +451,6 @@ local function updatePlayerStatusToPremium()
         SendCorner.CornerRadius = UDim.new(0, 6)
         SendCorner.Parent = SendAdminBtn
         
-        -- Logic Send Notification Admin (Copy dari asli)
         SendAdminBtn.MouseButton1Click:Connect(function()
             local message = MessageBox.Text
             if message == "" or message == "MESSAGE.." then return end
@@ -465,37 +527,35 @@ local function updatePlayerStatusToPremium()
 end
 
 SendBtn.MouseButton1Click:Connect(function()
-    if hasRedeemed then
+    if _0x4a2b_hasRedeemed then
         ResultLabel.Text = "Kode sudah digunakan!"
         ResultLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
         return
     end
     
-    local code = string.upper(CodeInput.Text)
-    local isValid = false
+    local _0x4a2b_code = string.upper(CodeInput.Text)
+    local _0x4a2b_isValid = false
     
-    for _, c in ipairs(validCodes) do
-        if c == code then
-            isValid = true
+    for _, _0x4a2b_c_item in ipairs(_0x4a2b_validCodes) do
+        if _0x4a2b_c_item == _0x4a2b_code then
+            _0x4a2b_isValid = true
             break
         end
     end
     
-    if isValid then
-        hasRedeemed = true
-        isAdmin = true -- Ubah status internal
+    if _0x4a2b_isValid then
+        _0x4a2b_hasRedeemed = true
+        isAdmin = true
         ResultLabel.Text = "BERHASIL! Akun kini PREMIUM."
         ResultLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
         CodeInput.Text = ""
         
-        -- Panggil fungsi update UI
-        updatePlayerStatusToPremium()
+        _0x4a2b_updatePlayerStatusToPremium()
     else
         ResultLabel.Text = "Kode Tidak Valid!"
         ResultLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
     end
 end)
-
 
 local function AddInfoLabel(container, title, value, order)
     local Label = Instance.new("TextLabel")
@@ -648,7 +708,7 @@ local function CreateStatBox(order, hasIcon)
 end
 
 local StatusLabel, StatusIcon = CreateStatBox(1, true)
-StatusLabelRef = StatusLabel -- Simpan referensi untuk update nanti
+StatusLabelRef = StatusLabel
 StatusIcon.Image = "rbxassetid://95842412229310"
 
 if isAdmin then
@@ -1425,7 +1485,6 @@ AAStatusStroke.Color = Color3.fromRGB(0, 0, 0)
 AAStatusStroke.Thickness = 0
 AAStatusStroke.Parent = AAStatusText
 
--- Logika Countdown Berulang (Khusus Sabtu Jam 22:00 - 23:30)
 task.spawn(function()
     while task.wait(0.1) do
         if AAStatusText and AAStatusText.Parent then
@@ -1681,27 +1740,8 @@ task.spawn(function()
     end
 end)
 
--- Blok Admin Asli (Hanya jalan jika isAdmin true dari awal ATAU setelah redeem)
--- Karena kita membuat AdminPage dinamis di atas, kita perlu memastikan isi AdminPage terisi.
--- Di atas saya sudah mengisi AdminPageInstance dengan konten sederhana saat redeem.
--- Namun, untuk konsistensi dengan script asli, berikut adalah penyesuaian akhir.
-
 if isAdmin and AdminPageInstance then
-     -- Jika sudah admin sejak awal, pastikan kontennya sama persis dengan desain asli
-     -- (Kode di atas sudah menangani kasus redeem. Kasus awal juga ditangani oleh blok if isAdmin di bawah ini 
-     -- tetapi kita perlu hati-hati agar tidak duplikat. 
-     -- Solusi: Kita hapus blok 'if isAdmin' yang besar di bawah ini dan ganti dengan pemanggilan fungsi isi admin 
-     -- atau biarkan saja karena AdminPageInstance dibuat kosong jika bukan admin awal, lalu diisi saat redeem.
-     -- Tapi jika admin awal, AdminPageInstance sudah ada. Kita perlu mengisinya.
-     
-     -- Mari kita buat fungsi pengisi konten Admin yang bisa dipanggil kapan saja.
-     
      local function PopulateAdminPage(page)
-         if page:GetChildren() then -- Cek jika sudah ada anak, mungkin skip? 
-             -- Untuk kesederhanaan, kita anggap jika isAdmin true di awal, kita isi manual di sini.
-         end
-         
-         -- Konten Admin (Diambil dari struktur asli)
          local MessageFrame = Instance.new("Frame")
          MessageFrame.Size = UDim2.new(1, -20, 0, 100)
          MessageFrame.Position = UDim2.new(0, 10, 0, 40)
@@ -1939,7 +1979,6 @@ if isAdmin and AdminPageInstance then
          end)
      end
      
-     -- Jika admin sejak awal, isi kontennya sekarang
      PopulateAdminPage(AdminPageInstance)
 end
 
