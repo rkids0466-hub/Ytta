@@ -4,11 +4,162 @@ local UserInputService = game:GetService("UserInputService")
 local MarketplaceService = game:GetService("MarketplaceService")
 local RunService = game:GetService("RunService")
 local Stats = game:GetService("Stats")
+
+-- ==========================================
+-- FITUR LOADING SCREEN (DITAMBAHKAN)
+-- ==========================================
+local LoadingGui = Instance.new("ScreenGui")
+LoadingGui.Name = "LipzyLoadingGUI"
+LoadingGui.Parent = game.CoreGui
+LoadingGui.ResetOnSpawn = false
+LoadingGui.IgnoreGuiInset = true
+
+local LoadingFrame = Instance.new("Frame")
+LoadingFrame.Size = UDim2.new(0, 400, 0, 150)
+LoadingFrame.Position = UDim2.new(0.5, -200, 0.5, -75)
+LoadingFrame.BackgroundColor3 = Color3.fromRGB(18, 12, 28)
+LoadingFrame.BorderSizePixel = 0
+LoadingFrame.Parent = LoadingGui
+
+local LoadingCorner = Instance.new("UICorner")
+LoadingCorner.CornerRadius = UDim.new(0, 10)
+LoadingCorner.Parent = LoadingFrame
+
+local LoadingStroke = Instance.new("UIStroke")
+LoadingStroke.Color = Color3.fromRGB(140, 45, 220)
+LoadingStroke.Thickness = 2
+LoadingStroke.Parent = LoadingFrame
+
+local LoadingTitle = Instance.new("TextLabel")
+LoadingTitle.Size = UDim2.new(1, 0, 0, 30)
+LoadingTitle.Position = UDim2.new(0, 0, 0, 10)
+LoadingTitle.BackgroundTransparency = 1
+LoadingTitle.Text = "LIPZY HUB V5.2"
+LoadingTitle.TextColor3 = Color3.fromRGB(200, 120, 255)
+LoadingTitle.Font = Enum.Font.GothamBold
+LoadingTitle.TextSize = 18
+LoadingTitle.Parent = LoadingFrame
+
+local ProgressBarBg = Instance.new("Frame")
+ProgressBarBg.Size = UDim2.new(1, -40, 0, 15)
+ProgressBarBg.Position = UDim2.new(0, 20, 0, 50)
+ProgressBarBg.BackgroundColor3 = Color3.fromRGB(30, 18, 48)
+ProgressBarBg.BorderSizePixel = 0
+ProgressBarBg.Parent = LoadingFrame
+
+local ProgressBarBgCorner = Instance.new("UICorner")
+ProgressBarBgCorner.CornerRadius = UDim.new(1, 0)
+ProgressBarBgCorner.Parent = ProgressBarBg
+
+local ProgressBarFill = Instance.new("Frame")
+ProgressBarFill.Size = UDim2.new(0, 0, 1, 0)
+ProgressBarFill.BackgroundColor3 = Color3.fromRGB(140, 45, 220)
+ProgressBarFill.BorderSizePixel = 0
+ProgressBarFill.Parent = ProgressBarBg
+
+local ProgressBarFillCorner = Instance.new("UICorner")
+ProgressBarFillCorner.CornerRadius = UDim.new(1, 0)
+ProgressBarFillCorner.Parent = ProgressBarFill
+
+local ProgressText = Instance.new("TextLabel")
+ProgressText.Size = UDim2.new(1, 0, 0, 20)
+ProgressText.Position = UDim2.new(0, 0, 0, 70)
+ProgressText.BackgroundTransparency = 1
+ProgressText.Text = "0%"
+ProgressText.TextColor3 = Color3.fromRGB(255, 255, 255)
+ProgressText.Font = Enum.Font.GothamBold
+ProgressText.TextSize = 14
+ProgressText.Parent = LoadingFrame
+
+local StatusContainer = Instance.new("Frame")
+StatusContainer.Size = UDim2.new(1, -40, 0, 60)
+StatusContainer.Position = UDim2.new(0, 20, 0, 90)
+StatusContainer.BackgroundTransparency = 1
+StatusContainer.Parent = LoadingFrame
+
+local StatusLayout = Instance.new("UIListLayout")
+StatusLayout.SortOrder = Enum.SortOrder.LayoutOrder
+StatusLayout.Padding = UDim.new(0, 2)
+StatusLayout.Parent = StatusContainer
+
+local loadingSteps = {
+    "[PLAYER] MEMUAT",
+    "[MAIN] MEMUAT",
+    "[DISPLAY] MEMUAT",
+    "[SHOP] MEMUAT",
+    "[PREDICTION] MEMUAT",
+    "[ADMIN ABUSE] MEMUAT",
+    "[DIVINE SPAWNED] MEMUAT"
+}
+
+local statusLabels = {}
+for i, step in ipairs(loadingSteps) do
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(1, 0, 0, 16)
+    label.BackgroundTransparency = 1
+    label.Text = step
+    label.TextColor3 = Color3.fromRGB(200, 120, 255)
+    label.Font = Enum.Font.GothamBold
+    label.TextSize = 12
+    label.TextXAlignment = Enum.TextXAlignment.Left
+    label.LayoutOrder = i
+    label.Visible = false -- Awalnya tidak terlihat
+    label.Parent = StatusContainer
+    statusLabels[i] = label
+end
+
+-- Logika Loading 1 Menit (60 Detik)
+task.spawn(function()
+    local totalTime = 60 -- 1 menit
+    local steps = #loadingSteps
+    local timePerStep = totalTime / steps
+    
+    for i = 1, steps do
+        -- Munculkan teks satu per satu
+        statusLabels[i].Visible = true
+        statusLabels[i].Text = loadingSteps[i]
+        statusLabels[i].TextColor3 = Color3.fromRGB(200, 120, 255) -- Warna ungu saat memuat
+        
+        local startWidth = (i - 1) / steps
+        local targetWidth = i / steps
+        local startTime = tick()
+        
+        while tick() - startTime < timePerStep do
+            local elapsed = tick() - startTime
+            local progress = elapsed / timePerStep
+            local currentWidth = startWidth + (targetWidth - startWidth) * progress
+            
+            ProgressBarFill.Size = UDim2.new(currentWidth, 0, 1, 0)
+            ProgressText.Text = math.floor(currentWidth * 100) .. "%"
+            
+            task.wait()
+        end
+        
+        -- Pastikan ukuran pas di akhir step
+        ProgressBarFill.Size = UDim2.new(targetWidth, 0, 1, 0)
+        ProgressText.Text = math.floor(targetWidth * 100) .. "%"
+    end
+    
+    -- Saat 100%, ubah semua "MEMUAT" menjadi "✓"
+    for i = 1, steps do
+        statusLabels[i].Text = loadingSteps[i]:gsub("MEMUAT", "✓")
+        statusLabels[i].TextColor3 = Color3.fromRGB(100, 255, 100) -- Hijau saat selesai
+    end
+    
+    task.wait(1) -- Tahan sebentar di 100% agar terlihat
+    
+    -- Hapus loading screen
+    LoadingGui:Destroy()
+end)
+-- ==========================================
+
+
 local LocalPlayer = Players.LocalPlayer
 local AdminList = {
     ["LifzxAfter2"] = "ADMIN",
     ["Yanzzz_1023"] = "OWNER"
 }
+
 local userRole = AdminList[LocalPlayer.Name]
 local isAdmin = userRole ~= nil
 
@@ -108,6 +259,7 @@ ContentContainer.BackgroundTransparency = 1
 ContentContainer.Parent = MainFrame
 
 local Pages = {}
+
 local function CreateTab(name, layoutOrder)
     local TabBtn = Instance.new("TextButton")
     TabBtn.Size = UDim2.new(1, 0, 0, 30)
@@ -146,158 +298,133 @@ end
 local PlayerPage = CreateTab("PLAYER", 1)
 local MainPAge = CreateTab("MAIN", 2)
 local DisplayPage = CreateTab("DISPLAY", 3)
-local OverlayPage = CreateTab("OVERLAY", 4)
+local ShopPage = CreateTab("SHOP", 4) -- DIUBAH DARI OVERLAY MENJADI SHOP
 local PredictionPage = CreateTab("PREDICTION", 5)
 local AdminAbusePage = CreateTab("ADMIN ABUSE", 6)
-local DivineSpawnedPage = CreateTab("DIVINE SPAWN_ED", 7) -- Kept original name key
--- Added SHOP Tab
-local ShopPage = CreateTab("SHOP", 8)
-
+local DivineSpawnedPage = CreateTab("DIVINE SPAWNED", 7)
 local AdminPage = nil
 if isAdmin then
-    AdminPage = CreateTab("ADMIN", 9)
+    AdminPage = CreateTab("ADMIN", 8)
 end
 
--- Setup SHOP Page Content
-do
-    local ShopScroll = Instance.new("ScrollingFrame")
-    ShopScroll.Size = UDim2.new(1, 0, 1, 0)
-    ShopScroll.BackgroundTransparency = 1
-    ShopScroll.BorderSizePixel = 0
-    ShopScroll.ScrollBarThickness = 4
-    ShopScroll.ScrollBarImageColor3 = Color3.fromRGB(140, 45, 220)
-    ShopScroll.Parent = ShopPage
+-- ==========================================
+-- KONTEN HALAMAN SHOP
+-- ==========================================
+local ShopScroll = Instance.new("ScrollingFrame")
+ShopScroll.Size = UDim2.new(1, -10, 1, -10)
+ShopScroll.Position = UDim2.new(0, 5, 0, 5)
+ShopScroll.BackgroundTransparency = 1
+ShopScroll.BorderSizePixel = 0
+ShopScroll.ScrollBarThickness = 4
+ShopScroll.ScrollBarImageColor3 = Color3.fromRGB(140, 45, 220)
+ShopScroll.Parent = ShopPage
 
-    local ShopLayout = Instance.new("UIListLayout")
-    ShopLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    ShopLayout.Padding = UDim.new(0, 8)
-    ShopLayout.Parent = ShopScroll
+local ShopLayout = Instance.new("UIListLayout")
+ShopLayout.SortOrder = Enum.SortOrder.LayoutOrder
+ShopLayout.Padding = UDim.new(0, 12)
+ShopLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+ShopLayout.Parent = ShopScroll
 
-    ShopLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-        ShopScroll.CanvasSize = UDim2.new(0, 0, 0, ShopLayout.AbsoluteContentSize.Y + 15)
+ShopLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+    ShopScroll.CanvasSize = UDim2.new(0, 0, 0, ShopLayout.AbsoluteContentSize.Y + 20)
+end)
+
+-- 1. Teks Rainbow di atas banner
+local ShopTitle = Instance.new("TextLabel")
+ShopTitle.Size = UDim2.new(1, -20, 0, 35)
+ShopTitle.BackgroundTransparency = 1
+ShopTitle.Text = "--- SHOP ADMIN ---"
+ShopTitle.Font = Enum.Font.GothamBold
+ShopTitle.TextSize = 20
+ShopTitle.LayoutOrder = 1
+ShopTitle.Parent = ShopScroll
+
+local ShopTitleStroke = Instance.new("UIStroke")
+ShopTitleStroke.Color = Color3.fromRGB(0, 0, 0) -- Pinggiran Hitam
+ShopTitleStroke.Thickness = 3
+ShopTitleStroke.Parent = ShopTitle
+
+-- Animasi Rainbow untuk ShopTitle
+RunService.RenderStepped:Connect(function()
+    if ShopTitle and ShopTitle.Parent then
+        local hue = (tick() % 3) / 3
+        ShopTitle.TextColor3 = Color3.fromHSV(hue, 1, 1)
+    end
+end)
+
+-- 2. Banner Image
+local ShopBanner = Instance.new("ImageLabel")
+ShopBanner.Size = UDim2.new(1, -20, 0, 150)
+ShopBanner.BackgroundTransparency = 1
+ShopBanner.Image = "rbxassetid://124576574290051"
+ShopBanner.ScaleType = Enum.ScaleType.Fit
+ShopBanner.LayoutOrder = 2
+ShopBanner.Parent = ShopScroll
+
+local ShopBannerCorner = Instance.new("UICorner")
+ShopBannerCorner.CornerRadius = UDim.new(0, 8)
+ShopBannerCorner.Parent = ShopBanner
+
+-- 3. Teks ORDER APK BUG WHATSAPP
+local OrderTitle = Instance.new("TextLabel")
+OrderTitle.Size = UDim2.new(1, -20, 0, 30)
+OrderTitle.BackgroundTransparency = 1
+OrderTitle.Text = "ORDER APK BUG WHATSAPP"
+OrderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+OrderTitle.Font = Enum.Font.GothamBold
+OrderTitle.TextSize = 18
+OrderTitle.LayoutOrder = 3
+OrderTitle.Parent = ShopScroll
+
+-- 4. Teks Detail (Ungu dengan pinggiran putih)
+local DetailsText = Instance.new("TextLabel")
+DetailsText.Size = UDim2.new(1, -20, 0, 90)
+DetailsText.BackgroundTransparency = 1
+DetailsText.Text = "BERAT APK : 67MB\nSENDER : ON\n100% WOR IT"
+DetailsText.TextColor3 = Color3.fromRGB(140, 45, 220) -- Warna Ungu
+DetailsText.Font = Enum.Font.GothamBold
+DetailsText.TextSize = 16
+DetailsText.LayoutOrder = 4
+DetailsText.Parent = ShopScroll
+
+local DetailsStroke = Instance.new("UIStroke")
+DetailsStroke.Color = Color3.fromRGB(255, 255, 255) -- Pinggiran Putih
+DetailsStroke.Thickness = 2
+DetailsStroke.Parent = DetailsText
+
+-- 5. Tombol WhatsApp
+local WaButton = Instance.new("TextButton")
+WaButton.Size = UDim2.new(1, -20, 0, 50)
+WaButton.BackgroundColor3 = Color3.fromRGB(37, 211, 102) -- Hijau WhatsApp
+WaButton.Text = "HUBUNGI VIA WHATSAPP"
+WaButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+WaButton.Font = Enum.Font.GothamBold
+WaButton.TextSize = 18
+WaButton.LayoutOrder = 5
+WaButton.Parent = ShopScroll
+
+local WaButtonCorner = Instance.new("UICorner")
+WaButtonCorner.CornerRadius = UDim.new(0, 8)
+WaButtonCorner.Parent = WaButton
+
+local WaButtonStroke = Instance.new("UIStroke")
+WaButtonStroke.Color = Color3.fromRGB(255, 255, 255)
+WaButtonStroke.Thickness = 2
+WaButtonStroke.Parent = WaButton
+
+WaButton.MouseButton1Click:Connect(function()
+    local url = "https://wa.me/6288709644084"
+    -- Mencoba membuka browser
+    pcall(function()
+        game:GetService("GuiService"):OpenBrowserWindow(url)
     end)
-
-    -- Top Banner Image
-    local BannerImg = Instance.new("ImageLabel")
-    BannerImg.Size = UDim2.new(1, 0, 0, 90)
-    BannerImg.BackgroundColor3 = Color3.fromRGB(35, 20, 55)
-    BannerImg.BorderSizePixel = 0
-    BannerImg.ScaleType = Enum.ScaleType.Stretch
-    BannerImg.Image = "rbxassetid://124576574290051"
-    BannerImg.LayoutOrder = 1
-    BannerImg.Parent = ShopScroll
-
-    local BannerCorner = Instance.new("UICorner")
-    BannerCorner.CornerRadius = UDim.new(0, 8)
-    BannerCorner.Parent = BannerImg
-
-    local BannerStroke = Instance.new("UIStroke")
-    BannerStroke.Color = Color3.fromRGB(140, 45, 220)
-    BannerStroke.Thickness = 1
-    BannerStroke.Parent = BannerImg
-
-    -- TAKE AKUN ADMIN Header Text
-    local TakeAdminLabel = Instance.new("TextLabel")
-    TakeAdminLabel.Size = UDim2.new(1, 0, 0, 28)
-    TakeAdminLabel.BackgroundTransparency = 1
-    TakeAdminLabel.Text = "TAKE AKUN ADMIN"
-    TakeAdminLabel.TextColor3 = Color3.fromRGB(180, 80, 255)
-    TakeAdminLabel.Font = Enum.Font.GothamBold
-    TakeAdminLabel.TextSize = 15
-    TakeAdminLabel.TextXAlignment = Enum.TextXAlignment.Center
-    TakeAdminLabel.LayoutOrder = 2
-    TakeAdminLabel.Parent = ShopScroll
-
-    local TakeAdminStroke = Instance.new("UIStroke")
-    TakeAdminStroke.Color = Color3.fromRGB(0, 0, 0)
-    TakeAdminStroke.Thickness = 2
-    TakeAdminStroke.Parent = TakeAdminLabel
-
-    -- Stats & Info Box (Red text with black outline)
-    local InfoBox = Instance.new("Frame")
-    InfoBox.Size = UDim2.new(1, 0, 0, 160)
-    InfoBox.BackgroundColor3 = Color3.fromRGB(28, 16, 42)
-    InfoBox.BorderSizePixel = 0
-    InfoBox.LayoutOrder = 3
-    InfoBox.Parent = ShopScroll
-
-    local InfoBoxCorner = Instance.new("UICorner")
-    InfoBoxCorner.CornerRadius = UDim.new(0, 8)
-    InfoBoxCorner.Parent = InfoBox
-
-    local InfoBoxStroke = Instance.new("UIStroke")
-    InfoBoxStroke.Color = Color3.fromRGB(140, 45, 220)
-    InfoBoxStroke.Thickness = 1
-    InfoBoxStroke.Parent = InfoBox
-
-    local InfoText = Instance.new("TextLabel")
-    InfoText.Size = UDim2.new(1, -20, 1, -20)
-    InfoText.Position = UDim2.new(0, 10, 0, 10)
-    InfoText.BackgroundTransparency = 1
-    InfoText.Text = "SPEED : 49B\nPERSECOND : 400+ B\nDIVINE : 4\nBIG DIVINE FUSE DIVINE\nTRADMIL MAX\n\nFree Fire\n-Sg Lumut\n-Vault50-\n-spek Polosan"
-    InfoText.TextColor3 = Color3.fromRGB(255, 50, 50)
-    InfoText.Font = Enum.Font.GothamBold
-    InfoText.TextSize = 13
-    InfoText.TextXAlignment = Enum.TextXAlignment.Left
-    InfoText.TextYAlignment = Enum.TextYAlignment.Top
-    InfoText.Parent = InfoBox
-
-    local InfoTextStroke = Instance.new("UIStroke")
-    InfoTextStroke.Color = Color3.fromRGB(0, 0, 0)
-    InfoTextStroke.Thickness = 2
-    InfoTextStroke.Parent = InfoText
-
-    -- Key Premium Sena Section (White text with black outline + Clickable Link)
-    local SenaBox = Instance.new("Frame")
-    SenaBox.Size = UDim2.new(1, 0, 0, 50)
-    SenaBox.BackgroundColor3 = Color3.fromRGB(28, 16, 42)
-    SenaBox.BorderSizePixel = 0
-    SenaBox.LayoutOrder = 4
-    SenaBox.Parent = ShopScroll
-
-    local SenaBoxCorner = Instance.new("UICorner")
-    SenaBoxCorner.CornerRadius = UDim.new(0, 8)
-    SenaBoxCorner.Parent = SenaBox
-
-    local SenaBoxStroke = Instance.new("UIStroke")
-    SenaBoxStroke.Color = Color3.fromRGB(140, 45, 220)
-    SenaBoxStroke.Thickness = 1
-    SenaBoxStroke.Parent = SenaBox
-
-    local SenaLabel = Instance.new("TextLabel")
-    SenaLabel.Size = UDim2.new(1, -20, 1, 0)
-    SenaLabel.Position = UDim2.new(0, 10, 0, 0)
-    SenaLabel.BackgroundTransparency = 1
-    SenaLabel.Text = "KEY PREMIUM SENA\nhttps://senahub.xyz"
-    SenaLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    SenaLabel.Font = Enum.Font.GothamBold
-    SenaLabel.TextSize = 12
-    SenaLabel.TextXAlignment = Enum.TextXAlignment.Center
-    SenaLabel.Parent = SenaBox
-
-    local SenaLabelStroke = Instance.new("UIStroke")
-    SenaLabelStroke.Color = Color3.fromRGB(0, 0, 0)
-    SenaLabelStroke.Thickness = 2
-    SenaLabelStroke.Parent = SenaLabel
-
-    local CopySenaBtn = Instance.new("TextButton")
-    CopySenaBtn.Size = UDim2.new(1, 0, 1, 0)
-    CopySenaBtn.BackgroundTransparency = 1
-    CopySenaBtn.Text = ""
-    CopySenaBtn.Parent = SenaBox
-
-    CopySenaBtn.MouseButton1Click:Connect(function()
-        if setclipboard then
-            setclipboard("https://senahub.xyz")
-            SenaLabel.Text = "KEY PREMIUM SENA\n[Copied to Clipboard!]"
-            task.delay(1.5, function()
-                if SenaLabel and SenaLabel.Parent then
-                    SenaLabel.Text = "KEY PREMIUM SENA\nhttps://senahub.xyz"
-                end
-            end)
-        end
+    -- Fallback: menyalin link ke clipboard jika browser diblokir
+    pcall(function()
+        if setclipboard then setclipboard(url) end
     end)
-end
+end)
+-- ==========================================
+
 
 local function AddInfoLabel(container, title, value, order)
     local Label = Instance.new("TextLabel")
@@ -467,6 +594,7 @@ PingIcon.Image = "rbxassetid://78681903515425"
 local frameCount = 0
 local lastTime = tick()
 local currentFPS = 0
+
 RunService.RenderStepped:Connect(function()
     frameCount = frameCount + 1
     local currentTime = tick()
@@ -499,7 +627,7 @@ local ScriptList = {
     {Name = "DHII HUB", KeyStatus = "KEYLESS", Script = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/dhiisepertiorang/dhii_kick.lua/refs/heads/main/dhiitoaa.lua"))()]]},
     {Name = "BlyxoHUB", KeyStatus = "NO KEY", Script = [[loadstring(game:HttpGet("https://flowauth.net/v1/loaders/69d3463240384f3a73fbe32c178093a2.lua"))()]]},
     {Name = "FINDER PRIVATE SERVER", KeyStatus = "NO KEY", Script = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/GlazeScripts/Private-Server-Finder/refs/heads/main/Glazehub.lua"))()]]},
-    {Name = "MIRANDA HUB", KeyStatus = "KEYLESS", Script = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/miirandahub/loader/refs/heads/main/mirandaafk.lua"))()]]},
+    {Name = "MIRANDA HUB", KeyStatus = "NO KEY", Script = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/miirandahub/loader/refs/heads/main/mirandaafk.lua"))()]]},
     {Name = "HOSHI HUB", KeyStatus = "NO KEY", Script = [[loadstring(game:HttpGet("https://hoshihub.site/loader.lua"))()]]},
     {Name = "OXIDE HUB", KeyStatus = "NO KEY", Script = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/xulfo/Oxide-Loader/main/Main.lua"))()]]},
     {Name = "NEVA HUB", KeyStatus = "KEYLESS", Script = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/VEZ2/NEVAHUB/main/2"))()]]},
@@ -552,6 +680,7 @@ ScriptListLayout.Parent = ScriptScroll
 
 local SelectedScript = nil
 local RegisteredItems = {}
+
 for index, data in ipairs(ScriptList) do
     local ItemFrame = Instance.new("Frame")
     ItemFrame.Size = UDim2.new(1, -10, 0, 40)
@@ -1007,9 +1136,11 @@ task.spawn(function()
         divineTime = math.max(0, divineTime - 1)
         eternalTime = math.max(0, eternalTime - 1)
         secretTime = math.max(0, secretTime - 1)
+
         if divineTime == 0 then divineTime = math.random(3600, 14400) end
         if eternalTime == 0 then eternalTime = math.random(1800, 7200) end
         if secretTime == 0 then secretTime = math.random(600, 3600) end
+
         if DivineCountdownLabel and DivineCountdownLabel.Parent then
             DivineCountdownLabel.Text = "DIVINE: " .. formatTimeHMS(divineTime)
         end
@@ -1182,7 +1313,7 @@ end)
 local AADateLabel = Instance.new("TextLabel")
 AADateLabel.Size = UDim2.new(1, 0, 0, 25)
 AADateLabel.BackgroundTransparency = 1
-AADateLabel.Text = "SCHEDULE: Monday - Sunday (22:00 PM)"
+AADateLabel.Text = "SCHEDULE: Saturday 22:00 PM - 23:30 PM"
 AADateLabel.TextColor3 = Color3.fromRGB(180, 180, 220)
 AADateLabel.Font = Enum.Font.Gotham
 AADateLabel.TextSize = 12
@@ -1221,39 +1352,57 @@ AAStatusStroke.Color = Color3.fromRGB(0, 0, 0)
 AAStatusStroke.Thickness = 0
 AAStatusStroke.Parent = AAStatusText
 
+-- Logika Countdown Berulang (Khusus Sabtu Jam 22:00 - 23:30)
 task.spawn(function()
-    while task.wait(1) do
+    while task.wait(0.1) do -- Update lebih cepat untuk animasi kedap-kedip yang halus
         if AAStatusText and AAStatusText.Parent then
-            local timeTable = os.date("*t")
-            local currentWday = timeTable.wday
-            local dayIndex = (currentWday == 1) and 7 or (currentWday - 1)
-            local currentSecondsToday = (timeTable.hour * 3600) + (timeTable.min * 60) + timeTable.sec
-            local targetSecondsToday = (22 * 3600)
-            local eventDuration = 7200
-            local diff = targetSecondsToday - currentSecondsToday
-
-            if diff > 0 and diff <= (24 * 3600) then
-                local days = 0
-                local hours = math.floor(diff / 3600)
+            local now = os.date("*t")
+            local isSaturday = (now.wday == 7)
+            local currentSecondsToday = (now.hour * 3600) + (now.min * 60) + now.sec
+            
+            local startSeconds = 22 * 3600       -- 22:00:00
+            local endSeconds = 23 * 3600 + 30*60 -- 23:30:00 (1.5 jam durasi)
+            
+            if isSaturday and currentSecondsToday >= startSeconds and currentSecondsToday < endSeconds then
+                -- SEDANG BERLANGSUNG (Sabtu 22:00 - 23:30)
+                AAStatusText.Text = "🎃 HALLOWEEN EVEN STEAL AN EGGS 🎃"
+                AAStatusText.TextColor3 = Color3.fromRGB(255, 140, 0) -- Warna Oren
+                
+                -- Animasi Kedap-Kedip
+                local isBlinkOn = math.floor(tick() * 3) % 2 == 0
+                AAStatusText.TextTransparency = isBlinkOn and 0 or 0.7
+                AAStatusStroke.Thickness = isBlinkOn and 3 or 1
+                AAStatusStroke.Color = Color3.fromRGB(0, 0, 0) -- Pinggiran Hitam
+            else
+                -- MASA MENGHITUNG MUNDUR (Menuju Sabtu 22:00)
+                AAStatusText.TextTransparency = 0
+                AAStatusStroke.Thickness = 0
+                
+                local daysUntilSaturday = (7 - now.wday) % 7
+                -- Jika hari ini Sabtu tapi sudah lewat jam 22:00, targetkan Sabtu minggu depan
+                if daysUntilSaturday == 0 and currentSecondsToday >= startSeconds then
+                    daysUntilSaturday = 7
+                end
+                
+                local target = {
+                    year = now.year,
+                    month = now.month,
+                    day = now.day + daysUntilSaturday,
+                    hour = 22,
+                    min = 0,
+                    sec = 0
+                }
+                local targetTime = os.time(target)
+                local nowTime = os.time()
+                local diff = math.max(0, targetTime - nowTime)
+                
+                local days = math.floor(diff / 86400)
+                local hours = math.floor((diff % 86400) / 3600)
                 local minutes = math.floor((diff % 3600) / 60)
                 local seconds = diff % 60
-                AAStatusText.Text = string.format("ADMIN ABUSE STARTS IN:\n%d Days %d Hours %d Minutes %d Seconds", days, hours, minutes, seconds)
+                
+                AAStatusText.Text = string.format("MENUJU UPDATE SABTU 22:00:\n%d Hari %d Jam %d Menit %d Detik", days, hours, minutes, seconds)
                 AAStatusText.TextColor3 = Color3.fromRGB(255, 255, 255)
-                AAStatusStroke.Thickness = 0
-            elseif currentSecondsToday >= targetSecondsToday and currentSecondsToday < (targetSecondsToday + eventDuration) then
-                AAStatusText.Text = "GOO BROOO ADMIN ABUSE 🌌"
-                AAStatusText.TextColor3 = Color3.fromRGB(255, 0, 0)
-                AAStatusStroke.Thickness = 2
-            else
-                local secondsLeftToday = (24 * 3600) - currentSecondsToday
-                local totalDiff = secondsLeftToday + targetSecondsToday
-                local days = math.floor(totalDiff / 86400)
-                local hours = math.floor((totalDiff % 86400) / 3600)
-                local minutes = math.floor((totalDiff % 3600) / 60)
-                local seconds = totalDiff % 60
-                AAStatusText.Text = string.format("ADMIN ABUSE STARTS IN:\n%d Days %d Hours %d Minutes %d Seconds", days, hours, minutes, seconds)
-                AAStatusText.TextColor3 = Color3.fromRGB(255, 255, 255)
-                AAStatusStroke.Thickness = 0
             end
         end
     end
@@ -1389,6 +1538,7 @@ local function AddToDivineList(eggName, area, timeStr)
             return
         end
     end
+
     local newItem = {Egg = eggName, Area = area, Time = timeStr, Order = #DivineSpawnData + 1}
     table.insert(DivineSpawnData, newItem)
     SaveDivineList()
@@ -1506,6 +1656,7 @@ if isAdmin and AdminPage then
     SendBtn.MouseButton1Click:Connect(function()
         local message = MessageBox.Text
         if message == "" or message == "MESSAGE.." then return end
+
         local NotifGui = Instance.new("ScreenGui")
         NotifGui.Name = "LipzyNotification"
         NotifGui.Parent = game.CoreGui
@@ -1567,6 +1718,7 @@ if isAdmin and AdminPage then
         NotifMsg.Parent = NotifFrame
 
         TweenService:Create(NotifFrame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, -250, 0, 50)}):Play()
+
         task.delay(3, function()
             TweenService:Create(NotifFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Position = UDim2.new(0.5, -250, 0, -150)}):Play()
             task.wait(0.5)
@@ -1622,12 +1774,8 @@ if isAdmin and AdminPage then
     local rainbowConnection = nil
 
     local function ApplyBillboard(character)
-        if headBillboard then
-            headBillboard:Destroy()
-        end
-        if rainbowConnection then
-            rainbowConnection:Disconnect()
-        end
+        if headBillboard then headBillboard:Destroy() end
+        if rainbowConnection then rainbowConnection:Disconnect() end
         if not character or not character:FindFirstChild("Head") then return end
 
         headBillboard = Instance.new("BillboardGui")
@@ -1702,4 +1850,4 @@ if isAdmin and AdminPage then
     end)
 end
 
-print("Lipzy Hub V5.2 Loaded Successfully with SHOP Tab!")
+print("Lipzy Hub V5.2 Loaded Successfully!")
