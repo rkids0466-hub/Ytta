@@ -13,21 +13,134 @@ local AdminList = {
     ["Yanzzz_1023"] = "OWNER"
 }
 
-local userRole = AdminList[LocalPlayer.Name]
-local isAdmin = userRole ~= nil
-
--- DAFTAR KODE REDEEM VALID (100% OBFUSCATED - HEX ENCODED)
-local _0x9f2a = {"5052454d49554d2d353530372d393444312d35444445", "5052454d49554d2d334336372d334333312d31394435", "5052454d49554d2d433238312d323538412d43323034", "5052454d49554d2d433532302d334343312d35364437", "5052454d49554d2d443833312d373546392d45394639", "5052454d49554d2d393232412d353345422d42343641", "5052454d49554d2d333539312d364334342d41413133", "5052454d49554d2d314442362d364536312d33444338", "5052454d49554d2d373641382d383841362d31424634", "5052454d49554d2d354636392d373639412d39323133", "5052454d49554d2d424541302d394545302d34333843", "5052454d49554d2d463033372d303337432d34434342", "5052454d49554d2d304145372d383833372d31313537", "5052454d49554d2d444335442d463244342d30374334", "5052454d49554d2d324131412d343338442d43334636", "5052454d49554d2d313132322d324338342d41434233", "5052454d49554d2d304433462d364430392d46384442", "5052454d49554d2d463445382d323831332d31303244", "5052454d49554d2d364537312d324135432d37463033", "5052454d49554d2d443742372d413144462d45443233", "5052454d49554d2d343546422d413935332d37324333", "5052454d49554d2d413030462d423243442d34353936", "5052454d49554d2d303433432d333345342d33433436", "5052454d49554d2d433644382d443546352d31304242", "5052454d49554d2d344332372d463044422d38383733", "5052454d49554d2d343735422d383931462d38414634", "5052454d49554d2d383738342d373646462d38353734", "5052454d49554d2d454535462d453632302d32334133", "5052454d49554d2d443145432d384334332d30314135", "5052454d49554d2d384335432d433738412d35303843", "5052454d49554d2d464132352d464534412d46334439", "5052454d49554d2d434541432d393245342d37464435", "5052454d49554d2d304437412d304532332d30444133", "5052454d49554d2d454334382d423346432d42363145", "5052454d49554d2d343945302d414337422d36463243", "5052454d49554d2d443439452d383231342d44453631", "5052454d49554d2d384541302d413736322d44384434", "5052454d49554d2d353737312d394430422d30393739", "5052454d49554d2d383935452d323936432d30433143", "5052454d49554d2d413638302d353234322d43463036", "5052454d49554d2d343436422d374437462d38304546", "5052454d49554d2d343835452d414443342d38323943", "5052454d49554d2d344145462d464444302d31334535", "5052454d49554d2d313338382d413139382d36413439", "5052454d49554d2d463738372d453744462d36373642", "5052454d49554d2d394535452d394642392d37344532", "5052454d49554d2d354442372d433138382d36453743", "5052454d49554d2d344643332d443731332d42384635", "5052454d49554d2d433634452d333932442d44333332", "5052454d49554d2d373534302d344345382d31394546", "5052454d49554d2d323242372d353738352d33373034", "5052454d49554d2d433741362d354444312d39323830", "5052454d49554d2d324330302d344135342d41363942", "5052454d49554d2d434230362d444643312d34313337", "5052454d49554d2d463635412d323143382d41383130", "5052454d49554d2d444633462d393337442d44333744", "5052454d49554d2d363333362d444338422d41314535", "5052454d49554d2d373443342d313043302d42364638", "5052454d49554d2d373943422d363845362d38354244", "5052454d49554d2d443541432d314338372d32373338", "5052454d49554d2d304535392d343134452d36354432", "5052454d49554d2d464134442d383933342d37433343", "5052454d49554d2d373744462d314643352d37414444", "5052454d49554d2d333435432d353436432d42443139", "5052454d49554d2d353336422d453932352d43393742", "5052454d49554d2d314633462d333245462d42313630", "5052454d49554d2d333841302d353037372d39414237", "5052454d49554d2d373835382d413238442d33344644", "5052454d49554d2d303443352d323445442d33353536", "5052454d49554d2d433842352d463131392d32434444", "5052454d49554d2d314543312d353836302d33324431", "5052454d49554d2d453644442d433942432d35454341", "5052454d49554d2d333536422d324639322d43363533", "5052454d49554d2d323733432d373145432d30413243", "5052454d49554d2d373744312d353333422d31393841", "5052454d49554d2d374635302d454644382d32393244", "5052454d49554d2d304546362d383936442d45453236", "5052454d49554d2d383244452d463943342d35384332", "5052454d49554d2d304535462d444133412d42443943", "5052454d49554d2d414343412d393338392d45393937", "5052454d49554d2d313144442d393337362d35363145", "5052454d49554d2d414433302d443138462d33333741", "5052454d49554d2d464631382d463932462d31363043", "5052454d49554d2d383642312d334444452d44414633", "5052454d49554d2d374436422d423434332d36373936", "5052454d49554d2d304134342d303730412d34433346", "5052454d49554d2d393932432d323245462d45354236", "5052454d49554d2d353330412d313232412d31434139", "5052454d49554d2d363635382d363830372d34444437", "5052454d49554d2d393645432d353430302d42344533", "5052454d49554d2d304238382d393739422d42454639", "5052454d49554d2d313931322d433539372d38383744", "5052454d49554d2d464335442d373635342d44454235", "5052454d49554d2d343139372d453443432d31453045", "5052454d49554d2d413132432d323041372d38344343", "5052454d49554d2d463544352d424335322d38353038", "5052454d49554d2d384537462d453536342d32354546", "5052454d49554d2d354642392d453339442d44343846", "5052454d49554d2d354442372d334135332d38394631", "5052454d49554d2d463842302d314332422d31354541"}
-local _0x9f2b = {}
-for _0x9f2c, _0x9f2d in ipairs(_0x9f2a) do
-    local _0x9f2e = ""
-    for _0x9f2f = 1, #_0x9f2d, 2 do
-        _0x9f2e = _0x9f2e .. string.char(tonumber(string.sub(_0x9f2d, _0x9f2f, _0x9f2f + 1), 16))
+-- ==========================================
+-- SISTEM PREMIUM PERMANEN & OBFUSCATION
+-- ==========================================
+local isPremium = false
+pcall(function()
+    if readfile("LipzyHub_Premium.txt") == "true" then
+        isPremium = true
     end
-    table.insert(_0x9f2b, _0x9f2e)
+end)
+
+local userRole = AdminList[LocalPlayer.Name]
+local isAdmin = userRole ~= nil or isPremium
+
+-- Kode dienkripsi menggunakan XOR (Key: 137) agar tidak bisa dibaca manusia
+local obfuscatedCodes = {
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xbc\xb9\xbe\xa4\xb0\xbd\xcd\xb8\xa4\xbc\xcd\xcd\xcc",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xba\xca\xbf\xbe\xa4\xba\xca\xba\xb8\xa4\xb8\xb0\xcd\xbc",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xbb\xb1\xb8\xa4\xbb\xbc\xb1\xc8\xa4\xca\xbb\xb9\xbd",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xbc\xbb\xb9\xa4\xba\xca\xca\xb8\xa4\xbc\xbf\xcd\xbe",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcd\xb1\xba\xb8\xa4\xbe\xbc\xcf\xb0\xa4\xcc\xb0\xcf\xb0",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb0\xbb\xbb\xc8\xa4\xbc\xba\xcc\xcb\xa4\xcb\xbd\xbf\xc8",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xba\xbc\xb0\xb8\xa4\xbf\xca\xbd\xbd\xa4\xc8\xc8\xb8\xba",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb8\xcd\xcb\xbf\xa4\xbf\xcc\xbf\xb8\xa4\xba\xcd\xca\xb1",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xbf\xc8\xb1\xa4\xb1\xb1\xc8\xbf\xa4\xb8\xcb\xcf\xbd",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xcf\xbf\xb0\xa4\xbe\xbf\xb0\xc8\xa4\xb0\xbb\xb8\xba",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcb\xcc\xc8\xb9\xa4\xb0\xcc\xcc\xb9\xa4\xbd\xba\xb1\xca",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xb9\xba\xbe\xa4\xb9\xba\xbe\xca\xa4\xbd\xca\xca\xcb",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xc8\xcc\xbe\xa4\xb1\xb1\xba\xbe\xa4\xb8\xb8\xbc\xbe",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcd\xca\xbc\xcd\xa4\xcf\xbb\xcd\xbd\xa4\xb9\xbe\xca\xbd",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbb\xc8\xb8\xc8\xa4\xbd\xba\xb1\xcd\xa4\xca\xba\xcf\xbf",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb8\xb8\xbb\xbb\xa4\xbb\xca\xb1\xbd\xa4\xc8\xca\xcb\xba",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xcd\xba\xcf\xa4\xbf\xcd\xb9\xb0\xa4\xcf\xb1\xcd\xcb",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xbd\xcc\xb1\xa4\xbb\xb1\xb8\xba\xa4\xb8\xb9\xbb\xcd",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbf\xcc\xbe\xb8\xa4\xbb\xc8\xbc\xca\xa4\xbe\xcf\xb9\xba",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcd\xbe\xcb\xbe\xa4\xc8\xb8\xcd\xcf\xa4\xcc\xcd\xbb\xba",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xbc\xcf\xcb\xa4\xc8\xb0\xbc\xba\xa4\xbe\xbb\xca\xba",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xc8\xb9\xb9\xcf\xa4\xcb\xbb\xca\xcd\xa4\xbd\xbc\xb0\xbf",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xbd\xba\xca\xa4\xba\xba\xcc\xbd\xa4\xba\xca\xbd\xbf",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xbf\xcd\xb1\xa4\xcd\xbc\xcf\xbc\xa4\xb8\xb9\xcb\xcb",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xca\xbb\xbe\xa4\xcf\xb9\xcd\xcb\xa4\xb1\xb1\xbe\xba",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xbe\xbc\xcb\xa4\xb1\xb0\xb8\xcf\xa4\xb1\xc8\xcf\xbd",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb1\xbe\xb1\xbd\xa4\xbe\xbf\xcf\xcf\xa4\xb1\xbc\xbe\xbd",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcc\xcc\xbc\xcf\xa4\xcc\xbf\xbb\xb9\xa4\xbb\xba\xc8\xba",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcd\xb8\xcc\xca\xa4\xb1\xca\xbd\xba\xa4\xb9\xb8\xc8\xbc",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb1\xca\xbc\xca\xa4\xca\xbe\xb1\xc8\xa4\xbc\xb9\xb1\xca",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xc8\xbb\xbc\xa4\xcf\xcc\xbd\xc8\xa4\xcf\xba\xcd\xb0",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xcc\xc8\xca\xa4\xb0\xbb\xcc\xbd\xa4\xbe\xcf\xcd\xbc",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xcd\xbe\xc8\xa4\xb9\xcc\xbb\xba\xa4\xb9\xcd\xc8\xba",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcc\xca\xbd\xb1\xa4\xcb\xba\xcf\xca\xa4\xcb\xbf\xb8\xcc",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xb0\xcc\xb9\xa4\xc8\xca\xbe\xcb\xa4\xbf\xcf\xbb\xca",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcd\xbd\xb0\xcc\xa4\xb1\xbb\xb8\xbd\xa4\xcd\xcc\xbf\xb8",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb1\xcc\xc8\xb9\xa4\xc8\xbe\xbf\xbb\xa4\xcd\xb1\xcd\xbd",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xbe\xbe\xb8\xa4\xb0\xcd\xb9\xcb\xa4\xb9\xb0\xbe\xb0",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb1\xb0\xbc\xcc\xa4\xbb\xb0\xbf\xca\xa4\xb9\xca\xb8\xca",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xc8\xbf\xb1\xb9\xa4\xbc\xbb\xbd\xbb\xa4\xca\xcf\xb9\xbf",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xbd\xbf\xcb\xa4\xbe\xcd\xbe\xcf\xa4\xb1\xb9\xcc\xcf",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xb1\xbc\xcc\xa4\xc8\xcd\xca\xbd\xa4\xb1\xbb\xb0\xca",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xc8\xcc\xcf\xa4\xcf\xcd\xcd\xb9\xa4\xb8\xba\xcc\xbc",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb8\xba\xb1\xb1\xa4\xc8\xb8\xb0\xb1\xa4\xbf\xc8\xbd\xb0",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xbe\xb1\xbe\xa4\xcc\xbe\xcd\xcf\xa4\xbf\xbe\xbf\xcb",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb0\xcc\xbc\xcc\xa4\xb0\xcf\xcb\xb0\xa4\xbe\xbd\xcc\xbb",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xcd\xcb\xbe\xa4\xca\xb8\xb1\xb1\xa4\xbf\xcc\xbe\xca",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xcf\xca\xba\xa4\xcd\xbe\xb8\xba\xa4\xcb\xb1\xcf\xbc",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xbf\xbd\xcc\xa4\xba\xb0\xbb\xcd\xa4\xcd\xba\xba\xbb",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xbc\xbd\xb9\xa4\xbd\xca\xcc\xb1\xa4\xb8\xb0\xcc\xcf",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbb\xbb\xcb\xbe\xa4\xbc\xbe\xb1\xbc\xa4\xba\xbe\xb9\xbd",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xbe\xc8\xbf\xa4\xbc\xcd\xcd\xb8\xa4\xb0\xbb\xb1\xb9",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbb\xca\xb9\xb9\xa4\xbd\xc8\xbc\xbd\xa4\xc8\xbf\xb0\xcb",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xcb\xb9\xbf\xa4\xcd\xcf\xca\xb8\xa4\xbd\xb8\xba\xbe",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xbf\xbc\xc8\xa4\xbb\xb8\xca\xb1\xa4\xc8\xb1\xb8\xb9",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcd\xcf\xba\xcf\xa4\xb0\xba\xbe\xcd\xa4\xcd\xba\xbe\xcd",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbf\xba\xba\xbf\xa4\xcd\xca\xb1\xcb\xa4\xc8\xb8\xcc\xbc",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xbd\xca\xbd\xa4\xb8\xb9\xca\xb9\xa4\xcb\xbf\xcf\xb1",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xb0\xca\xcb\xa4\xbf\xb1\xcc\xbf\xa4\xb1\xbc\xcb\xcd",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcd\xbc\xc8\xca\xa4\xb8\xca\xb1\xbe\xa4\xbb\xbe\xba\xb1",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xcc\xbc\xb0\xa4\xbd\xb8\xbd\xcc\xa4\xbf\xbc\xcd\xbb",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xc8\xbd\xcd\xa4\xb1\xb0\xba\xbd\xa4\xbe\xca\xba\xca",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xbe\xcd\xcf\xa4\xb8\xcf\xca\xbc\xa4\xbe\xc8\xcd\xcd",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xba\xbd\xbc\xca\xa4\xbc\xbd\xbf\xca\xa4\xcb\xcd\xb8\xb0",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xba\xbf\xcb\xa4\xcc\xb0\xbb\xbc\xa4\xca\xb0\xbe\xcb",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb8\xcf\xba\xcf\xa4\xba\xbb\xcc\xcf\xa4\xcb\xb8\xbf\xb9",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xba\xb1\xc8\xb9\xa4\xbc\xb9\xbe\xbe\xa4\xb0\xc8\xcb\xbe",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xb1\xbc\xb1\xa4\xc8\xbb\xb1\xcd\xa4\xba\xbd\xcf\xcd",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xbd\xca\xbc\xa4\xbb\xbd\xcc\xcd\xa4\xba\xbc\xbc\xbf",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xb1\xcb\xbc\xa4\xcf\xb8\xb8\xb0\xa4\xbb\xca\xcd\xcd",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb8\xcc\xca\xb8\xa4\xbc\xb1\xbf\xb9\xa4\xba\xbb\xcd\xb8",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcc\xbf\xcd\xcd\xa4\xca\xb0\xcb\xca\xa4\xbc\xcc\xca\xc8",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xba\xbc\xbf\xcb\xa4\xbb\xcf\xb0\xbb\xa4\xca\xbf\xbc\xba",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbb\xbe\xba\xca\xa4\xbe\xb8\xcc\xca\xa4\xb9\xc8\xbb\xca",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xbe\xcd\xb8\xa4\xbc\xba\xba\xcb\xa4\xb8\xb0\xb1\xc8",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xcf\xbc\xb9\xa4\xcc\xcf\xcd\xb1\xa4\xbb\xb0\xbb\xcd",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xcc\xcf\xbf\xa4\xb1\xb0\xbf\xcd\xa4\xcc\xcc\xbb\xbf",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb1\xbb\xcd\xcc\xa4\xcf\xb0\xca\xbd\xa4\xbc\xb1\xca\xbb",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xcc\xbc\xcf\xa4\xcd\xc8\xba\xc8\xa4\xcb\xcd\xb0\xca",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xc8\xca\xca\xc8\xa4\xb0\xba\xb1\xb0\xa4\xcc\xb0\xb0\xbe",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb8\xb8\xcd\xcd\xa4\xb0\xba\xbe\xbf\xa4\xbc\xbf\xb8\xcc",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xc8\xcd\xba\xb9\xa4\xcd\xb8\xb1\xcf\xa4\xba\xba\xbe\xc8",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xcf\xb8\xb1\xa4\xcf\xb0\xbb\xcf\xa4\xb8\xbf\xb9\xca",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb1\xbf\xcb\xb8\xa4\xba\xcd\xcd\xcc\xa4\xcd\xc8\xcf\xba",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xcd\xbf\xcb\xa4\xcb\xbd\xbd\xba\xa4\xbf\xbe\xb0\xbf",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xc8\xbd\xbd\xa4\xb9\xbe\xb9\xc8\xa4\xbd\xca\xba\xcf",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb0\xb0\xbb\xca\xa4\xbb\xbb\xcc\xcf\xa4\xcc\xbc\xcb\xbf",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xba\xb9\xc8\xa4\xb8\xbb\xbb\xc8\xa4\xb8\xca\xc8\xb0",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbf\xbf\xbc\xb1\xa4\xbf\xb1\xb9\xbe\xa4\xbd\xcd\xcd\xbe",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb0\xbf\xcc\xca\xa4\xbc\xbd\xb9\xb9\xa4\xcb\xbd\xcc\xba",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xcb\xb1\xb1\xa4\xb0\xbe\xb0\xcb\xa4\xcb\xcc\xcf\xb0",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb8\xb0\xb8\xbb\xa4\xca\xbc\xb0\xbe\xa4\xb1\xb1\xbe\xcd",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xca\xbc\xcd\xa4\xbe\xbf\xbc\xbd\xa4\xcd\xcc\xcb\xbc",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xb8\xb0\xbe\xa4\xcc\xbd\xca\xca\xa4\xb8\xcc\xb9\xcc",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xc8\xb8\xbb\xca\xa4\xbb\xb9\xc8\xbe\xa4\xb1\xbd\xca\xca",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xbc\xcd\xbc\xa4\xcb\xca\xbc\xbb\xa4\xb1\xbc\xb9\xb1",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb1\xcc\xbe\xcf\xa4\xcc\xbc\xbf\xbd\xa4\xbb\xbc\xcc\xcf",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xcf\xcb\xb0\xa4\xcc\xba\xb0\xcd\xa4\xcd\xbd\xb1\xcf",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xcd\xcb\xbe\xa4\xba\xc8\xbc\xba\xa4\xb1\xb0\xcf\xb8",
+    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xb1\xcb\xb9\xa4\xb8\xca\xbb\xcb\xa4\xb8\xbc\xcc\xc8"
+}
+
+-- Fungsi Dekripsi (XOR Key: 137)
+local function decode(s)
+    local res = ""
+    for i = 1, #s do
+        res = res .. string.char(string.byte(s, i) ~ 137)
+    end
+    return res
 end
 
-local _0x9f3a_hasRedeemed = false
+-- Simpan status apakah sudah pernah redeem di sesi ini
+local hasRedeemed = false
 
 if game.CoreGui:FindFirstChild("StealAnEggGUI") then
     game.CoreGui.StealAnEggGUI:Destroy()
@@ -169,11 +282,257 @@ local PredictionPage = CreateTab("PREDICTION", 5)
 local AdminAbusePage = CreateTab("ADMIN ABUSE", 6)
 local DivineSpawnedPage = CreateTab("DIVINE SPAWNED", 7)
 
+-- Variabel untuk menyimpan referensi elemen yang perlu diperbarui saat redeem
 local StatusLabelRef = nil 
 local AdminPageInstance = nil
 
+-- Fungsi untuk mengisi konten halaman Admin (Bisa dipanggil kapan saja)
+local function PopulateAdminPage(page)
+    for _, child in ipairs(page:GetChildren()) do
+        child:Destroy()
+    end
+
+    local MessageFrame = Instance.new("Frame")
+    MessageFrame.Size = UDim2.new(1, -20, 0, 100)
+    MessageFrame.Position = UDim2.new(0, 10, 0, 40)
+    MessageFrame.BackgroundColor3 = Color3.fromRGB(35, 20, 55)
+    MessageFrame.BorderSizePixel = 0
+    MessageFrame.Parent = page
+
+    local MessageCorner = Instance.new("UICorner")
+    MessageCorner.CornerRadius = UDim.new(0, 8)
+    MessageCorner.Parent = MessageFrame
+
+    local MessageBox = Instance.new("TextBox")
+    MessageBox.Size = UDim2.new(1, -20, 0, 40)
+    MessageBox.Position = UDim2.new(0, 10, 0, 10)
+    MessageBox.BackgroundColor3 = Color3.fromRGB(25, 15, 38)
+    MessageBox.Text = "MESSAGE.."
+    MessageBox.TextColor3 = Color3.fromRGB(200, 200, 220)
+    MessageBox.Font = Enum.Font.Gotham
+    MessageBox.TextSize = 14
+    MessageBox.ClearTextOnFocus = true
+    MessageBox.Parent = MessageFrame
+
+    local MessageCorner2 = Instance.new("UICorner")
+    MessageCorner2.CornerRadius = UDim.new(0, 6)
+    MessageCorner2.Parent = MessageBox
+
+    local SendAdminBtn = Instance.new("TextButton")
+    SendAdminBtn.Size = UDim2.new(1, -20, 0, 35)
+    SendAdminBtn.Position = UDim2.new(0, 10, 1, -45)
+    SendAdminBtn.BackgroundColor3 = Color3.fromRGB(120, 40, 190)
+    SendAdminBtn.Text = "SEND"
+    SendAdminBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    SendAdminBtn.Font = Enum.Font.GothamBold
+    SendAdminBtn.TextSize = 14
+    SendAdminBtn.Parent = MessageFrame
+
+    local SendCorner = Instance.new("UICorner")
+    SendCorner.CornerRadius = UDim.new(0, 6)
+    SendCorner.Parent = SendAdminBtn
+
+    SendAdminBtn.MouseButton1Click:Connect(function()
+        local message = MessageBox.Text
+        if message == "" or message == "MESSAGE.." then return end
+
+        local NotifGui = Instance.new("ScreenGui")
+        NotifGui.Name = "LipzyNotification"
+        NotifGui.Parent = game.CoreGui
+        NotifGui.IgnoreGuiInset = true
+
+        local NotifFrame = Instance.new("Frame")
+        NotifFrame.Size = UDim2.new(0, 500, 0, 100)
+        NotifFrame.Position = UDim2.new(0.5, -250, 0, -150)
+        NotifFrame.BackgroundColor3 = Color3.fromRGB(30, 18, 48)
+        NotifFrame.BorderSizePixel = 0
+        NotifFrame.Parent = NotifGui
+
+        local NotifCorner = Instance.new("UICorner")
+        NotifCorner.CornerRadius = UDim.new(0, 10)
+        NotifCorner.Parent = NotifFrame
+
+        local NotifStroke = Instance.new("UIStroke")
+        NotifStroke.Color = Color3.fromRGB(140, 45, 220)
+        NotifStroke.Thickness = 2
+        NotifStroke.Parent = NotifFrame
+
+        local NotifProfile = Instance.new("ImageLabel")
+        NotifProfile.Size = UDim2.new(0, 60, 0, 60)
+        NotifProfile.Position = UDim2.new(0, 20, 0.5, -30)
+        NotifProfile.BackgroundColor3 = Color3.fromRGB(45, 25, 70)
+        NotifProfile.Image = Players:GetUserThumbnailAsync(LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size150x150)
+        NotifProfile.Parent = NotifFrame
+
+        local NotifProfileCorner = Instance.new("UICorner")
+        NotifProfileCorner.CornerRadius = UDim.new(1, 0)
+        NotifProfileCorner.Parent = NotifProfile
+
+        local NotifProfileStroke = Instance.new("UIStroke")
+        NotifProfileStroke.Color = Color3.fromRGB(255, 215, 0)
+        NotifProfileStroke.Thickness = 2
+        NotifProfileStroke.Parent = NotifProfile
+
+        local CrownLabel = Instance.new("TextLabel")
+        CrownLabel.Size = UDim2.new(1, -100, 0, 20)
+        CrownLabel.Position = UDim2.new(0, 90, 0, 0)
+        CrownLabel.BackgroundTransparency = 1
+        CrownLabel.Text = "👑LIPZY HUB👑"
+        CrownLabel.TextColor3 = Color3.fromRGB(255, 215, 0)
+        CrownLabel.Font = Enum.Font.GothamBold
+        CrownLabel.TextSize = 14
+        CrownLabel.TextXAlignment = Enum.TextXAlignment.Left
+        CrownLabel.Parent = NotifFrame
+
+        local NotifMsg = Instance.new("TextLabel")
+        NotifMsg.Size = UDim2.new(1, -100, 1, -25)
+        NotifMsg.Position = UDim2.new(0, 90, 0, 20)
+        NotifMsg.BackgroundTransparency = 1
+        NotifMsg.Text = message
+        NotifMsg.TextColor3 = Color3.fromRGB(255, 255, 255)
+        NotifMsg.Font = Enum.Font.Gotham
+        NotifMsg.TextSize = 16
+        NotifMsg.TextXAlignment = Enum.TextXAlignment.Left
+        NotifMsg.TextYAlignment = Enum.TextYAlignment.Top
+        NotifMsg.Parent = NotifFrame
+
+        TweenService:Create(NotifFrame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, -250, 0, 50)}):Play()
+
+        task.delay(3, function()
+            TweenService:Create(NotifFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Position = UDim2.new(0.5, -250, 0, -150)}):Play()
+            task.wait(0.5)
+            NotifGui:Destroy()
+        end)
+    end)
+
+    local OwnerScriptYPos = 150
+    local OwnerScriptFrame = Instance.new("Frame")
+    OwnerScriptFrame.Size = UDim2.new(1, -20, 0, 40)
+    OwnerScriptFrame.Position = UDim2.new(0, 10, 0, OwnerScriptYPos)
+    OwnerScriptFrame.BackgroundColor3 = Color3.fromRGB(35, 20, 55)
+    OwnerScriptFrame.BorderSizePixel = 0
+    OwnerScriptFrame.Parent = page
+
+    local OwnerScriptCorner = Instance.new("UICorner")
+    OwnerScriptCorner.CornerRadius = UDim.new(0, 8)
+    OwnerScriptCorner.Parent = OwnerScriptFrame
+
+    local OwnerTextLabel = Instance.new("TextLabel")
+    OwnerTextLabel.Size = UDim2.new(0, 150, 1, 0)
+    OwnerTextLabel.Position = UDim2.new(0, 10, 0, 0)
+    OwnerTextLabel.BackgroundTransparency = 1
+    OwnerTextLabel.Text = "OWNER SCRIPT"
+    OwnerTextLabel.TextColor3 = Color3.fromRGB(200, 200, 220)
+    OwnerTextLabel.Font = Enum.Font.GothamBold
+    OwnerTextLabel.TextSize = 14
+    OwnerTextLabel.TextXAlignment = Enum.TextXAlignment.Left
+    OwnerTextLabel.Parent = OwnerScriptFrame
+
+    local ToggleBg = Instance.new("Frame")
+    ToggleBg.Size = UDim2.new(0, 50, 0, 26)
+    ToggleBg.Position = UDim2.new(1, -60, 0.5, -13)
+    ToggleBg.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    ToggleBg.Parent = OwnerScriptFrame
+
+    local ToggleCorner = Instance.new("UICorner")
+    ToggleCorner.CornerRadius = UDim.new(1, 0)
+    ToggleCorner.Parent = ToggleBg
+
+    local ToggleCircle = Instance.new("Frame")
+    ToggleCircle.Size = UDim2.new(0, 20, 0, 20)
+    ToggleCircle.Position = UDim2.new(0, 3, 0.5, -10)
+    ToggleCircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ToggleCircle.Parent = ToggleBg
+
+    local ToggleCircleCorner = Instance.new("UICorner")
+    ToggleCircleCorner.CornerRadius = UDim.new(1, 0)
+    ToggleCircleCorner.Parent = ToggleCircle
+
+    local isOwnerScriptEnabled = false
+    local headBillboard = nil
+    local rainbowConnection = nil
+
+    local function ApplyBillboard(character)
+        if headBillboard then headBillboard:Destroy() end
+        if rainbowConnection then rainbowConnection:Disconnect() end
+        if not character or not character:FindFirstChild("Head") then return end
+
+        headBillboard = Instance.new("BillboardGui")
+        headBillboard.Name = "OwnerScriptBillboard"
+        headBillboard.Adornee = character.Head
+        headBillboard.Size = UDim2.new(0, 220, 0, 50)
+        headBillboard.StudsOffset = Vector3.new(0, 2.5, 0)
+        headBillboard.AlwaysOnTop = true
+        headBillboard.Parent = character.Head
+
+        local ownerText = Instance.new("TextLabel")
+        ownerText.Name = "OwnerText"
+        ownerText.Size = UDim2.new(1, 0, 1, 0)
+        ownerText.BackgroundTransparency = 1
+        ownerText.Font = Enum.Font.GothamBold
+        ownerText.TextSize = 24
+        ownerText.Parent = headBillboard
+
+        local textStroke = Instance.new("UIStroke")
+        textStroke.Color = Color3.fromRGB(0, 0, 0)
+        textStroke.Thickness = 3
+        textStroke.Parent = ownerText
+
+        if LocalPlayer.Name == "Yanzzz_1023" then
+            ownerText.Text = "👑OWNER👑"
+            ownerText.TextColor3 = Color3.fromRGB(255, 220, 0)
+        elseif LocalPlayer.Name == "LifzxAfter2" or isPremium then
+            ownerText.Text = "👑PREMIUM👑"
+            rainbowConnection = RunService.RenderStepped:Connect(function()
+                local hue = (tick() % 5) / 5
+                ownerText.TextColor3 = Color3.fromHSV(hue, 1, 1)
+            end)
+        else
+            ownerText.Text = "👑VIP👑"
+            ownerText.TextColor3 = Color3.fromRGB(200, 100, 255)
+        end
+    end
+
+    local OwnerScriptBtn = Instance.new("TextButton")
+    OwnerScriptBtn.Size = UDim2.new(1, 0, 1, 0)
+    OwnerScriptBtn.BackgroundTransparency = 1
+    OwnerScriptBtn.Text = ""
+    OwnerScriptBtn.Parent = OwnerScriptFrame
+
+    OwnerScriptBtn.MouseButton1Click:Connect(function()
+        isOwnerScriptEnabled = not isOwnerScriptEnabled
+        if isOwnerScriptEnabled then
+            TweenService:Create(ToggleCircle, TweenInfo.new(0.2), {Position = UDim2.new(1, -23, 0.5, -10), BackgroundColor3 = Color3.fromRGB(0, 255, 0)}):Play()
+            TweenService:Create(ToggleBg, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 120, 40)}):Play()
+            if LocalPlayer.Character then
+                ApplyBillboard(LocalPlayer.Character)
+            end
+        else
+            TweenService:Create(ToggleCircle, TweenInfo.new(0.2), {Position = UDim2.new(0, 3, 0.5, -10), BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+            TweenService:Create(ToggleBg, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(60, 60, 60)}):Play()
+            if headBillboard then
+                headBillboard:Destroy()
+                headBillboard = nil
+            end
+            if rainbowConnection then
+                rainbowConnection:Disconnect()
+                rainbowConnection = nil
+            end
+        end
+    end)
+
+    LocalPlayer.CharacterAdded:Connect(function(char)
+        if isOwnerScriptEnabled then
+            char:WaitForChild("Head")
+            ApplyBillboard(char)
+        end
+    end)
+end
+
+-- Buat Tab Admin jika pengguna adalah admin atau premium sejak awal
 if isAdmin then
     AdminPageInstance = CreateTab("ADMIN", 8)
+    PopulateAdminPage(AdminPageInstance)
 end
 
 -- ==========================================
@@ -294,8 +653,8 @@ ResultLabel.TextSize = 11
 ResultLabel.TextXAlignment = Enum.TextXAlignment.Left
 ResultLabel.Parent = RedeemFrame
 
--- Fungsi Logika Redeem (100% OBFUSCATED)
-local function _0x9f3b_updatePlayerStatusToPremium()
+-- Fungsi Logika Redeem & Update UI
+local function updatePlayerStatusToPremium()
     if StatusLabelRef then
         StatusLabelRef.Text = "PREMIUM"
         StatusLabelRef.TextColor3 = Color3.fromRGB(255, 215, 0)
@@ -303,147 +662,42 @@ local function _0x9f3b_updatePlayerStatusToPremium()
     
     if not AdminPageInstance then
         AdminPageInstance = CreateTab("ADMIN", 8)
-        
-        local MessageFrame = Instance.new("Frame")
-        MessageFrame.Size = UDim2.new(1, -20, 0, 100)
-        MessageFrame.Position = UDim2.new(0, 10, 0, 40)
-        MessageFrame.BackgroundColor3 = Color3.fromRGB(35, 20, 55)
-        MessageFrame.BorderSizePixel = 0
-        MessageFrame.Parent = AdminPageInstance
-        
-        local MessageCorner = Instance.new("UICorner")
-        MessageCorner.CornerRadius = UDim.new(0, 8)
-        MessageCorner.Parent = MessageFrame
-        
-        local MessageBox = Instance.new("TextBox")
-        MessageBox.Size = UDim2.new(1, -20, 0, 40)
-        MessageBox.Position = UDim2.new(0, 10, 0, 10)
-        MessageBox.BackgroundColor3 = Color3.fromRGB(25, 15, 38)
-        MessageBox.Text = "MESSAGE.."
-        MessageBox.TextColor3 = Color3.fromRGB(200, 200, 220)
-        MessageBox.Font = Enum.Font.Gotham
-        MessageBox.TextSize = 14
-        MessageBox.ClearTextOnFocus = true
-        MessageBox.Parent = MessageFrame
-        
-        local MessageCorner2 = Instance.new("UICorner")
-        MessageCorner2.CornerRadius = UDim.new(0, 6)
-        MessageCorner2.Parent = MessageBox
-        
-        local SendAdminBtn = Instance.new("TextButton")
-        SendAdminBtn.Size = UDim2.new(1, -20, 0, 35)
-        SendAdminBtn.Position = UDim2.new(0, 10, 1, -45)
-        SendAdminBtn.BackgroundColor3 = Color3.fromRGB(120, 40, 190)
-        SendAdminBtn.Text = "SEND"
-        SendAdminBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-        SendAdminBtn.Font = Enum.Font.GothamBold
-        SendAdminBtn.TextSize = 14
-        SendAdminBtn.Parent = MessageFrame
-        
-        local SendCorner = Instance.new("UICorner")
-        SendCorner.CornerRadius = UDim.new(0, 6)
-        SendCorner.Parent = SendAdminBtn
-        
-        SendAdminBtn.MouseButton1Click:Connect(function()
-            local message = MessageBox.Text
-            if message == "" or message == "MESSAGE.." then return end
-            
-            local NotifGui = Instance.new("ScreenGui")
-            NotifGui.Name = "LipzyNotification"
-            NotifGui.Parent = game.CoreGui
-            NotifGui.IgnoreGuiInset = true
-            
-            local NotifFrame = Instance.new("Frame")
-            NotifFrame.Size = UDim2.new(0, 500, 0, 100)
-            NotifFrame.Position = UDim2.new(0.5, -250, 0, -150)
-            NotifFrame.BackgroundColor3 = Color3.fromRGB(30, 18, 48)
-            NotifFrame.BorderSizePixel = 0
-            NotifFrame.Parent = NotifGui
-            
-            local NotifCorner = Instance.new("UICorner")
-            NotifCorner.CornerRadius = UDim.new(0, 10)
-            NotifCorner.Parent = NotifFrame
-            
-            local NotifStroke = Instance.new("UIStroke")
-            NotifStroke.Color = Color3.fromRGB(140, 45, 220)
-            NotifStroke.Thickness = 2
-            NotifStroke.Parent = NotifFrame
-            
-            local NotifProfile = Instance.new("ImageLabel")
-            NotifProfile.Size = UDim2.new(0, 60, 0, 60)
-            NotifProfile.Position = UDim2.new(0, 20, 0.5, -30)
-            NotifProfile.BackgroundColor3 = Color3.fromRGB(45, 25, 70)
-            NotifProfile.Image = Players:GetUserThumbnailAsync(LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size150x150)
-            NotifProfile.Parent = NotifFrame
-            
-            local NotifProfileCorner = Instance.new("UICorner")
-            NotifProfileCorner.CornerRadius = UDim.new(1, 0)
-            NotifProfileCorner.Parent = NotifProfile
-            
-            local NotifProfileStroke = Instance.new("UIStroke")
-            NotifProfileStroke.Color = Color3.fromRGB(255, 215, 0)
-            NotifProfileStroke.Thickness = 2
-            NotifProfileStroke.Parent = NotifProfile
-            
-            local CrownLabel = Instance.new("TextLabel")
-            CrownLabel.Size = UDim2.new(1, -100, 0, 20)
-            CrownLabel.Position = UDim2.new(0, 90, 0, 0)
-            CrownLabel.BackgroundTransparency = 1
-            CrownLabel.Text = "👑LIPZY HUB👑"
-            CrownLabel.TextColor3 = Color3.fromRGB(255, 215, 0)
-            CrownLabel.Font = Enum.Font.GothamBold
-            CrownLabel.TextSize = 14
-            CrownLabel.TextXAlignment = Enum.TextXAlignment.Left
-            CrownLabel.Parent = NotifFrame
-            
-            local NotifMsg = Instance.new("TextLabel")
-            NotifMsg.Size = UDim2.new(1, -100, 1, -25)
-            NotifMsg.Position = UDim2.new(0, 90, 0, 20)
-            NotifMsg.BackgroundTransparency = 1
-            NotifMsg.Text = message
-            NotifMsg.TextColor3 = Color3.fromRGB(255, 255, 255)
-            NotifMsg.Font = Enum.Font.Gotham
-            NotifMsg.TextSize = 16
-            NotifMsg.TextXAlignment = Enum.TextXAlignment.Left
-            NotifMsg.TextYAlignment = Enum.TextYAlignment.Top
-            NotifMsg.Parent = NotifFrame
-            
-            TweenService:Create(NotifFrame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, -250, 0, 50)}):Play()
-            
-            task.delay(3, function()
-                TweenService:Create(NotifFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Position = UDim2.new(0.5, -250, 0, -150)}):Play()
-                task.wait(0.5)
-                NotifGui:Destroy()
-            end)
-        end)
+        PopulateAdminPage(AdminPageInstance)
     end
 end
 
 SendBtn.MouseButton1Click:Connect(function()
-    if _0x9f3a_hasRedeemed then
-        ResultLabel.Text = "Kode sudah digunakan!"
-        ResultLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+    if isPremium then
+        ResultLabel.Text = "Akun Anda sudah PREMIUM secara permanen!"
+        ResultLabel.TextColor3 = Color3.fromRGB(255, 215, 0)
         return
     end
     
-    local _0x9f3c_code = string.upper(CodeInput.Text)
-    local _0x9f3d_isValid = false
+    local code = string.upper(CodeInput.Text)
+    local isValid = false
     
-    for _, _0x9f3e_item in ipairs(_0x9f2b) do
-        if _0x9f3e_item == _0x9f3c_code then
-            _0x9f3d_isValid = true
+    for _, enc in ipairs(obfuscatedCodes) do
+        if decode(enc) == code then
+            isValid = true
             break
         end
     end
     
-    if _0x9f3d_isValid then
-        _0x9f3a_hasRedeemed = true
+    if isValid then
+        isPremium = true
         isAdmin = true
-        ResultLabel.Text = "BERHASIL! Akun kini PREMIUM."
+        hasRedeemed = true
+        
+        -- Simpan status PREMIUM secara permanen di file executor
+        pcall(function()
+            writefile("LipzyHub_Premium.txt", "true")
+        end)
+        
+        ResultLabel.Text = "BERHASIL! Akun kini PREMIUM secara permanen."
         ResultLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
         CodeInput.Text = ""
         
-        _0x9f3b_updatePlayerStatusToPremium()
+        updatePlayerStatusToPremium()
     else
         ResultLabel.Text = "Kode Tidak Valid!"
         ResultLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
@@ -735,16 +989,16 @@ for index, data in ipairs(ScriptList) do
     NameLabel.TextXAlignment = Enum.TextXAlignment.Left
     NameLabel.Parent = ItemFrame
 
-    local StatusLabel = Instance.new("TextLabel")
-    StatusLabel.Size = UDim2.new(1, -80, 0, 14)
-    StatusLabel.Position = UDim2.new(0, 10, 0, 22)
-    StatusLabel.BackgroundTransparency = 1
-    StatusLabel.Text = "[" .. data.KeyStatus .. "]"
-    StatusLabel.TextColor3 = (data.KeyStatus == "NO KEY") and Color3.fromRGB(100, 220, 120) or Color3.fromRGB(255, 180, 80)
-    StatusLabel.Font = Enum.Font.Gotham
-    StatusLabel.TextSize = 10
-    StatusLabel.TextXAlignment = Enum.TextXAlignment.Left
-    StatusLabel.Parent = ItemFrame
+    local KeyStatusLabel = Instance.new("TextLabel")
+    KeyStatusLabel.Size = UDim2.new(1, -80, 0, 14)
+    KeyStatusLabel.Position = UDim2.new(0, 10, 0, 22)
+    KeyStatusLabel.BackgroundTransparency = 1
+    KeyStatusLabel.Text = "[" .. data.KeyStatus .. "]"
+    KeyStatusLabel.TextColor3 = (data.KeyStatus == "NO KEY") and Color3.fromRGB(100, 220, 120) or Color3.fromRGB(255, 180, 80)
+    KeyStatusLabel.Font = Enum.Font.Gotham
+    KeyStatusLabel.TextSize = 10
+    KeyStatusLabel.TextXAlignment = Enum.TextXAlignment.Left
+    KeyStatusLabel.Parent = ItemFrame
 
     local CheckBox = Instance.new("Frame")
     CheckBox.Size = UDim2.new(0, 22, 0, 22)
@@ -1059,7 +1313,6 @@ CreateToggle("ANTI DAY", 6, function(state)
     end
 end)
 
-local origShadows = Lighting.GlobalShadows
 CreateToggle("GRAPHICS SHADOWS", 7, function(state)
     Lighting.GlobalShadows = state
     if state then
@@ -1632,247 +1885,5 @@ task.spawn(function()
         end
     end
 end)
-
-if isAdmin and AdminPageInstance then
-     local function PopulateAdminPage(page)
-         local MessageFrame = Instance.new("Frame")
-         MessageFrame.Size = UDim2.new(1, -20, 0, 100)
-         MessageFrame.Position = UDim2.new(0, 10, 0, 40)
-         MessageFrame.BackgroundColor3 = Color3.fromRGB(35, 20, 55)
-         MessageFrame.BorderSizePixel = 0
-         MessageFrame.Parent = page
-
-         local MessageCorner = Instance.new("UICorner")
-         MessageCorner.CornerRadius = UDim.new(0, 8)
-         MessageCorner.Parent = MessageFrame
-
-         local MessageBox = Instance.new("TextBox")
-         MessageBox.Size = UDim2.new(1, -20, 0, 40)
-         MessageBox.Position = UDim2.new(0, 10, 0, 10)
-         MessageBox.BackgroundColor3 = Color3.fromRGB(25, 15, 38)
-         MessageBox.Text = "MESSAGE.."
-         MessageBox.TextColor3 = Color3.fromRGB(200, 200, 220)
-         MessageBox.Font = Enum.Font.Gotham
-         MessageBox.TextSize = 14
-         MessageBox.ClearTextOnFocus = true
-         MessageBox.Parent = MessageFrame
-
-         local MessageCorner2 = Instance.new("UICorner")
-         MessageCorner2.CornerRadius = UDim.new(0, 6)
-         MessageCorner2.Parent = MessageBox
-
-         local SendBtn = Instance.new("TextButton")
-         SendBtn.Size = UDim2.new(1, -20, 0, 35)
-         SendBtn.Position = UDim2.new(0, 10, 1, -45)
-         SendBtn.BackgroundColor3 = Color3.fromRGB(120, 40, 190)
-         SendBtn.Text = "SEND"
-         SendBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-         SendBtn.Font = Enum.Font.GothamBold
-         SendBtn.TextSize = 14
-         SendBtn.Parent = MessageFrame
-
-         local SendCorner = Instance.new("UICorner")
-         SendCorner.CornerRadius = UDim.new(0, 6)
-         SendCorner.Parent = SendBtn
-
-         SendBtn.MouseButton1Click:Connect(function()
-             local message = MessageBox.Text
-             if message == "" or message == "MESSAGE.." then return end
-
-             local NotifGui = Instance.new("ScreenGui")
-             NotifGui.Name = "LipzyNotification"
-             NotifGui.Parent = game.CoreGui
-             NotifGui.IgnoreGuiInset = true
-
-             local NotifFrame = Instance.new("Frame")
-             NotifFrame.Size = UDim2.new(0, 500, 0, 100)
-             NotifFrame.Position = UDim2.new(0.5, -250, 0, -150)
-             NotifFrame.BackgroundColor3 = Color3.fromRGB(30, 18, 48)
-             NotifFrame.BorderSizePixel = 0
-             NotifFrame.Parent = NotifGui
-
-             local NotifCorner = Instance.new("UICorner")
-             NotifCorner.CornerRadius = UDim.new(0, 10)
-             NotifCorner.Parent = NotifFrame
-
-             local NotifStroke = Instance.new("UIStroke")
-             NotifStroke.Color = Color3.fromRGB(140, 45, 220)
-             NotifStroke.Thickness = 2
-             NotifStroke.Parent = NotifFrame
-
-             local NotifProfile = Instance.new("ImageLabel")
-             NotifProfile.Size = UDim2.new(0, 60, 0, 60)
-             NotifProfile.Position = UDim2.new(0, 20, 0.5, -30)
-             NotifProfile.BackgroundColor3 = Color3.fromRGB(45, 25, 70)
-             NotifProfile.Image = Players:GetUserThumbnailAsync(LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size150x150)
-             NotifProfile.Parent = NotifFrame
-
-             local NotifProfileCorner = Instance.new("UICorner")
-             NotifProfileCorner.CornerRadius = UDim.new(1, 0)
-             NotifProfileCorner.Parent = NotifProfile
-
-             local NotifProfileStroke = Instance.new("UIStroke")
-             NotifProfileStroke.Color = Color3.fromRGB(255, 215, 0)
-             NotifProfileStroke.Thickness = 2
-             NotifProfileStroke.Parent = NotifProfile
-
-             local CrownLabel = Instance.new("TextLabel")
-             CrownLabel.Size = UDim2.new(1, -100, 0, 20)
-             CrownLabel.Position = UDim2.new(0, 90, 0, 0)
-             CrownLabel.BackgroundTransparency = 1
-             CrownLabel.Text = "👑LIPZY HUB👑"
-             CrownLabel.TextColor3 = Color3.fromRGB(255, 215, 0)
-             CrownLabel.Font = Enum.Font.GothamBold
-             CrownLabel.TextSize = 14
-             CrownLabel.TextXAlignment = Enum.TextXAlignment.Left
-             CrownLabel.Parent = NotifFrame
-
-             local NotifMsg = Instance.new("TextLabel")
-             NotifMsg.Size = UDim2.new(1, -100, 1, -25)
-             NotifMsg.Position = UDim2.new(0, 90, 0, 20)
-             NotifMsg.BackgroundTransparency = 1
-             NotifMsg.Text = message
-             NotifMsg.TextColor3 = Color3.fromRGB(255, 255, 255)
-             NotifMsg.Font = Enum.Font.Gotham
-             NotifMsg.TextSize = 16
-             NotifMsg.TextXAlignment = Enum.TextXAlignment.Left
-             NotifMsg.TextYAlignment = Enum.TextYAlignment.Top
-             NotifMsg.Parent = NotifFrame
-
-             TweenService:Create(NotifFrame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, -250, 0, 50)}):Play()
-
-             task.delay(3, function()
-                 TweenService:Create(NotifFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Position = UDim2.new(0.5, -250, 0, -150)}):Play()
-                 task.wait(0.5)
-                 NotifGui:Destroy()
-             end)
-         end)
-
-         local OwnerScriptYPos = 150
-         local OwnerScriptFrame = Instance.new("Frame")
-         OwnerScriptFrame.Size = UDim2.new(1, -20, 0, 40)
-         OwnerScriptFrame.Position = UDim2.new(0, 10, 0, OwnerScriptYPos)
-         OwnerScriptFrame.BackgroundColor3 = Color3.fromRGB(35, 20, 55)
-         OwnerScriptFrame.BorderSizePixel = 0
-         OwnerScriptFrame.Parent = page
-
-         local OwnerScriptCorner = Instance.new("UICorner")
-         OwnerScriptCorner.CornerRadius = UDim.new(0, 8)
-         OwnerScriptCorner.Parent = OwnerScriptFrame
-
-         local OwnerTextLabel = Instance.new("TextLabel")
-         OwnerTextLabel.Size = UDim2.new(0, 150, 1, 0)
-         OwnerTextLabel.Position = UDim2.new(0, 10, 0, 0)
-         OwnerTextLabel.BackgroundTransparency = 1
-         OwnerTextLabel.Text = "OWNER SCRIPT"
-         OwnerTextLabel.TextColor3 = Color3.fromRGB(200, 200, 220)
-         OwnerTextLabel.Font = Enum.Font.GothamBold
-         OwnerTextLabel.TextSize = 14
-         OwnerTextLabel.TextXAlignment = Enum.TextXAlignment.Left
-         OwnerTextLabel.Parent = OwnerScriptFrame
-
-         local ToggleBg = Instance.new("Frame")
-         ToggleBg.Size = UDim2.new(0, 50, 0, 26)
-         ToggleBg.Position = UDim2.new(1, -60, 0.5, -13)
-         ToggleBg.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-         ToggleBg.Parent = OwnerScriptFrame
-
-         local ToggleCorner = Instance.new("UICorner")
-         ToggleCorner.CornerRadius = UDim.new(1, 0)
-         ToggleCorner.Parent = ToggleBg
-
-         local ToggleCircle = Instance.new("Frame")
-         ToggleCircle.Size = UDim2.new(0, 20, 0, 20)
-         ToggleCircle.Position = UDim2.new(0, 3, 0.5, -10)
-         ToggleCircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-         ToggleCircle.Parent = ToggleBg
-
-         local ToggleCircleCorner = Instance.new("UICorner")
-         ToggleCircleCorner.CornerRadius = UDim.new(1, 0)
-         ToggleCircleCorner.Parent = ToggleCircle
-
-         local isOwnerScriptEnabled = false
-         local headBillboard = nil
-         local rainbowConnection = nil
-
-         local function ApplyBillboard(character)
-             if headBillboard then headBillboard:Destroy() end
-             if rainbowConnection then rainbowConnection:Disconnect() end
-             if not character or not character:FindFirstChild("Head") then return end
-
-             headBillboard = Instance.new("BillboardGui")
-             headBillboard.Name = "OwnerScriptBillboard"
-             headBillboard.Adornee = character.Head
-             headBillboard.Size = UDim2.new(0, 220, 0, 50)
-             headBillboard.StudsOffset = Vector3.new(0, 2.5, 0)
-             headBillboard.AlwaysOnTop = true
-             headBillboard.Parent = character.Head
-
-             local ownerText = Instance.new("TextLabel")
-             ownerText.Name = "OwnerText"
-             ownerText.Size = UDim2.new(1, 0, 1, 0)
-             ownerText.BackgroundTransparency = 1
-             ownerText.Font = Enum.Font.GothamBold
-             ownerText.TextSize = 24
-             ownerText.Parent = headBillboard
-
-             local textStroke = Instance.new("UIStroke")
-             textStroke.Color = Color3.fromRGB(0, 0, 0)
-             textStroke.Thickness = 3
-             textStroke.Parent = ownerText
-
-             if LocalPlayer.Name == "Yanzzz_1023" then
-                 ownerText.Text = "👑OWNER👑"
-                 ownerText.TextColor3 = Color3.fromRGB(255, 220, 0)
-             elseif LocalPlayer.Name == "LifzxAfter2" then
-                 ownerText.Text = "👑ADMIN👑"
-                 rainbowConnection = RunService.RenderStepped:Connect(function()
-                     local hue = (tick() % 5) / 5
-                     ownerText.TextColor3 = Color3.fromHSV(hue, 1, 1)
-                 end)
-             else
-                 ownerText.Text = "👑VIP👑"
-                 ownerText.TextColor3 = Color3.fromRGB(200, 100, 255)
-             end
-         end
-
-         local OwnerScriptBtn = Instance.new("TextButton")
-         OwnerScriptBtn.Size = UDim2.new(1, 0, 1, 0)
-         OwnerScriptBtn.BackgroundTransparency = 1
-         OwnerScriptBtn.Text = ""
-         OwnerScriptBtn.Parent = OwnerScriptFrame
-
-         OwnerScriptBtn.MouseButton1Click:Connect(function()
-             isOwnerScriptEnabled = not isOwnerScriptEnabled
-             if isOwnerScriptEnabled then
-                 TweenService:Create(ToggleCircle, TweenInfo.new(0.2), {Position = UDim2.new(1, -23, 0.5, -10), BackgroundColor3 = Color3.fromRGB(0, 255, 0)}):Play()
-                 TweenService:Create(ToggleBg, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 120, 40)}):Play()
-                 if LocalPlayer.Character then
-                     ApplyBillboard(LocalPlayer.Character)
-                 end
-             else
-                 TweenService:Create(ToggleCircle, TweenInfo.new(0.2), {Position = UDim2.new(0, 3, 0.5, -10), BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-                 TweenService:Create(ToggleBg, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(60, 60, 60)}):Play()
-                 if headBillboard then
-                     headBillboard:Destroy()
-                     headBillboard = nil
-                 end
-                 if rainbowConnection then
-                     rainbowConnection:Disconnect()
-                     rainbowConnection = nil
-                 end
-             end
-         end)
-
-         LocalPlayer.CharacterAdded:Connect(function(char)
-             if isOwnerScriptEnabled then
-                 char:WaitForChild("Head")
-                 ApplyBillboard(char)
-             end
-         end)
-     end
-     
-     PopulateAdminPage(AdminPageInstance)
-end
 
 print("Lipzy Hub V5.2 Loaded Successfully!")
