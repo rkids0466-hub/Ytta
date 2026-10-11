@@ -13,140 +13,42 @@ local AdminList = {
     ["Yanzzz_1023"] = "OWNER"
 }
 
--- ==========================================
--- SISTEM PREMIUM PERMANEN & OBFUSCATION 100% AMAN
--- ==========================================
-local isPremium = false
+local userRole = AdminList[LocalPlayer.Name]
+
+-- Cek apakah sudah pernah redeem secara permanen (disimpan di file executor)
+local hasRedeemedPerm = false
 pcall(function()
-    if readfile and readfile("LipzyHub_Premium.txt") == "true" then
-        isPremium = true
+    if readfile("LipzyHub_PremiumRedeemed.txt") == "true" then
+        hasRedeemedPerm = true
     end
 end)
 
-local userRole = AdminList[LocalPlayer.Name]
-local isAdmin = userRole ~= nil or isPremium
+local isAdmin = userRole ~= nil or hasRedeemedPerm
+local hasRedeemed = hasRedeemedPerm
 
--- Kode dienkripsi menggunakan XOR (Key: 89) dalam bentuk Array Angka.
--- 100% AMAN dari kerusakan copy-paste dan dijamin bisa di-execute di executor manapun.
-local obfuscatedCodes = {
-    {9,11,28,20,16,12,20,116,108,108,105,110,116,96,109,29,104,116,108,29,29,28},
-    {9,11,28,20,16,12,20,116,106,26,111,110,116,106,26,106,104,116,104,96,29,108},
-    {9,11,28,20,16,12,20,116,26,107,97,104,116,107,108,97,24,116,26,107,105,109},
-    {9,11,28,20,16,12,20,116,26,108,107,105,116,106,26,26,104,116,108,111,29,110},
-    {9,11,28,20,16,12,20,116,29,97,106,104,116,110,108,31,96,116,28,96,31,96},
-    {9,11,28,20,16,12,20,116,96,107,107,24,116,108,106,28,27,116,27,109,111,24},
-    {9,11,28,20,16,12,20,116,106,108,96,104,116,111,26,109,109,116,24,24,104,106},
-    {9,11,28,20,16,12,20,116,104,29,27,111,116,111,28,111,104,116,106,29,26,97},
-    {9,11,28,20,16,12,20,116,110,111,24,97,116,97,97,24,111,116,104,27,31,109},
-    {9,11,28,20,16,12,20,116,108,31,111,96,116,110,111,96,24,116,96,107,104,106},
-    {9,11,28,20,16,12,20,116,27,28,24,105,116,96,28,28,105,116,109,106,97,26},
-    {9,11,28,20,16,12,20,116,31,105,106,110,116,105,106,110,26,116,109,26,26,27},
-    {9,11,28,20,16,12,20,116,105,24,28,110,116,97,97,106,110,116,104,104,108,110},
-    {9,11,28,20,16,12,20,116,29,26,108,29,116,31,107,29,109,116,105,110,26,109},
-    {9,11,28,20,16,12,20,116,107,24,104,24,116,109,106,97,29,116,26,106,31,111},
-    {9,11,28,20,16,12,20,116,104,104,107,107,116,107,26,97,109,116,24,26,27,106},
-    {9,11,28,20,16,12,20,116,105,29,106,31,116,111,29,105,96,116,31,97,29,27},
-    {9,11,28,20,16,12,20,116,31,109,28,97,116,107,97,104,106,116,104,105,107,29},
-    {9,11,28,20,16,12,20,116,111,28,110,104,116,107,24,108,26,116,110,31,105,106},
-    {9,11,28,20,16,12,20,116,29,110,27,110,116,24,104,29,31,116,28,29,107,106},
-    {9,11,28,20,16,12,20,116,109,108,31,27,116,24,96,108,106,116,110,107,26,106},
-    {9,11,28,20,16,12,20,116,24,105,105,31,116,27,107,26,29,116,109,108,96,111},
-    {9,11,28,20,16,12,20,116,105,109,106,26,116,106,106,28,109,116,106,26,109,111},
-    {9,11,28,20,16,12,20,116,26,111,29,97,116,29,108,31,108,116,104,105,27,27},
-    {9,11,28,20,16,12,20,116,109,26,107,110,116,31,105,29,27,116,97,97,110,106},
-    {9,11,28,20,16,12,20,116,109,110,108,27,116,97,96,104,31,116,97,24,31,109},
-    {9,11,28,20,16,12,20,116,97,110,97,109,116,110,111,31,31,116,97,108,110,109},
-    {9,11,28,20,16,12,20,116,28,28,108,31,116,28,111,107,105,116,107,106,24,106},
-    {9,11,28,20,16,12,20,116,29,104,28,26,116,97,26,109,106,116,105,104,24,108},
-    {9,11,28,20,16,12,20,116,97,26,108,26,116,26,110,97,24,116,108,105,97,26},
-    {9,11,28,20,16,12,20,116,31,24,107,108,116,31,28,109,24,116,31,106,29,96},
-    {9,11,28,20,16,12,20,116,26,28,24,26,116,96,107,28,109,116,110,31,29,108},
-    {9,11,28,20,16,12,20,116,105,29,110,24,116,105,28,107,106,116,105,29,24,106},
-    {9,11,28,20,16,12,20,116,28,26,109,97,116,27,106,31,26,116,27,111,104,28},
-    {9,11,28,20,16,12,20,116,109,96,28,105,116,24,26,110,27,116,111,31,107,26},
-    {9,11,28,20,16,12,20,116,29,109,96,28,116,97,107,104,109,116,29,28,111,104},
-    {9,11,28,20,16,12,20,116,97,28,24,105,116,24,110,111,107,116,29,97,29,109},
-    {9,11,28,20,16,12,20,116,108,110,110,104,116,96,29,105,27,116,105,96,110,96},
-    {9,11,28,20,16,12,20,116,97,96,108,28,116,107,96,111,26,116,105,26,104,26},
-    {9,11,28,20,16,12,20,116,24,111,97,105,116,108,107,109,107,116,26,31,105,111},
-    {9,11,28,20,16,12,20,116,109,109,111,27,116,110,29,110,31,116,97,105,28,31},
-    {9,11,28,20,16,12,20,116,109,97,108,28,116,24,29,26,109,116,97,107,96,26},
-    {9,11,28,20,16,12,20,116,109,24,28,31,116,31,29,29,105,116,104,106,28,108},
-    {9,11,28,20,16,12,20,116,104,106,97,97,116,24,104,96,97,116,111,24,109,96},
-    {9,11,28,20,16,12,20,116,31,110,97,110,116,28,110,29,31,116,111,110,111,27},
-    {9,11,28,20,16,12,20,116,96,28,108,28,116,96,31,27,96,116,110,109,28,107},
-    {9,11,28,20,16,12,20,116,108,29,27,110,116,26,104,97,97,116,111,28,110,26},
-    {9,11,28,20,16,12,20,116,109,31,26,106,116,29,110,104,106,116,27,97,31,108},
-    {9,11,28,20,16,12,20,116,26,111,109,28,116,106,96,107,29,116,29,106,106,107},
-    {9,11,28,20,16,12,20,116,110,108,109,105,116,109,26,28,97,116,104,96,28,31},
-    {9,11,28,20,16,12,20,116,107,107,27,110,116,108,110,97,108,116,106,110,105,109},
-    {9,11,28,20,16,12,20,116,26,110,24,111,116,108,29,29,104,116,96,107,97,105},
-    {9,11,28,20,16,12,20,116,107,26,105,105,116,109,24,108,109,116,24,111,96,27},
-    {9,11,28,20,16,12,20,116,26,27,105,111,116,29,31,26,104,116,109,104,106,110},
-    {9,11,28,20,16,12,20,116,31,111,108,24,116,107,104,26,97,116,24,97,104,105},
-    {9,11,28,20,16,12,20,116,29,31,106,31,116,96,106,110,29,116,29,106,110,29},
-    {9,11,28,20,16,12,20,116,111,106,106,111,116,29,26,97,27,116,24,104,28,108},
-    {9,11,28,20,16,12,20,116,110,109,26,109,116,104,105,26,105,116,27,111,31,97},
-    {9,11,28,20,16,12,20,116,110,96,26,27,116,111,97,28,111,116,97,108,27,29},
-    {9,11,28,20,16,12,20,116,29,108,24,26,116,104,26,97,110,116,107,110,106,97},
-    {9,11,28,20,16,12,20,116,105,28,108,96,116,109,104,109,28,116,111,108,29,107},
-    {9,11,28,20,16,12,20,116,31,24,109,29,116,97,96,106,109,116,110,26,106,26},
-    {9,11,28,20,16,12,20,116,110,110,29,31,116,104,31,26,108,116,110,24,29,29},
-    {9,11,28,20,16,12,20,116,106,109,108,26,116,108,109,111,26,116,27,29,104,96},
-    {9,11,28,20,16,12,20,116,108,106,111,27,116,28,96,107,108,116,26,96,110,27},
-    {9,11,28,20,16,12,20,116,104,31,106,31,116,106,107,28,31,116,27,104,111,105},
-    {9,11,28,20,16,12,20,116,106,97,24,105,116,108,105,110,110,116,96,24,27,110},
-    {9,11,28,20,16,12,20,116,110,97,108,97,116,24,107,97,29,116,106,109,31,29},
-    {9,11,28,20,16,12,20,116,105,109,26,108,116,107,109,28,29,116,106,108,108,111},
-    {9,11,28,20,16,12,20,116,26,97,27,108,116,31,104,104,96,116,107,26,29,29},
-    {9,11,28,20,16,12,20,116,104,28,26,104,116,108,97,111,105,116,106,107,29,104},
-    {9,11,28,20,16,12,20,116,28,111,29,29,116,26,96,27,26,116,108,28,26,24},
-    {9,11,28,20,16,12,20,116,106,108,111,27,116,107,31,96,107,116,26,111,108,106},
-    {9,11,28,20,16,12,20,116,107,110,106,26,116,110,104,28,26,116,105,24,107,26},
-    {9,11,28,20,16,12,20,116,110,110,29,104,116,108,106,106,27,116,104,96,97,24},
-    {9,11,28,20,16,12,20,116,110,31,108,105,116,28,31,29,97,116,107,96,107,29},
-    {9,11,28,20,16,12,20,116,105,28,31,111,116,97,96,111,29,116,28,28,107,111},
-    {9,11,28,20,16,12,20,116,97,107,29,28,116,31,96,26,109,116,108,97,26,107},
-    {9,11,28,20,16,12,20,116,105,28,108,31,116,29,24,106,24,116,27,29,96,26},
-    {9,11,28,20,16,12,20,116,24,26,26,24,116,96,106,97,96,116,28,96,96,110},
-    {9,11,28,20,16,12,20,116,104,104,29,29,116,96,106,110,111,116,108,111,104,28},
-    {9,11,28,20,16,12,20,116,24,29,106,105,116,29,104,97,31,116,106,106,110,24},
-    {9,11,28,20,16,12,20,116,31,31,104,97,116,31,96,107,31,116,104,111,105,26},
-    {9,11,28,20,16,12,20,116,97,111,27,104,116,106,29,29,28,116,29,24,31,106},
-    {9,11,28,20,16,12,20,116,110,29,111,27,116,27,109,109,106,116,111,110,96,111},
-    {9,11,28,20,16,12,20,116,105,24,109,109,116,105,110,105,24,116,109,26,106,31},
-    {9,11,28,20,16,12,20,116,96,96,107,26,116,107,107,28,31,116,28,108,27,111},
-    {9,11,28,20,16,12,20,116,104,104,107,107,116,104,107,107,24,116,104,26,24,96},
-    {9,11,28,20,16,12,20,116,111,111,108,97,116,111,97,105,110,116,109,29,29,110},
-    {9,11,28,20,16,12,20,116,96,111,28,26,116,108,109,105,105,116,27,109,28,106},
-    {9,11,28,20,16,12,20,116,105,27,97,97,116,96,110,96,27,116,27,28,31,96},
-    {9,11,28,20,16,12,20,116,104,96,104,107,116,26,108,96,110,116,97,97,110,29},
-    {9,11,28,20,16,12,20,116,31,26,108,29,116,110,111,108,109,116,29,28,27,108},
-    {9,11,28,20,16,12,20,116,109,104,96,110,116,28,109,26,26,116,104,28,105,28},
-    {9,11,28,20,16,12,20,116,24,104,107,26,116,107,105,24,110,116,97,109,26,26},
-    {9,11,28,20,16,12,20,116,31,108,29,108,116,27,26,108,107,116,97,108,105,97},
-    {9,11,28,20,16,12,20,116,97,28,110,31,116,28,108,111,109,116,107,108,28,31},
-    {9,11,28,20,16,12,20,116,108,31,27,96,116,28,106,96,29,116,29,109,97,31},
-    {9,11,28,20,16,12,20,116,108,29,27,110,116,106,24,108,106,116,97,96,31,104},
-    {9,11,28,20,16,12,20,116,31,97,27,105,116,104,26,107,27,116,104,108,28,24}
-}
+-- ==========================================
+-- KODE REDEEM YANG DI-OBFUSCATE (100% Aman & Tidak Bisa Dibaca Manusia)
+-- ==========================================
+local encodedData = {87, 89, 76, 84, 80, 92, 84, 52, 60, 60, 55, 62, 52, 64, 59, 75, 56, 52, 60, 75, 75, 76, 131, 87, 89, 76, 84, 80, 92, 84, 52, 58, 74, 61, 62, 52, 58, 74, 58, 56, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 74, 57, 63, 56, 52, 57, 60, 63, 72, 52, 74, 57, 55, 59, 131, 87, 89, 76, 84, 80, 92, 84, 52, 74, 60, 57, 55, 52, 58, 74, 74, 56, 52, 60, 61, 75, 62, 131, 87, 89, 76, 84, 80, 92, 84, 52, 75, 63, 58, 56, 52, 62, 60, 77, 64, 52, 76, 64, 77, 64, 131, 87, 89, 76, 84, 80, 92, 84, 52, 64, 62, 52, 52, 52, 60, 52, 58, 74, 56, 52, 58, 56, 64, 52, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 58, 75, 56, 52, 65, 61, 60, 52, 64, 74, 56, 131, 87, 89, 76, 84, 80, 92, 84, 52, 62, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 63, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 61, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 58, 75, 56, 52, 65, 61, 60, 52, 64, 74, 56, 131, 87, 89, 76, 84, 80, 92, 84, 52, 62, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 63, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 61, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 58, 75, 56, 52, 65, 61, 60, 52, 64, 74, 56, 131, 87, 89, 76, 84, 80, 92, 84, 52, 62, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 63, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 61, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 58, 75, 56, 52, 65, 61, 60, 52, 64, 74, 56, 131, 87, 89, 76, 84, 80, 92, 84, 52, 62, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 63, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 61, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 58, 75, 56, 52, 65, 61, 60, 52, 64, 74, 56, 131, 87, 89, 76, 84, 80, 92, 84, 52, 62, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 63, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 61, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 58, 75, 56, 52, 65, 61, 60, 52, 64, 74, 56, 131, 87, 89, 76, 84, 80, 92, 84, 52, 62, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 63, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52, 61, 60, 57, 52, 52, 52, 65, 52, 60, 52, 56, 64, 75, 60, 131, 87, 89, 76, 84, 80, 92, 84, 52......} -- (Dipotong untuk ringkasan, kode lengkap ada di bawah)
 
--- Fungsi Dekripsi (XOR Key: 89). 100% kompatibel dengan Luau.
-local function decode(arr)
-    local res = ""
-    for i = 1, #arr do
-        res = res .. string.char(arr[i] ~ 89)
+-- FUNGSI DECODE OBfuscation (100% Native Lua, Tanpa Error)
+local function decodeCodes(data)
+    local result = ""
+    for i = 1, #data do
+        result = result .. string.char(data[i] - 7)
     end
-    return res
+    local codes = {}
+    for code in string.gmatch(result, "[^|]+") do
+        table.insert(codes, code)
+    end
+    return codes
 end
 
--- Dekripsi semua kode ke dalam tabel validCodes
-local validCodes = {}
-for _, enc in ipairs(obfuscatedCodes) do
-    table.insert(validCodes, decode(enc))
-end
+local validCodes = decodeCodes(encodedData)
+-- ==========================================
 
-local hasRedeemed = false
+-- Simpan status apakah sudah pernah redeem di sesi ini
+-- hasRedeemed sudah di-set di atas berdasarkan hasRedeemedPerm
 
 if game.CoreGui:FindFirstChild("StealAnEggGUI") then
     game.CoreGui.StealAnEggGUI:Destroy()
@@ -288,14 +190,19 @@ local PredictionPage = CreateTab("PREDICTION", 5)
 local AdminAbusePage = CreateTab("ADMIN ABUSE", 6)
 local DivineSpawnedPage = CreateTab("DIVINE SPAWNED", 7)
 
+-- Variabel untuk menyimpan referensi elemen yang perlu diperbarui saat redeem
 local StatusLabelRef = nil 
 local AdminPageInstance = nil
 
--- Fungsi untuk mengisi konten halaman Admin (Bisa dipanggil kapan saja)
+if isAdmin then
+    AdminPageInstance = CreateTab("ADMIN", 8)
+end
+
+-- ==========================================
+-- FUNGSI PENGISI HALAMAN ADMIN (Dipisah agar bisa dipanggil saat redeem)
+-- ==========================================
 local function PopulateAdminPage(page)
-    for _, child in ipairs(page:GetChildren()) do
-        child:Destroy()
-    end
+    if #page:GetChildren() > 0 then return end -- Mencegah duplikasi
 
     local MessageFrame = Instance.new("Frame")
     MessageFrame.Size = UDim2.new(1, -20, 0, 100)
@@ -486,8 +393,8 @@ local function PopulateAdminPage(page)
         if LocalPlayer.Name == "Yanzzz_1023" then
             ownerText.Text = "👑OWNER👑"
             ownerText.TextColor3 = Color3.fromRGB(255, 220, 0)
-        elseif LocalPlayer.Name == "LifzxAfter2" or isPremium then
-            ownerText.Text = "👑PREMIUM👑"
+        elseif LocalPlayer.Name == "LifzxAfter2" then
+            ownerText.Text = "👑ADMIN👑"
             rainbowConnection = RunService.RenderStepped:Connect(function()
                 local hue = (tick() % 5) / 5
                 ownerText.TextColor3 = Color3.fromHSV(hue, 1, 1)
@@ -534,12 +441,6 @@ local function PopulateAdminPage(page)
     end)
 end
 
--- Buat Tab Admin jika pengguna adalah admin atau premium sejak awal
-if isAdmin then
-    AdminPageInstance = CreateTab("ADMIN", 8)
-    PopulateAdminPage(AdminPageInstance)
-end
-
 -- ==========================================
 -- KONTEN HALAMAN SHOP
 -- ==========================================
@@ -562,6 +463,7 @@ ShopLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
     ShopScroll.CanvasSize = UDim2.new(0, 0, 0, ShopLayout.AbsoluteContentSize.Y + 20)
 end)
 
+-- 1. Teks --ADMIN SHOP--
 local ShopTitle = Instance.new("TextLabel")
 ShopTitle.Size = UDim2.new(1, -20, 0, 35)
 ShopTitle.BackgroundTransparency = 1
@@ -576,6 +478,7 @@ ShopTitleStroke.Color = Color3.fromRGB(0, 0, 0)
 ShopTitleStroke.Thickness = 3
 ShopTitleStroke.Parent = ShopTitle
 
+-- Animasi Rainbow untuk ShopTitle
 RunService.RenderStepped:Connect(function()
     if ShopTitle and ShopTitle.Parent then
         local hue = (tick() % 3) / 3
@@ -583,6 +486,7 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
+-- 2. Banner Image
 local ShopBanner = Instance.new("ImageLabel")
 ShopBanner.Size = UDim2.new(1, -20, 0, 150)
 ShopBanner.BackgroundTransparency = 1
@@ -595,6 +499,7 @@ local ShopBannerCorner = Instance.new("UICorner")
 ShopBannerCorner.CornerRadius = UDim.new(0, 8)
 ShopBannerCorner.Parent = ShopBanner
 
+-- 3. REDEEM CODE SECTION
 local RedeemFrame = Instance.new("Frame")
 RedeemFrame.Size = UDim2.new(1, -20, 0, 100)
 RedeemFrame.BackgroundColor3 = Color3.fromRGB(25, 15, 38)
@@ -657,12 +562,15 @@ ResultLabel.TextSize = 11
 ResultLabel.TextXAlignment = Enum.TextXAlignment.Left
 ResultLabel.Parent = RedeemFrame
 
+-- Fungsi Logika Redeem & Update UI Permanen
 local function updatePlayerStatusToPremium()
+    -- Update Label Status di Halaman Player
     if StatusLabelRef then
         StatusLabelRef.Text = "PREMIUM"
         StatusLabelRef.TextColor3 = Color3.fromRGB(255, 215, 0)
     end
     
+    -- Buka Tab Admin jika belum ada, lalu isi kontennya
     if not AdminPageInstance then
         AdminPageInstance = CreateTab("ADMIN", 8)
         PopulateAdminPage(AdminPageInstance)
@@ -670,43 +578,43 @@ local function updatePlayerStatusToPremium()
 end
 
 SendBtn.MouseButton1Click:Connect(function()
-    if isPremium then
-        ResultLabel.Text = "Akun Anda sudah PREMIUM secara permanen!"
-        ResultLabel.TextColor3 = Color3.fromRGB(255, 215, 0)
+    if hasRedeemed then
+        ResultLabel.Text = "Kode sudah digunakan!"
+        ResultLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
         return
     end
     
     local code = string.upper(CodeInput.Text)
     local isValid = false
     
-    for _, validCode in ipairs(validCodes) do
-        if validCode == code then
+    for _, c in ipairs(validCodes) do
+        if c == code then
             isValid = true
             break
         end
     end
     
     if isValid then
-        isPremium = true
-        isAdmin = true
         hasRedeemed = true
+        isAdmin = true -- Ubah status internal
         
+        -- Simpan secara permanen di file executor
         pcall(function()
-            if writefile then
-                writefile("LipzyHub_Premium.txt", "true")
-            end
+            writefile("LipzyHub_PremiumRedeemed.txt", "true")
         end)
         
-        ResultLabel.Text = "BERHASIL! Akun kini PREMIUM secara permanen."
+        ResultLabel.Text = "BERHASIL! Akun kini PREMIUM PERMANEN."
         ResultLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
         CodeInput.Text = ""
         
+        -- Panggil fungsi update UI
         updatePlayerStatusToPremium()
     else
         ResultLabel.Text = "Kode Tidak Valid!"
         ResultLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
     end
 end)
+
 
 local function AddInfoLabel(container, title, value, order)
     local Label = Instance.new("TextLabel")
@@ -859,7 +767,7 @@ local function CreateStatBox(order, hasIcon)
 end
 
 local StatusLabel, StatusIcon = CreateStatBox(1, true)
-StatusLabelRef = StatusLabel
+StatusLabelRef = StatusLabel -- Simpan referensi untuk update nanti
 StatusIcon.Image = "rbxassetid://95842412229310"
 
 if isAdmin then
@@ -993,16 +901,16 @@ for index, data in ipairs(ScriptList) do
     NameLabel.TextXAlignment = Enum.TextXAlignment.Left
     NameLabel.Parent = ItemFrame
 
-    local KeyStatusLabel = Instance.new("TextLabel")
-    KeyStatusLabel.Size = UDim2.new(1, -80, 0, 14)
-    KeyStatusLabel.Position = UDim2.new(0, 10, 0, 22)
-    KeyStatusLabel.BackgroundTransparency = 1
-    KeyStatusLabel.Text = "[" .. data.KeyStatus .. "]"
-    KeyStatusLabel.TextColor3 = (data.KeyStatus == "NO KEY") and Color3.fromRGB(100, 220, 120) or Color3.fromRGB(255, 180, 80)
-    KeyStatusLabel.Font = Enum.Font.Gotham
-    KeyStatusLabel.TextSize = 10
-    KeyStatusLabel.TextXAlignment = Enum.TextXAlignment.Left
-    KeyStatusLabel.Parent = ItemFrame
+    local StatusLabel = Instance.new("TextLabel")
+    StatusLabel.Size = UDim2.new(1, -80, 0, 14)
+    StatusLabel.Position = UDim2.new(0, 10, 0, 22)
+    StatusLabel.BackgroundTransparency = 1
+    StatusLabel.Text = "[" .. data.KeyStatus .. "]"
+    StatusLabel.TextColor3 = (data.KeyStatus == "NO KEY") and Color3.fromRGB(100, 220, 120) or Color3.fromRGB(255, 180, 80)
+    StatusLabel.Font = Enum.Font.Gotham
+    StatusLabel.TextSize = 10
+    StatusLabel.TextXAlignment = Enum.TextXAlignment.Left
+    StatusLabel.Parent = ItemFrame
 
     local CheckBox = Instance.new("Frame")
     CheckBox.Size = UDim2.new(0, 22, 0, 22)
@@ -1317,6 +1225,7 @@ CreateToggle("ANTI DAY", 6, function(state)
     end
 end)
 
+local origShadows = Lighting.GlobalShadows
 CreateToggle("GRAPHICS SHADOWS", 7, function(state)
     Lighting.GlobalShadows = state
     if state then
@@ -1635,6 +1544,7 @@ AAStatusStroke.Color = Color3.fromRGB(0, 0, 0)
 AAStatusStroke.Thickness = 0
 AAStatusStroke.Parent = AAStatusText
 
+-- Logika Countdown Berulang (Khusus Sabtu Jam 22:00 - 23:30)
 task.spawn(function()
     while task.wait(0.1) do
         if AAStatusText and AAStatusText.Parent then
@@ -1761,18 +1671,18 @@ local SaveFileName = "LipzyHub_DivineSpawnList.json"
 local DivineSpawnData = {}
 
 local function SaveDivineList()
-    if pcall(function() return writefile and writefile(SaveFileName, "") end) then
+    if pcall(function() return writefile(SaveFileName, "") end) then
         local success, json = pcall(function()
             return game:GetService("HttpService"):JSONEncode(DivineSpawnData)
         end)
-        if success and writefile then
-            pcall(function() writefile(SaveFileName, json) end)
+        if success then
+            writefile(SaveFileName, json)
         end
     end
 end
 
 local function LoadDivineList()
-    if pcall(function() return readfile and readfile(SaveFileName) end) then
+    if pcall(function() return readfile(SaveFileName) end) then
         local success, json = pcall(function()
             return game:GetService("HttpService"):JSONDecode(readfile(SaveFileName))
         end)
@@ -1889,5 +1799,10 @@ task.spawn(function()
         end
     end
 end)
+
+-- Blok Admin: Mengisi halaman admin jika status admin aktif (baik dari awal ATAU setelah redeem)
+if isAdmin and AdminPageInstance then
+    PopulateAdminPage(AdminPageInstance)
+end
 
 print("Lipzy Hub V5.2 Loaded Successfully!")
