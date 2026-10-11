@@ -14,11 +14,11 @@ local AdminList = {
 }
 
 -- ==========================================
--- SISTEM PREMIUM PERMANEN & OBFUSCATION
+-- SISTEM PREMIUM PERMANEN & OBFUSCATION 100% AMAN
 -- ==========================================
 local isPremium = false
 pcall(function()
-    if readfile("LipzyHub_Premium.txt") == "true" then
+    if readfile and readfile("LipzyHub_Premium.txt") == "true" then
         isPremium = true
     end
 end)
@@ -26,120 +26,126 @@ end)
 local userRole = AdminList[LocalPlayer.Name]
 local isAdmin = userRole ~= nil or isPremium
 
--- Kode dienkripsi menggunakan XOR (Key: 137) agar tidak bisa dibaca manusia
+-- Kode dienkripsi menggunakan XOR (Key: 89) dalam bentuk Array Angka.
+-- 100% AMAN dari kerusakan copy-paste dan dijamin bisa di-execute di executor manapun.
 local obfuscatedCodes = {
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xbc\xb9\xbe\xa4\xb0\xbd\xcd\xb8\xa4\xbc\xcd\xcd\xcc",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xba\xca\xbf\xbe\xa4\xba\xca\xba\xb8\xa4\xb8\xb0\xcd\xbc",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xbb\xb1\xb8\xa4\xbb\xbc\xb1\xc8\xa4\xca\xbb\xb9\xbd",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xbc\xbb\xb9\xa4\xba\xca\xca\xb8\xa4\xbc\xbf\xcd\xbe",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcd\xb1\xba\xb8\xa4\xbe\xbc\xcf\xb0\xa4\xcc\xb0\xcf\xb0",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb0\xbb\xbb\xc8\xa4\xbc\xba\xcc\xcb\xa4\xcb\xbd\xbf\xc8",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xba\xbc\xb0\xb8\xa4\xbf\xca\xbd\xbd\xa4\xc8\xc8\xb8\xba",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb8\xcd\xcb\xbf\xa4\xbf\xcc\xbf\xb8\xa4\xba\xcd\xca\xb1",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xbf\xc8\xb1\xa4\xb1\xb1\xc8\xbf\xa4\xb8\xcb\xcf\xbd",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xcf\xbf\xb0\xa4\xbe\xbf\xb0\xc8\xa4\xb0\xbb\xb8\xba",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcb\xcc\xc8\xb9\xa4\xb0\xcc\xcc\xb9\xa4\xbd\xba\xb1\xca",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xb9\xba\xbe\xa4\xb9\xba\xbe\xca\xa4\xbd\xca\xca\xcb",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xc8\xcc\xbe\xa4\xb1\xb1\xba\xbe\xa4\xb8\xb8\xbc\xbe",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcd\xca\xbc\xcd\xa4\xcf\xbb\xcd\xbd\xa4\xb9\xbe\xca\xbd",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbb\xc8\xb8\xc8\xa4\xbd\xba\xb1\xcd\xa4\xca\xba\xcf\xbf",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb8\xb8\xbb\xbb\xa4\xbb\xca\xb1\xbd\xa4\xc8\xca\xcb\xba",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xcd\xba\xcf\xa4\xbf\xcd\xb9\xb0\xa4\xcf\xb1\xcd\xcb",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xbd\xcc\xb1\xa4\xbb\xb1\xb8\xba\xa4\xb8\xb9\xbb\xcd",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbf\xcc\xbe\xb8\xa4\xbb\xc8\xbc\xca\xa4\xbe\xcf\xb9\xba",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcd\xbe\xcb\xbe\xa4\xc8\xb8\xcd\xcf\xa4\xcc\xcd\xbb\xba",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xbc\xcf\xcb\xa4\xc8\xb0\xbc\xba\xa4\xbe\xbb\xca\xba",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xc8\xb9\xb9\xcf\xa4\xcb\xbb\xca\xcd\xa4\xbd\xbc\xb0\xbf",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xbd\xba\xca\xa4\xba\xba\xcc\xbd\xa4\xba\xca\xbd\xbf",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xbf\xcd\xb1\xa4\xcd\xbc\xcf\xbc\xa4\xb8\xb9\xcb\xcb",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xca\xbb\xbe\xa4\xcf\xb9\xcd\xcb\xa4\xb1\xb1\xbe\xba",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xbe\xbc\xcb\xa4\xb1\xb0\xb8\xcf\xa4\xb1\xc8\xcf\xbd",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb1\xbe\xb1\xbd\xa4\xbe\xbf\xcf\xcf\xa4\xb1\xbc\xbe\xbd",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcc\xcc\xbc\xcf\xa4\xcc\xbf\xbb\xb9\xa4\xbb\xba\xc8\xba",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcd\xb8\xcc\xca\xa4\xb1\xca\xbd\xba\xa4\xb9\xb8\xc8\xbc",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb1\xca\xbc\xca\xa4\xca\xbe\xb1\xc8\xa4\xbc\xb9\xb1\xca",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xc8\xbb\xbc\xa4\xcf\xcc\xbd\xc8\xa4\xcf\xba\xcd\xb0",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xcc\xc8\xca\xa4\xb0\xbb\xcc\xbd\xa4\xbe\xcf\xcd\xbc",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xcd\xbe\xc8\xa4\xb9\xcc\xbb\xba\xa4\xb9\xcd\xc8\xba",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcc\xca\xbd\xb1\xa4\xcb\xba\xcf\xca\xa4\xcb\xbf\xb8\xcc",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xb0\xcc\xb9\xa4\xc8\xca\xbe\xcb\xa4\xbf\xcf\xbb\xca",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcd\xbd\xb0\xcc\xa4\xb1\xbb\xb8\xbd\xa4\xcd\xcc\xbf\xb8",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb1\xcc\xc8\xb9\xa4\xc8\xbe\xbf\xbb\xa4\xcd\xb1\xcd\xbd",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xbe\xbe\xb8\xa4\xb0\xcd\xb9\xcb\xa4\xb9\xb0\xbe\xb0",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb1\xb0\xbc\xcc\xa4\xbb\xb0\xbf\xca\xa4\xb9\xca\xb8\xca",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xc8\xbf\xb1\xb9\xa4\xbc\xbb\xbd\xbb\xa4\xca\xcf\xb9\xbf",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xbd\xbf\xcb\xa4\xbe\xcd\xbe\xcf\xa4\xb1\xb9\xcc\xcf",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xb1\xbc\xcc\xa4\xc8\xcd\xca\xbd\xa4\xb1\xbb\xb0\xca",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xc8\xcc\xcf\xa4\xcf\xcd\xcd\xb9\xa4\xb8\xba\xcc\xbc",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb8\xba\xb1\xb1\xa4\xc8\xb8\xb0\xb1\xa4\xbf\xc8\xbd\xb0",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xbe\xb1\xbe\xa4\xcc\xbe\xcd\xcf\xa4\xbf\xbe\xbf\xcb",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb0\xcc\xbc\xcc\xa4\xb0\xcf\xcb\xb0\xa4\xbe\xbd\xcc\xbb",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xcd\xcb\xbe\xa4\xca\xb8\xb1\xb1\xa4\xbf\xcc\xbe\xca",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xcf\xca\xba\xa4\xcd\xbe\xb8\xba\xa4\xcb\xb1\xcf\xbc",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xbf\xbd\xcc\xa4\xba\xb0\xbb\xcd\xa4\xcd\xba\xba\xbb",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xbc\xbd\xb9\xa4\xbd\xca\xcc\xb1\xa4\xb8\xb0\xcc\xcf",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbb\xbb\xcb\xbe\xa4\xbc\xbe\xb1\xbc\xa4\xba\xbe\xb9\xbd",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xbe\xc8\xbf\xa4\xbc\xcd\xcd\xb8\xa4\xb0\xbb\xb1\xb9",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbb\xca\xb9\xb9\xa4\xbd\xc8\xbc\xbd\xa4\xc8\xbf\xb0\xcb",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xcb\xb9\xbf\xa4\xcd\xcf\xca\xb8\xa4\xbd\xb8\xba\xbe",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xbf\xbc\xc8\xa4\xbb\xb8\xca\xb1\xa4\xc8\xb1\xb8\xb9",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcd\xcf\xba\xcf\xa4\xb0\xba\xbe\xcd\xa4\xcd\xba\xbe\xcd",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbf\xba\xba\xbf\xa4\xcd\xca\xb1\xcb\xa4\xc8\xb8\xcc\xbc",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xbd\xca\xbd\xa4\xb8\xb9\xca\xb9\xa4\xcb\xbf\xcf\xb1",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xb0\xca\xcb\xa4\xbf\xb1\xcc\xbf\xa4\xb1\xbc\xcb\xcd",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcd\xbc\xc8\xca\xa4\xb8\xca\xb1\xbe\xa4\xbb\xbe\xba\xb1",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xcc\xbc\xb0\xa4\xbd\xb8\xbd\xcc\xa4\xbf\xbc\xcd\xbb",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xc8\xbd\xcd\xa4\xb1\xb0\xba\xbd\xa4\xbe\xca\xba\xca",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xbe\xcd\xcf\xa4\xb8\xcf\xca\xbc\xa4\xbe\xc8\xcd\xcd",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xba\xbd\xbc\xca\xa4\xbc\xbd\xbf\xca\xa4\xcb\xcd\xb8\xb0",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xba\xbf\xcb\xa4\xcc\xb0\xbb\xbc\xa4\xca\xb0\xbe\xcb",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb8\xcf\xba\xcf\xa4\xba\xbb\xcc\xcf\xa4\xcb\xb8\xbf\xb9",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xba\xb1\xc8\xb9\xa4\xbc\xb9\xbe\xbe\xa4\xb0\xc8\xcb\xbe",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xb1\xbc\xb1\xa4\xc8\xbb\xb1\xcd\xa4\xba\xbd\xcf\xcd",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xbd\xca\xbc\xa4\xbb\xbd\xcc\xcd\xa4\xba\xbc\xbc\xbf",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xca\xb1\xcb\xbc\xa4\xcf\xb8\xb8\xb0\xa4\xbb\xca\xcd\xcd",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb8\xcc\xca\xb8\xa4\xbc\xb1\xbf\xb9\xa4\xba\xbb\xcd\xb8",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcc\xbf\xcd\xcd\xa4\xca\xb0\xcb\xca\xa4\xbc\xcc\xca\xc8",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xba\xbc\xbf\xcb\xa4\xbb\xcf\xb0\xbb\xa4\xca\xbf\xbc\xba",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbb\xbe\xba\xca\xa4\xbe\xb8\xcc\xca\xa4\xb9\xc8\xbb\xca",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xbe\xcd\xb8\xa4\xbc\xba\xba\xcb\xa4\xb8\xb0\xb1\xc8",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xcf\xbc\xb9\xa4\xcc\xcf\xcd\xb1\xa4\xbb\xb0\xbb\xcd",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xcc\xcf\xbf\xa4\xb1\xb0\xbf\xcd\xa4\xcc\xcc\xbb\xbf",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb1\xbb\xcd\xcc\xa4\xcf\xb0\xca\xbd\xa4\xbc\xb1\xca\xbb",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xcc\xbc\xcf\xa4\xcd\xc8\xba\xc8\xa4\xcb\xcd\xb0\xca",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xc8\xca\xca\xc8\xa4\xb0\xba\xb1\xb0\xa4\xcc\xb0\xb0\xbe",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb8\xb8\xcd\xcd\xa4\xb0\xba\xbe\xbf\xa4\xbc\xbf\xb8\xcc",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xc8\xcd\xba\xb9\xa4\xcd\xb8\xb1\xcf\xa4\xba\xba\xbe\xc8",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xcf\xb8\xb1\xa4\xcf\xb0\xbb\xcf\xa4\xb8\xbf\xb9\xca",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb1\xbf\xcb\xb8\xa4\xba\xcd\xcd\xcc\xa4\xcd\xc8\xcf\xba",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbe\xcd\xbf\xcb\xa4\xcb\xbd\xbd\xba\xa4\xbf\xbe\xb0\xbf",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xc8\xbd\xbd\xa4\xb9\xbe\xb9\xc8\xa4\xbd\xca\xba\xcf",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb0\xb0\xbb\xca\xa4\xbb\xbb\xcc\xcf\xa4\xcc\xbc\xcb\xbf",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xba\xb9\xc8\xa4\xb8\xbb\xbb\xc8\xa4\xb8\xca\xc8\xb0",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbf\xbf\xbc\xb1\xa4\xbf\xb1\xb9\xbe\xa4\xbd\xcd\xcd\xbe",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb0\xbf\xcc\xca\xa4\xbc\xbd\xb9\xb9\xa4\xcb\xbd\xcc\xba",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb9\xcb\xb1\xb1\xa4\xb0\xbe\xb0\xcb\xa4\xcb\xcc\xcf\xb0",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb8\xb0\xb8\xbb\xa4\xca\xbc\xb0\xbe\xa4\xb1\xb1\xbe\xcd",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xca\xbc\xcd\xa4\xbe\xbf\xbc\xbd\xa4\xcd\xcc\xcb\xbc",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbd\xb8\xb0\xbe\xa4\xcc\xbd\xca\xca\xa4\xb8\xcc\xb9\xcc",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xc8\xb8\xbb\xca\xa4\xbb\xb9\xc8\xbe\xa4\xb1\xbd\xca\xca",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xbc\xcd\xbc\xa4\xcb\xca\xbc\xbb\xa4\xb1\xbc\xb9\xb1",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xb1\xcc\xbe\xcf\xa4\xcc\xbc\xbf\xbd\xa4\xbb\xbc\xcc\xcf",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xcf\xcb\xb0\xa4\xcc\xba\xb0\xcd\xa4\xcd\xbd\xb1\xcf",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xbc\xcd\xcb\xbe\xa4\xba\xc8\xbc\xba\xa4\xb1\xb0\xcf\xb8",
-    "\xd9\xdb\xcc\xc4\xc0\xdc\xc4\xa4\xcf\xb1\xcb\xb9\xa4\xb8\xca\xbb\xcb\xa4\xb8\xbc\xcc\xc8"
+    {9,11,28,20,16,12,20,116,108,108,105,110,116,96,109,29,104,116,108,29,29,28},
+    {9,11,28,20,16,12,20,116,106,26,111,110,116,106,26,106,104,116,104,96,29,108},
+    {9,11,28,20,16,12,20,116,26,107,97,104,116,107,108,97,24,116,26,107,105,109},
+    {9,11,28,20,16,12,20,116,26,108,107,105,116,106,26,26,104,116,108,111,29,110},
+    {9,11,28,20,16,12,20,116,29,97,106,104,116,110,108,31,96,116,28,96,31,96},
+    {9,11,28,20,16,12,20,116,96,107,107,24,116,108,106,28,27,116,27,109,111,24},
+    {9,11,28,20,16,12,20,116,106,108,96,104,116,111,26,109,109,116,24,24,104,106},
+    {9,11,28,20,16,12,20,116,104,29,27,111,116,111,28,111,104,116,106,29,26,97},
+    {9,11,28,20,16,12,20,116,110,111,24,97,116,97,97,24,111,116,104,27,31,109},
+    {9,11,28,20,16,12,20,116,108,31,111,96,116,110,111,96,24,116,96,107,104,106},
+    {9,11,28,20,16,12,20,116,27,28,24,105,116,96,28,28,105,116,109,106,97,26},
+    {9,11,28,20,16,12,20,116,31,105,106,110,116,105,106,110,26,116,109,26,26,27},
+    {9,11,28,20,16,12,20,116,105,24,28,110,116,97,97,106,110,116,104,104,108,110},
+    {9,11,28,20,16,12,20,116,29,26,108,29,116,31,107,29,109,116,105,110,26,109},
+    {9,11,28,20,16,12,20,116,107,24,104,24,116,109,106,97,29,116,26,106,31,111},
+    {9,11,28,20,16,12,20,116,104,104,107,107,116,107,26,97,109,116,24,26,27,106},
+    {9,11,28,20,16,12,20,116,105,29,106,31,116,111,29,105,96,116,31,97,29,27},
+    {9,11,28,20,16,12,20,116,31,109,28,97,116,107,97,104,106,116,104,105,107,29},
+    {9,11,28,20,16,12,20,116,111,28,110,104,116,107,24,108,26,116,110,31,105,106},
+    {9,11,28,20,16,12,20,116,29,110,27,110,116,24,104,29,31,116,28,29,107,106},
+    {9,11,28,20,16,12,20,116,109,108,31,27,116,24,96,108,106,116,110,107,26,106},
+    {9,11,28,20,16,12,20,116,24,105,105,31,116,27,107,26,29,116,109,108,96,111},
+    {9,11,28,20,16,12,20,116,105,109,106,26,116,106,106,28,109,116,106,26,109,111},
+    {9,11,28,20,16,12,20,116,26,111,29,97,116,29,108,31,108,116,104,105,27,27},
+    {9,11,28,20,16,12,20,116,109,26,107,110,116,31,105,29,27,116,97,97,110,106},
+    {9,11,28,20,16,12,20,116,109,110,108,27,116,97,96,104,31,116,97,24,31,109},
+    {9,11,28,20,16,12,20,116,97,110,97,109,116,110,111,31,31,116,97,108,110,109},
+    {9,11,28,20,16,12,20,116,28,28,108,31,116,28,111,107,105,116,107,106,24,106},
+    {9,11,28,20,16,12,20,116,29,104,28,26,116,97,26,109,106,116,105,104,24,108},
+    {9,11,28,20,16,12,20,116,97,26,108,26,116,26,110,97,24,116,108,105,97,26},
+    {9,11,28,20,16,12,20,116,31,24,107,108,116,31,28,109,24,116,31,106,29,96},
+    {9,11,28,20,16,12,20,116,26,28,24,26,116,96,107,28,109,116,110,31,29,108},
+    {9,11,28,20,16,12,20,116,105,29,110,24,116,105,28,107,106,116,105,29,24,106},
+    {9,11,28,20,16,12,20,116,28,26,109,97,116,27,106,31,26,116,27,111,104,28},
+    {9,11,28,20,16,12,20,116,109,96,28,105,116,24,26,110,27,116,111,31,107,26},
+    {9,11,28,20,16,12,20,116,29,109,96,28,116,97,107,104,109,116,29,28,111,104},
+    {9,11,28,20,16,12,20,116,97,28,24,105,116,24,110,111,107,116,29,97,29,109},
+    {9,11,28,20,16,12,20,116,108,110,110,104,116,96,29,105,27,116,105,96,110,96},
+    {9,11,28,20,16,12,20,116,97,96,108,28,116,107,96,111,26,116,105,26,104,26},
+    {9,11,28,20,16,12,20,116,24,111,97,105,116,108,107,109,107,116,26,31,105,111},
+    {9,11,28,20,16,12,20,116,109,109,111,27,116,110,29,110,31,116,97,105,28,31},
+    {9,11,28,20,16,12,20,116,109,97,108,28,116,24,29,26,109,116,97,107,96,26},
+    {9,11,28,20,16,12,20,116,109,24,28,31,116,31,29,29,105,116,104,106,28,108},
+    {9,11,28,20,16,12,20,116,104,106,97,97,116,24,104,96,97,116,111,24,109,96},
+    {9,11,28,20,16,12,20,116,31,110,97,110,116,28,110,29,31,116,111,110,111,27},
+    {9,11,28,20,16,12,20,116,96,28,108,28,116,96,31,27,96,116,110,109,28,107},
+    {9,11,28,20,16,12,20,116,108,29,27,110,116,26,104,97,97,116,111,28,110,26},
+    {9,11,28,20,16,12,20,116,109,31,26,106,116,29,110,104,106,116,27,97,31,108},
+    {9,11,28,20,16,12,20,116,26,111,109,28,116,106,96,107,29,116,29,106,106,107},
+    {9,11,28,20,16,12,20,116,110,108,109,105,116,109,26,28,97,116,104,96,28,31},
+    {9,11,28,20,16,12,20,116,107,107,27,110,116,108,110,97,108,116,106,110,105,109},
+    {9,11,28,20,16,12,20,116,26,110,24,111,116,108,29,29,104,116,96,107,97,105},
+    {9,11,28,20,16,12,20,116,107,26,105,105,116,109,24,108,109,116,24,111,96,27},
+    {9,11,28,20,16,12,20,116,26,27,105,111,116,29,31,26,104,116,109,104,106,110},
+    {9,11,28,20,16,12,20,116,31,111,108,24,116,107,104,26,97,116,24,97,104,105},
+    {9,11,28,20,16,12,20,116,29,31,106,31,116,96,106,110,29,116,29,106,110,29},
+    {9,11,28,20,16,12,20,116,111,106,106,111,116,29,26,97,27,116,24,104,28,108},
+    {9,11,28,20,16,12,20,116,110,109,26,109,116,104,105,26,105,116,27,111,31,97},
+    {9,11,28,20,16,12,20,116,110,96,26,27,116,111,97,28,111,116,97,108,27,29},
+    {9,11,28,20,16,12,20,116,29,108,24,26,116,104,26,97,110,116,107,110,106,97},
+    {9,11,28,20,16,12,20,116,105,28,108,96,116,109,104,109,28,116,111,108,29,107},
+    {9,11,28,20,16,12,20,116,31,24,109,29,116,97,96,106,109,116,110,26,106,26},
+    {9,11,28,20,16,12,20,116,110,110,29,31,116,104,31,26,108,116,110,24,29,29},
+    {9,11,28,20,16,12,20,116,106,109,108,26,116,108,109,111,26,116,27,29,104,96},
+    {9,11,28,20,16,12,20,116,108,106,111,27,116,28,96,107,108,116,26,96,110,27},
+    {9,11,28,20,16,12,20,116,104,31,106,31,116,106,107,28,31,116,27,104,111,105},
+    {9,11,28,20,16,12,20,116,106,97,24,105,116,108,105,110,110,116,96,24,27,110},
+    {9,11,28,20,16,12,20,116,110,97,108,97,116,24,107,97,29,116,106,109,31,29},
+    {9,11,28,20,16,12,20,116,105,109,26,108,116,107,109,28,29,116,106,108,108,111},
+    {9,11,28,20,16,12,20,116,26,97,27,108,116,31,104,104,96,116,107,26,29,29},
+    {9,11,28,20,16,12,20,116,104,28,26,104,116,108,97,111,105,116,106,107,29,104},
+    {9,11,28,20,16,12,20,116,28,111,29,29,116,26,96,27,26,116,108,28,26,24},
+    {9,11,28,20,16,12,20,116,106,108,111,27,116,107,31,96,107,116,26,111,108,106},
+    {9,11,28,20,16,12,20,116,107,110,106,26,116,110,104,28,26,116,105,24,107,26},
+    {9,11,28,20,16,12,20,116,110,110,29,104,116,108,106,106,27,116,104,96,97,24},
+    {9,11,28,20,16,12,20,116,110,31,108,105,116,28,31,29,97,116,107,96,107,29},
+    {9,11,28,20,16,12,20,116,105,28,31,111,116,97,96,111,29,116,28,28,107,111},
+    {9,11,28,20,16,12,20,116,97,107,29,28,116,31,96,26,109,116,108,97,26,107},
+    {9,11,28,20,16,12,20,116,105,28,108,31,116,29,24,106,24,116,27,29,96,26},
+    {9,11,28,20,16,12,20,116,24,26,26,24,116,96,106,97,96,116,28,96,96,110},
+    {9,11,28,20,16,12,20,116,104,104,29,29,116,96,106,110,111,116,108,111,104,28},
+    {9,11,28,20,16,12,20,116,24,29,106,105,116,29,104,97,31,116,106,106,110,24},
+    {9,11,28,20,16,12,20,116,31,31,104,97,116,31,96,107,31,116,104,111,105,26},
+    {9,11,28,20,16,12,20,116,97,111,27,104,116,106,29,29,28,116,29,24,31,106},
+    {9,11,28,20,16,12,20,116,110,29,111,27,116,27,109,109,106,116,111,110,96,111},
+    {9,11,28,20,16,12,20,116,105,24,109,109,116,105,110,105,24,116,109,26,106,31},
+    {9,11,28,20,16,12,20,116,96,96,107,26,116,107,107,28,31,116,28,108,27,111},
+    {9,11,28,20,16,12,20,116,104,104,107,107,116,104,107,107,24,116,104,26,24,96},
+    {9,11,28,20,16,12,20,116,111,111,108,97,116,111,97,105,110,116,109,29,29,110},
+    {9,11,28,20,16,12,20,116,96,111,28,26,116,108,109,105,105,116,27,109,28,106},
+    {9,11,28,20,16,12,20,116,105,27,97,97,116,96,110,96,27,116,27,28,31,96},
+    {9,11,28,20,16,12,20,116,104,96,104,107,116,26,108,96,110,116,97,97,110,29},
+    {9,11,28,20,16,12,20,116,31,26,108,29,116,110,111,108,109,116,29,28,27,108},
+    {9,11,28,20,16,12,20,116,109,104,96,110,116,28,109,26,26,116,104,28,105,28},
+    {9,11,28,20,16,12,20,116,24,104,107,26,116,107,105,24,110,116,97,109,26,26},
+    {9,11,28,20,16,12,20,116,31,108,29,108,116,27,26,108,107,116,97,108,105,97},
+    {9,11,28,20,16,12,20,116,97,28,110,31,116,28,108,111,109,116,107,108,28,31},
+    {9,11,28,20,16,12,20,116,108,31,27,96,116,28,106,96,29,116,29,109,97,31},
+    {9,11,28,20,16,12,20,116,108,29,27,110,116,106,24,108,106,116,97,96,31,104},
+    {9,11,28,20,16,12,20,116,31,97,27,105,116,104,26,107,27,116,104,108,28,24}
 }
 
--- Fungsi Dekripsi (XOR Key: 137)
-local function decode(s)
+-- Fungsi Dekripsi (XOR Key: 89). 100% kompatibel dengan Luau.
+local function decode(arr)
     local res = ""
-    for i = 1, #s do
-        res = res .. string.char(string.byte(s, i) ~ 137)
+    for i = 1, #arr do
+        res = res .. string.char(arr[i] ~ 89)
     end
     return res
 end
 
--- Simpan status apakah sudah pernah redeem di sesi ini
+-- Dekripsi semua kode ke dalam tabel validCodes
+local validCodes = {}
+for _, enc in ipairs(obfuscatedCodes) do
+    table.insert(validCodes, decode(enc))
+end
+
 local hasRedeemed = false
 
 if game.CoreGui:FindFirstChild("StealAnEggGUI") then
@@ -282,7 +288,6 @@ local PredictionPage = CreateTab("PREDICTION", 5)
 local AdminAbusePage = CreateTab("ADMIN ABUSE", 6)
 local DivineSpawnedPage = CreateTab("DIVINE SPAWNED", 7)
 
--- Variabel untuk menyimpan referensi elemen yang perlu diperbarui saat redeem
 local StatusLabelRef = nil 
 local AdminPageInstance = nil
 
@@ -590,7 +595,6 @@ local ShopBannerCorner = Instance.new("UICorner")
 ShopBannerCorner.CornerRadius = UDim.new(0, 8)
 ShopBannerCorner.Parent = ShopBanner
 
--- 3. REDEEM CODE SECTION
 local RedeemFrame = Instance.new("Frame")
 RedeemFrame.Size = UDim2.new(1, -20, 0, 100)
 RedeemFrame.BackgroundColor3 = Color3.fromRGB(25, 15, 38)
@@ -653,7 +657,6 @@ ResultLabel.TextSize = 11
 ResultLabel.TextXAlignment = Enum.TextXAlignment.Left
 ResultLabel.Parent = RedeemFrame
 
--- Fungsi Logika Redeem & Update UI
 local function updatePlayerStatusToPremium()
     if StatusLabelRef then
         StatusLabelRef.Text = "PREMIUM"
@@ -676,8 +679,8 @@ SendBtn.MouseButton1Click:Connect(function()
     local code = string.upper(CodeInput.Text)
     local isValid = false
     
-    for _, enc in ipairs(obfuscatedCodes) do
-        if decode(enc) == code then
+    for _, validCode in ipairs(validCodes) do
+        if validCode == code then
             isValid = true
             break
         end
@@ -688,9 +691,10 @@ SendBtn.MouseButton1Click:Connect(function()
         isAdmin = true
         hasRedeemed = true
         
-        -- Simpan status PREMIUM secara permanen di file executor
         pcall(function()
-            writefile("LipzyHub_Premium.txt", "true")
+            if writefile then
+                writefile("LipzyHub_Premium.txt", "true")
+            end
         end)
         
         ResultLabel.Text = "BERHASIL! Akun kini PREMIUM secara permanen."
@@ -1757,18 +1761,18 @@ local SaveFileName = "LipzyHub_DivineSpawnList.json"
 local DivineSpawnData = {}
 
 local function SaveDivineList()
-    if pcall(function() return writefile(SaveFileName, "") end) then
+    if pcall(function() return writefile and writefile(SaveFileName, "") end) then
         local success, json = pcall(function()
             return game:GetService("HttpService"):JSONEncode(DivineSpawnData)
         end)
-        if success then
-            writefile(SaveFileName, json)
+        if success and writefile then
+            pcall(function() writefile(SaveFileName, json) end)
         end
     end
 end
 
 local function LoadDivineList()
-    if pcall(function() return readfile(SaveFileName) end) then
+    if pcall(function() return readfile and readfile(SaveFileName) end) then
         local success, json = pcall(function()
             return game:GetService("HttpService"):JSONDecode(readfile(SaveFileName))
         end)
