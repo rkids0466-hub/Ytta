@@ -6,6 +6,8 @@ local RunService = game:GetService("RunService")
 local Stats = game:GetService("Stats")
 
 local LocalPlayer = Players.LocalPlayer
+
+-- DAFTAR ADMIN AWAL
 local AdminList = {
     ["LifzxAfter2"] = "ADMIN",
     ["Yanzzz_1023"] = "OWNER"
@@ -15,61 +17,144 @@ local userRole = AdminList[LocalPlayer.Name]
 local isAdmin = userRole ~= nil
 
 -- ==========================================
--- SISTEM PENYIMPANAN PERMANEN (PREMIUM & REDEEM)
+-- SISTEM PENYIMPANAN PERMANEN (PREMIUM STATUS)
 -- ==========================================
-local PremiumFileName = "LipzyHub_PremiumStatus_" .. LocalPlayer.UserId .. ".json"
-local isPremium = false
+local SaveFileName = "LipzyHub_Premium_" .. LocalPlayer.UserId .. ".txt"
+local hasRedeemed = false
 
-local function LoadPremiumStatus()
-    if pcall(function() return readfile(PremiumFileName) end) then
-        local success, json = pcall(function()
-            return game:GetService("HttpService"):JSONDecode(readfile(PremiumFileName))
-        end)
-        if success and type(json) == "table" and json.isPremium == true then
-            isPremium = true
-        end
+-- Cek apakah sudah pernah redeem sebelumnya (PERMANEN)
+if pcall(function() return readfile(SaveFileName) end) then
+    local savedStatus = readfile(SaveFileName)
+    if savedStatus == "PREMIUM" then
+        hasRedeemed = true
+        isAdmin = true
     end
 end
 
-local function SavePremiumStatus()
-    if pcall(function() return writefile(PremiumFileName, "") end) then
-        local success, json = pcall(function()
-            return game:GetService("HttpService"):JSONEncode({isPremium = true})
-        end)
-        if success then
-            writefile(PremiumFileName, json)
+-- ==========================================
+-- DAFTAR KODE REDEEM VALID (TEROBFSUKASI)
+-- Tidak dapat dibaca manusia, namun berfungsi normal saat didekripsi
+-- ==========================================
+local _obfuscatedCodes = {
+    "10,8,31,23,19,15,23,119,111,111,106,109,119,99,110,30,107,119,111,30,30,31",
+    "10,8,31,23,19,15,23,119,105,25,108,109,119,105,25,105,107,119,107,99,30,111",
+    "10,8,31,23,19,15,23,119,25,104,98,107,119,104,111,98,27,119,25,104,106,110",
+    "10,8,31,23,19,15,23,119,25,111,104,106,119,105,25,25,107,119,111,108,30,109",
+    "10,8,31,23,19,15,23,119,30,98,105,107,119,109,111,28,99,119,31,99,28,99",
+    "10,8,31,23,19,15,23,119,99,104,104,27,119,111,105,31,24,119,24,110,108,27",
+    "10,8,31,23,19,15,23,119,105,111,99,107,119,108,25,110,110,119,27,27,107,105",
+    "10,8,31,23,19,15,23,119,107,30,24,108,119,108,31,108,107,119,105,30,25,98",
+    "10,8,31,23,19,15,23,119,109,108,27,98,119,98,98,27,108,119,107,24,28,110",
+    "10,8,31,23,19,15,23,119,111,28,108,99,119,109,108,99,27,119,99,104,107,105",
+    "10,8,31,23,19,15,23,119,24,31,27,106,119,99,31,31,106,119,110,105,98,25",
+    "10,8,31,23,19,15,23,119,28,106,105,109,119,106,105,109,25,119,110,25,25,24",
+    "10,8,31,23,19,15,23,119,106,27,31,109,119,98,98,105,109,119,107,107,111,109",
+    "10,8,31,23,19,15,23,119,30,25,111,30,119,28,104,30,110,119,106,109,25,110",
+    "10,8,31,23,19,15,23,119,104,27,107,27,119,110,105,98,30,119,25,105,28,108",
+    "10,8,31,23,19,15,23,119,107,107,104,104,119,104,25,98,110,119,27,25,24,105",
+    "10,8,31,23,19,15,23,119,106,30,105,28,119,108,30,106,99,119,28,98,30,24",
+    "10,8,31,23,19,15,23,119,28,110,31,98,119,104,98,107,105,119,107,106,104,30",
+    "10,8,31,23,19,15,23,119,108,31,109,107,119,104,27,111,25,119,109,28,106,105",
+    "10,8,31,23,19,15,23,119,30,109,24,109,119,27,107,30,28,119,31,30,104,105",
+    "10,8,31,23,19,15,23,119,110,111,28,24,119,27,99,111,105,119,109,104,25,105",
+    "10,8,31,23,19,15,23,119,27,106,106,28,119,24,104,25,30,119,110,111,99,108",
+    "10,8,31,23,19,15,23,119,106,110,105,25,119,105,105,31,110,119,105,25,110,108",
+    "10,8,31,23,19,15,23,119,25,108,30,98,119,30,111,28,111,119,107,106,24,24",
+    "10,8,31,23,19,15,23,119,110,25,104,109,119,28,106,30,24,119,98,98,109,105",
+    "10,8,31,23,19,15,23,119,110,109,111,24,119,98,99,107,28,119,98,27,28,110",
+    "10,8,31,23,19,15,23,119,98,109,98,110,119,109,108,28,28,119,98,111,109,110",
+    "10,8,31,23,19,15,23,119,31,31,111,28,119,31,108,104,106,119,104,105,27,105",
+    "10,8,31,23,19,15,23,119,30,107,31,25,119,98,25,110,105,119,106,107,27,111",
+    "10,8,31,23,19,15,23,119,98,25,111,25,119,25,109,98,27,119,111,106,98,25",
+    "10,8,31,23,19,15,23,119,28,27,104,111,119,28,31,110,27,119,28,105,30,99",
+    "10,8,31,23,19,15,23,119,25,31,27,25,119,99,104,31,110,119,109,28,30,111",
+    "10,8,31,23,19,15,23,119,106,30,109,27,119,106,31,104,105,119,106,30,27,105",
+    "10,8,31,23,19,15,23,119,31,25,110,98,119,24,105,28,25,119,24,108,107,31",
+    "10,8,31,23,19,15,23,119,110,99,31,106,119,27,25,109,24,119,108,28,104,25",
+    "10,8,31,23,19,15,23,119,30,110,99,31,119,98,104,107,110,119,30,31,108,107",
+    "10,8,31,23,19,15,23,119,98,31,27,106,119,27,109,108,104,119,30,98,30,110",
+    "10,8,31,23,19,15,23,119,111,109,109,107,119,99,30,106,24,119,106,99,109,99",
+    "10,8,31,23,19,15,23,119,98,99,111,31,119,104,99,108,25,119,106,25,107,25",
+    "10,8,31,23,19,15,23,119,27,108,98,106,119,111,104,110,104,119,25,28,106,108",
+    "10,8,31,23,19,15,23,119,110,110,108,24,119,109,30,109,28,119,98,106,31,28",
+    "10,8,31,23,19,15,23,119,110,98,111,31,119,27,30,25,110,119,98,104,99,25",
+    "10,8,31,23,19,15,23,119,110,27,31,28,119,28,30,30,106,119,107,105,31,111",
+    "10,8,31,23,19,15,23,119,107,105,98,98,119,27,107,99,98,119,108,27,110,99",
+    "10,8,31,23,19,15,23,119,28,109,98,109,119,31,109,30,28,119,108,109,108,24",
+    "10,8,31,23,19,15,23,119,99,31,111,31,119,99,28,24,99,119,109,110,31,104",
+    "10,8,31,23,19,15,23,119,111,30,24,109,119,25,107,98,98,119,108,31,109,25",
+    "10,8,31,23,19,15,23,119,110,28,25,105,119,30,109,107,105,119,24,98,28,111",
+    "10,8,31,23,19,15,23,119,25,108,110,31,119,105,99,104,30,119,30,105,105,104",
+    "10,8,31,23,19,15,23,119,109,111,110,106,119,110,25,31,98,119,107,99,31,28",
+    "10,8,31,23,19,15,23,119,104,104,24,109,119,111,109,98,111,119,105,109,106,110",
+    "10,8,31,23,19,15,23,119,25,109,27,108,119,111,30,30,107,119,99,104,98,106",
+    "10,8,31,23,19,15,23,119,104,25,106,106,119,110,27,111,110,119,27,108,99,24",
+    "10,8,31,23,19,15,23,119,25,24,106,108,119,30,28,25,107,119,110,107,105,109",
+    "10,8,31,23,19,15,23,119,28,108,111,27,119,104,107,25,98,119,27,98,107,106",
+    "10,8,31,23,19,15,23,119,30,28,105,28,119,99,105,109,30,119,30,105,109,30",
+    "10,8,31,23,19,15,23,119,108,105,105,108,119,30,25,98,24,119,27,107,31,111",
+    "10,8,31,23,19,15,23,119,109,110,25,110,119,107,106,25,106,119,24,108,28,98",
+    "10,8,31,23,19,15,23,119,109,99,25,24,119,108,98,31,108,119,98,111,24,30",
+    "10,8,31,23,19,15,23,119,30,111,27,25,119,107,25,98,109,119,104,109,105,98",
+    "10,8,31,23,19,15,23,119,106,31,111,99,119,110,107,110,31,119,108,111,30,104",
+    "10,8,31,23,19,15,23,119,28,27,110,30,119,98,99,105,110,119,109,25,105,25",
+    "10,8,31,23,19,15,23,119,109,109,30,28,119,107,28,25,111,119,109,27,30,30",
+    "10,8,31,23,19,15,23,119,105,110,111,25,119,111,110,108,25,119,24,30,107,99",
+    "10,8,31,23,19,15,23,119,111,105,108,24,119,31,99,104,111,119,25,99,109,24",
+    "10,8,31,23,19,15,23,119,107,28,105,28,119,105,104,31,28,119,24,107,108,106",
+    "10,8,31,23,19,15,23,119,105,98,27,106,119,111,106,109,109,119,99,27,24,109",
+    "10,8,31,23,19,15,23,119,109,98,111,98,119,27,104,98,30,119,105,110,28,30",
+    "10,8,31,23,19,15,23,119,106,110,25,111,119,104,110,31,30,119,105,111,111,108",
+    "10,8,31,23,19,15,23,119,25,98,24,111,119,28,107,107,99,119,104,25,30,30",
+    "10,8,31,23,19,15,23,119,107,31,25,107,119,111,98,108,106,119,105,104,30,107",
+    "10,8,31,23,19,15,23,119,31,108,30,30,119,25,99,24,25,119,111,31,25,27",
+    "10,8,31,23,19,15,23,119,105,111,108,24,119,104,28,99,104,119,25,108,111,105",
+    "10,8,31,23,19,15,23,119,104,109,105,25,119,109,107,31,25,119,106,27,104,25",
+    "10,8,31,23,19,15,23,119,109,109,30,107,119,111,105,105,24,119,107,99,98,27",
+    "10,8,31,23,19,15,23,119,109,28,111,106,119,31,28,30,98,119,104,99,104,30",
+    "10,8,31,23,19,15,23,119,106,31,28,108,119,98,99,108,30,119,31,31,104,108",
+    "10,8,31,23,19,15,23,119,98,104,30,31,119,28,99,25,110,119,111,98,25,104",
+    "10,8,31,23,19,15,23,119,106,31,111,28,119,30,27,105,27,119,24,30,99,25",
+    "10,8,31,23,19,15,23,119,27,25,25,27,119,99,105,98,99,119,31,99,99,109",
+    "10,8,31,23,19,15,23,119,107,107,30,30,119,99,105,109,108,119,111,108,107,31",
+    "10,8,31,23,19,15,23,119,27,30,105,106,119,30,107,98,28,119,105,105,109,27",
+    "10,8,31,23,19,15,23,119,28,28,107,98,119,28,99,104,28,119,107,108,106,25",
+    "10,8,31,23,19,15,23,119,98,108,24,107,119,105,30,30,31,119,30,27,28,105",
+    "10,8,31,23,19,15,23,119,109,30,108,24,119,24,110,110,105,119,108,109,99,108",
+    "10,8,31,23,19,15,23,119,106,27,110,110,119,106,109,106,27,119,110,25,105,28",
+    "10,8,31,23,19,15,23,119,99,99,104,25,119,104,104,31,28,119,31,111,24,108",
+    "10,8,31,23,19,15,23,119,111,105,106,27,119,107,104,104,27,119,107,25,27,99",
+    "10,8,31,23,19,15,23,119,108,108,111,98,119,108,98,106,109,119,110,30,30,109",
+    "10,8,31,23,19,15,23,119,99,108,31,25,119,111,110,106,106,119,24,110,31,105",
+    "10,8,31,23,19,15,23,119,106,24,98,98,119,99,109,99,24,119,24,31,28,99",
+    "10,8,31,23,19,15,23,119,107,99,107,104,119,25,111,99,109,119,98,98,109,30",
+    "10,8,31,23,19,15,23,119,28,25,111,30,119,109,108,111,110,119,30,31,24,111",
+    "10,8,31,23,19,15,23,119,110,107,99,109,119,31,110,25,25,119,107,31,106,31",
+    "10,8,31,23,19,15,23,119,27,107,104,25,119,104,106,27,109,119,98,110,25,25",
+    "10,8,31,23,19,15,23,119,28,111,30,111,119,24,25,111,104,119,98,111,106,98",
+    "10,8,31,23,19,15,23,119,98,31,109,28,119,31,111,108,110,119,104,111,31,28",
+    "10,8,31,23,19,15,23,119,111,28,24,99,119,31,105,99,30,119,30,110,98,28",
+    "10,8,31,23,19,15,23,119,111,30,24,109,119,105,27,111,105,119,98,99,28,107",
+    "10,8,31,23,19,15,23,119,28,98,24,106,119,107,25,104,24,119,107,111,31,27"
+}
+
+local function _decodeCodes()
+    local _decoded = {}
+    local _key = 90 -- 0x5A
+    for _, _enc in ipairs(_obfuscatedCodes) do
+        local _str = ""
+        for _num in string.gmatch(_enc, "%d+") do
+            _str = _str .. string.char(tonumber(_num) ~ _key)
         end
+        table.insert(_decoded, _str)
     end
+    return _decoded
 end
+local validCodes = _decodeCodes()
 
-local RedeemFileName = "LipzyHub_RedeemedCodes_" .. LocalPlayer.UserId .. ".json"
-local RedeemedCodes = {}
-
-local function LoadRedeemedCodes()
-    if pcall(function() return readfile(RedeemFileName) end) then
-        local success, json = pcall(function()
-            return game:GetService("HttpService"):JSONDecode(readfile(RedeemFileName))
-        end)
-        if success and type(json) == "table" then
-            RedeemedCodes = json
-        end
-    end
-end
-
-local function SaveRedeemedCodes()
-    if pcall(function() return writefile(RedeemFileName, "") end) then
-        local success, json = pcall(function()
-            return game:GetService("HttpService"):JSONEncode(RedeemedCodes)
-        end)
-        if success then
-            writefile(RedeemFileName, json)
-        end
-    end
-end
-
-LoadPremiumStatus()
-LoadRedeemedCodes()
-
+-- ==========================================
+-- GUI SETUP
+-- ==========================================
 if game.CoreGui:FindFirstChild("StealAnEggGUI") then
     game.CoreGui.StealAnEggGUI:Destroy()
 end
@@ -209,10 +294,13 @@ local ShopPage = CreateTab("SHOP", 4)
 local PredictionPage = CreateTab("PREDICTION", 5)
 local AdminAbusePage = CreateTab("ADMIN ABUSE", 6)
 local DivineSpawnedPage = CreateTab("DIVINE SPAWNED", 7)
-local AdminPage = nil
 
-if isAdmin or isPremium then
-    AdminPage = CreateTab("ADMIN", 8)
+-- Variabel untuk menyimpan referensi elemen yang perlu diperbarui saat redeem
+local StatusLabelRef = nil 
+local AdminPageInstance = nil
+
+if isAdmin then
+    AdminPageInstance = CreateTab("ADMIN", 8)
 end
 
 -- ==========================================
@@ -237,6 +325,7 @@ ShopLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
     ShopScroll.CanvasSize = UDim2.new(0, 0, 0, ShopLayout.AbsoluteContentSize.Y + 20)
 end)
 
+-- 1. Teks --ADMIN SHOP--
 local ShopTitle = Instance.new("TextLabel")
 ShopTitle.Size = UDim2.new(1, -20, 0, 35)
 ShopTitle.BackgroundTransparency = 1
@@ -251,6 +340,7 @@ ShopTitleStroke.Color = Color3.fromRGB(0, 0, 0)
 ShopTitleStroke.Thickness = 3
 ShopTitleStroke.Parent = ShopTitle
 
+-- Animasi Rainbow untuk ShopTitle
 RunService.RenderStepped:Connect(function()
     if ShopTitle and ShopTitle.Parent then
         local hue = (tick() % 3) / 3
@@ -258,6 +348,7 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
+-- 2. Banner Image
 local ShopBanner = Instance.new("ImageLabel")
 ShopBanner.Size = UDim2.new(1, -20, 0, 150)
 ShopBanner.BackgroundTransparency = 1
@@ -270,59 +361,10 @@ local ShopBannerCorner = Instance.new("UICorner")
 ShopBannerCorner.CornerRadius = UDim.new(0, 8)
 ShopBannerCorner.Parent = ShopBanner
 
--- ==========================================
--- FITUR BARU: REDEEM PREMIUM CODE (OBFUSCATED)
--- ==========================================
-local _0x4a2b_data = {
-    19,103,98,100,120,103,109,100,102,120,16,22,22,98,41,102,98,103,22,120,22,17,17,22,120,100,97,101,103,41,100,97,16,19,120,19,20,99,102,120,101,109,103,23,41,101,17,19,22,120,100,108,19,20,120,20,100,22,22,41,23,96,109,19,120,96,100,17,98,120,96,99,19,108,41,23,102,97,19,120,98,20,16,109,120,99,16,17,19,41,97,96,101,109,120,16,23,102,19,120,
-    102,101,101,98,41,108,101,19,103,120,100,99,20,109,120,109,100,100,98,41,22,108,23,99,120,103,20,102,16,120,16,23,103,23,41,108,100,100,19,120,23,23,19,20,120,17,99,100,100,41,102,19,101,19,120,22,99,16,19,120,102,103,98,102,41,97,22,108,20,120,98,17,98,19,120,20,19,99,19,41,97,96,23,19,120,100,102,16,108,120,20,17,16,103,41,96,103,22,101,120,
-    20,20,17,98,120,102,102,23,100,41,109,109,20,97,120,103,97,23,19,120,102,17,103,23,41,19,16,103,16,120,16,108,102,22,120,17,19,20,101,41,102,17,109,20,120,96,97,23,103,120,103,109,23,98,41,19,17,102,101,120,22,108,97,100,120,96,98,109,103,41,102,98,98,109,120,102,23,98,20,120,22,96,19,99,41,96,100,97,96,120,101,22,96,17,120,101,19,97,96,41,
-    20,96,103,102,120,23,17,98,23,120,16,102,97,109,41,17,97,99,102,120,99,102,97,96,120,16,20,101,102,41,97,19,97,109,120,109,98,96,102,120,16,23,109,16,41,23,101,22,16,120,109,20,17,109,120,97,109,109,101,41,17,96,103,101,120,23,109,96,98,120,20,16,22,97,41,16,108,16,16,120,23,99,97,98,120,98,103,97,96,41,20,109,103,100,120,23,20,23,108,120,
-    23,97,19,99,41,108,102,19,96,120,103,109,98,19,120,97,17,99,102,41,100,101,102,102,120,98,19,17,19,120,98,16,22,16,41,101,23,100,98,120,19,100,103,16,120,19,16,98,108,41,109,100,96,97,120,22,96,101,103,120,109,103,101,19,41,108,17,19,108,120,103,100,108,101,120,97,17,23,101,41,99,20,109,22,120,99,20,98,17,120,102,19,20,101,41,98,17,99,20,120,
-    101,102,23,108,120,101,101,102,108,41,109,97,103,97,120,108,102,97,101,120,99,20,20,22,41,109,100,108,97,120,108,22,20,19,120,20,101,102,102,41,22,16,20,108,120,23,100,22,22,120,96,16,19,96,41,100,100,98,96,120,101,19,96,102,120,109,16,20,23,41,23,96,16,20,120,102,19,97,20,120,96,17,98,17,41,103,108,97,17,120,97,103,23,16,120,98,103,23,101,41,
-    16,96,23,17,120,100,22,108,20,120,19,102,100,16,41,20,19,22,17,120,103,99,23,108,120,96,96,98,23,41,17,100,100,99,120,100,99,23,20,120,97,100,17,16,41,19,22,20,103,120,109,23,22,99,120,99,102,103,19,41,103,109,99,101,120,103,23,22,109,120,23,96,101,99,41,100,17,17,98,120,109,102,16,103,120,98,109,22,109,41,99,97,17,98,120,98,108,103,16,120,
-    19,97,20,23,41,22,100,109,108,120,109,108,20,100,120,22,108,20,23,41,97,20,103,23,120,109,109,100,22,120,17,108,108,102,41,22,22,20,97,120,16,16,102,98,120,99,96,108,19,41,108,99,97,108,120,96,109,23,96,120,108,23,97,19,41,98,108,23,99,120,16,23,17,22,120,22,23,98,20,41,98,17,97,101,120,109,19,101,20,120,108,19,19,23,41,102,17,102,102,120,
-    23,16,98,101,120,17,96,23,19,41,16,99,103,103,120,22,23,23,97,120,99,96,98,17,41,109,17,97,19,120,103,17,17,17,120,20,22,101,20,41,102,99,20,22,120,22,17,20,109,120,109,102,23,17,41,98,22,103,100,120,108,16,101,98,120,103,20,19,20,41,22,17,103,19,120,19,96,103,97,120,101,102,103,102,41,101,103,99,99,120,96,17,23,103,120,101,98,101,16,41,
-    109,101,19,96,120,16,22,98,100,120,100,20,102,19,41,108,17,99,98,120,17,103,19,100,120,23,98,102,99,41,108,22,108,19,120,99,17,97,108,120,102,108,103,16,41,16,16,96,97,120,97,103,16,101,120,102,97,97,99,41,96,103,97,19,120,108,23,19,102,120,17,99,101,101,41,19,109,22,109,120,98,108,100,22,120,103,16,96,108,41,109,99,16,23,120,97,101,108,19,120,
-    109,97,23,96,41,99,100,108,96,120,108,22,108,20,120,23,109,100,23,41,103,101,108,109,120,17,23,19,16,120,99,98,101,99,41,108,108,16,22,120,97,20,23,19,120,16,22,101,16,41,100,102,23,16,120,23,108,97,96,120,101,19,17,100,41,102,20,98,108,120,97,96,22,102,120,22,23,100,16,41,22,108,23,98,120,102,108,102,22,120,20,102,99,23,41,22,96,22,101,120,
-    100,108,20,19,120,23,98,20,103,41,98,103,100,100,120,108,98,22,109,120,22,16,100,100,41,97,99,102,100,120,103,96,20,96,120,16,16,97,97,41,103,22,16,99,120,109,109,19,22,120,97,19,103,17,41,99,17,22,23,120,109,19,96,108,120,97,108,22,19,41,99,99,102,23,120,19,97,20,99,120,103,102,23,16,41,99,109,19,101,120,108,98,23,20,120,17,97,22,23,41,
-    103,22,22,19,120,103,97,103,20,120,16,19,102,23,41,19,22,22,101,120,102,108,96,108,120,103,109,17,101,41,101,98,103,96,120,100,98,102,101,120,108,102,98,22,41,20,23,108,101,120,102,19,101,101,120,101,109,19,17,41,23,17,102,17,120,20,17,96,102,120,17,103,23,96,41,19,96,19,98,120,100,16,109,97,120,99,102,16,101,41,98,16,99,16,120,97,17,103,100,120,
-    96,103,96,109,41,96,97,109,97,120,108,23,23,20,120,99,98,20,17,41,96,98,103,22,120,99,19,19,20,120,19,96,16,108,41,96,19,20,98,120,98,96,20,98,120,102,101,100,97,41,100,103,17,22,120,96,96,20,23,120,96,102,100,22,41,97,96,16,16,120,22,20,97,108,120,109,101,16,108,41,99,16,99,99,120,22,102,103,109,120,97,17,98,102,41,19,99,96,20,120,
-    102,101,17,17,120,103,101,100,16,41,20,109,108,16,120,100,97,101,101,120,23,99,17,101,41,98,98,109,108,120,22,103,20,100,120,20,22,20,23,41,103,19,101,101,120,16,109,99,96,120,22,23,16,101,41,17,108,16,16,120,96,109,98,19,120,98,20,98,98,41,99,16,109,109,120,99,20,22,20,120,103,99,98,99,41,100,102,109,17,120,19,22,99,23,120,17,22,100,109
-}
-
-local function _0x4a2b_decode()
-    local _0x1c3d_result = ""
-    for _, _0x5f9a_byte in ipairs(_0x4a2b_data) do
-        _0x1c3d_result = _0x1c3d_result .. string.char(bit32.bxor(_0x5f9a_byte, 85))
-    end
-    return _0x1c3d_result
-end
-
-local ValidCodes = {}
-local _0x1c3d_decoded = _0x4a2b_decode()
-for _0x5f9a_code in string.gmatch(_0x1c3d_decoded, "[^|]+") do
-    table.insert(ValidCodes, "PREMIUM-" .. _0x5f9a_code)
-end
-
-local function UnlockPremium()
-    isPremium = true
-    SavePremiumStatus()
-    
-    if _G.LipzyStatusLabel then
-        _G.LipzyStatusLabel.Text = "PREMIUM"
-        _G.LipzyStatusLabel.TextColor3 = Color3.fromRGB(255, 215, 0)
-    end
-    
-    if not AdminPage then
-        AdminPage = CreateTab("ADMIN", 8)
-    end
-    SetupAdminFeatures()
-end
-
+-- 3. REDEEM CODE SECTION
 local RedeemFrame = Instance.new("Frame")
-RedeemFrame.Size = UDim2.new(1, -20, 0, 110)
-RedeemFrame.BackgroundColor3 = Color3.fromRGB(35, 20, 55)
+RedeemFrame.Size = UDim2.new(1, -20, 0, 100)
+RedeemFrame.BackgroundColor3 = Color3.fromRGB(25, 15, 38)
 RedeemFrame.BorderSizePixel = 0
 RedeemFrame.LayoutOrder = 3
 RedeemFrame.Parent = ShopScroll
@@ -331,117 +373,221 @@ local RedeemCorner = Instance.new("UICorner")
 RedeemCorner.CornerRadius = UDim.new(0, 8)
 RedeemCorner.Parent = RedeemFrame
 
-local RedeemStroke = Instance.new("UIStroke")
-RedeemStroke.Color = Color3.fromRGB(140, 45, 220)
-RedeemStroke.Thickness = 1
-RedeemStroke.Parent = RedeemFrame
-
-local RedeemLayout = Instance.new("UIListLayout")
-RedeemLayout.SortOrder = Enum.SortOrder.LayoutOrder
-RedeemLayout.Padding = UDim.new(0, 8)
-RedeemLayout.Parent = RedeemFrame
-
-local RedeemPadding = Instance.new("UIPadding")
-RedeemPadding.PaddingTop = UDim.new(0, 8)
-RedeemPadding.PaddingLeft = UDim.new(0, 10)
-RedeemPadding.PaddingRight = UDim.new(0, 10)
-RedeemPadding.PaddingBottom = UDim.new(0, 8)
-RedeemPadding.Parent = RedeemFrame
-
 local RedeemTitle = Instance.new("TextLabel")
-RedeemTitle.Size = UDim2.new(1, 0, 0, 20)
+RedeemTitle.Size = UDim2.new(1, 0, 0, 25)
+RedeemTitle.Position = UDim2.new(0, 0, 0, 5)
 RedeemTitle.BackgroundTransparency = 1
-RedeemTitle.Text = "REDEEM PREMIUM CODE"
+RedeemTitle.Text = "REDEEM CODE"
 RedeemTitle.TextColor3 = Color3.fromRGB(255, 215, 0)
 RedeemTitle.Font = Enum.Font.GothamBold
 RedeemTitle.TextSize = 14
-RedeemTitle.TextXAlignment = Enum.TextXAlignment.Center
-RedeemTitle.LayoutOrder = 1
 RedeemTitle.Parent = RedeemFrame
 
-local CodeTextBox = Instance.new("TextBox")
-CodeTextBox.Size = UDim2.new(1, 0, 0, 30)
-CodeTextBox.BackgroundColor3 = Color3.fromRGB(25, 15, 38)
-CodeTextBox.Text = "MASUKKAN CODE DI SINI"
-CodeTextBox.TextColor3 = Color3.fromRGB(200, 200, 220)
-CodeTextBox.Font = Enum.Font.GothamBold
-CodeTextBox.TextSize = 12
-CodeTextBox.ClearTextOnFocus = true
-CodeTextBox.LayoutOrder = 2
-CodeTextBox.Parent = RedeemFrame
+local CodeInput = Instance.new("TextBox")
+CodeInput.Size = UDim2.new(0.7, -10, 0, 30)
+CodeInput.Position = UDim2.new(0, 10, 0, 35)
+CodeInput.BackgroundColor3 = Color3.fromRGB(18, 12, 28)
+CodeInput.Text = ""
+CodeInput.PlaceholderText = "Masukkan Kode Disini..."
+CodeInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+CodeInput.Font = Enum.Font.Gotham
+CodeInput.TextSize = 12
+CodeInput.ClearTextOnFocus = false
+CodeInput.Parent = RedeemFrame
 
-local CodeCorner = Instance.new("UICorner")
-CodeCorner.CornerRadius = UDim.new(0, 6)
-CodeCorner.Parent = CodeTextBox
+local CodeInputCorner = Instance.new("UICorner")
+CodeInputCorner.CornerRadius = UDim.new(0, 6)
+CodeInputCorner.Parent = CodeInput
 
 local SendBtn = Instance.new("TextButton")
-SendBtn.Size = UDim2.new(1, 0, 0, 30)
-SendBtn.BackgroundColor3 = Color3.fromRGB(120, 40, 190)
+SendBtn.Size = UDim2.new(0.3, -10, 0, 30)
+SendBtn.Position = UDim2.new(0.7, 0, 0, 35)
+SendBtn.BackgroundColor3 = Color3.fromRGB(140, 45, 220)
 SendBtn.Text = "SEND"
 SendBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 SendBtn.Font = Enum.Font.GothamBold
 SendBtn.TextSize = 14
-SendBtn.LayoutOrder = 3
 SendBtn.Parent = RedeemFrame
 
-local SendCorner = Instance.new("UICorner")
-SendCorner.CornerRadius = UDim.new(0, 6)
-SendCorner.Parent = SendBtn
+local SendBtnCorner = Instance.new("UICorner")
+SendBtnCorner.CornerRadius = UDim.new(0, 6)
+SendBtnCorner.Parent = SendBtn
 
--- Logika Redeem yang juga diobfuscate variabelnya
+local ResultLabel = Instance.new("TextLabel")
+ResultLabel.Size = UDim2.new(1, -20, 0, 20)
+ResultLabel.Position = UDim2.new(0, 10, 0, 70)
+ResultLabel.BackgroundTransparency = 1
+ResultLabel.Text = ""
+ResultLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+ResultLabel.Font = Enum.Font.Gotham
+ResultLabel.TextSize = 11
+ResultLabel.TextXAlignment = Enum.TextXAlignment.Left
+ResultLabel.Parent = RedeemFrame
+
+-- Fungsi Logika Redeem
+local function updatePlayerStatusToPremium()
+    -- Update Label Status di Halaman Player
+    if StatusLabelRef then
+        StatusLabelRef.Text = "PREMIUM"
+        StatusLabelRef.TextColor3 = Color3.fromRGB(255, 215, 0)
+    end
+    
+    -- Buka Tab Admin jika belum ada
+    if not AdminPageInstance then
+        AdminPageInstance = CreateTab("ADMIN", 8)
+        
+        local MessageFrame = Instance.new("Frame")
+        MessageFrame.Size = UDim2.new(1, -20, 0, 100)
+        MessageFrame.Position = UDim2.new(0, 10, 0, 40)
+        MessageFrame.BackgroundColor3 = Color3.fromRGB(35, 20, 55)
+        MessageFrame.BorderSizePixel = 0
+        MessageFrame.Parent = AdminPageInstance
+        
+        local MessageCorner = Instance.new("UICorner")
+        MessageCorner.CornerRadius = UDim.new(0, 8)
+        MessageCorner.Parent = MessageFrame
+        
+        local MessageBox = Instance.new("TextBox")
+        MessageBox.Size = UDim2.new(1, -20, 0, 40)
+        MessageBox.Position = UDim2.new(0, 10, 0, 10)
+        MessageBox.BackgroundColor3 = Color3.fromRGB(25, 15, 38)
+        MessageBox.Text = "MESSAGE.."
+        MessageBox.TextColor3 = Color3.fromRGB(200, 200, 220)
+        MessageBox.Font = Enum.Font.Gotham
+        MessageBox.TextSize = 14
+        MessageBox.ClearTextOnFocus = true
+        MessageBox.Parent = MessageFrame
+        
+        local MessageCorner2 = Instance.new("UICorner")
+        MessageCorner2.CornerRadius = UDim.new(0, 6)
+        MessageCorner2.Parent = MessageBox
+        
+        local SendAdminBtn = Instance.new("TextButton")
+        SendAdminBtn.Size = UDim2.new(1, -20, 0, 35)
+        SendAdminBtn.Position = UDim2.new(0, 10, 1, -45)
+        SendAdminBtn.BackgroundColor3 = Color3.fromRGB(120, 40, 190)
+        SendAdminBtn.Text = "SEND"
+        SendAdminBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+        SendAdminBtn.Font = Enum.Font.GothamBold
+        SendAdminBtn.TextSize = 14
+        SendAdminBtn.Parent = MessageFrame
+        
+        local SendCorner = Instance.new("UICorner")
+        SendCorner.CornerRadius = UDim.new(0, 6)
+        SendCorner.Parent = SendAdminBtn
+        
+        SendAdminBtn.MouseButton1Click:Connect(function()
+            local message = MessageBox.Text
+            if message == "" or message == "MESSAGE.." then return end
+            
+            local NotifGui = Instance.new("ScreenGui")
+            NotifGui.Name = "LipzyNotification"
+            NotifGui.Parent = game.CoreGui
+            NotifGui.IgnoreGuiInset = true
+            
+            local NotifFrame = Instance.new("Frame")
+            NotifFrame.Size = UDim2.new(0, 500, 0, 100)
+            NotifFrame.Position = UDim2.new(0.5, -250, 0, -150)
+            NotifFrame.BackgroundColor3 = Color3.fromRGB(30, 18, 48)
+            NotifFrame.BorderSizePixel = 0
+            NotifFrame.Parent = NotifGui
+            
+            local NotifCorner = Instance.new("UICorner")
+            NotifCorner.CornerRadius = UDim.new(0, 10)
+            NotifCorner.Parent = NotifFrame
+            
+            local NotifStroke = Instance.new("UIStroke")
+            NotifStroke.Color = Color3.fromRGB(140, 45, 220)
+            NotifStroke.Thickness = 2
+            NotifStroke.Parent = NotifFrame
+            
+            local NotifProfile = Instance.new("ImageLabel")
+            NotifProfile.Size = UDim2.new(0, 60, 0, 60)
+            NotifProfile.Position = UDim2.new(0, 20, 0.5, -30)
+            NotifProfile.BackgroundColor3 = Color3.fromRGB(45, 25, 70)
+            NotifProfile.Image = Players:GetUserThumbnailAsync(LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size150x150)
+            NotifProfile.Parent = NotifFrame
+            
+            local NotifProfileCorner = Instance.new("UICorner")
+            NotifProfileCorner.CornerRadius = UDim.new(1, 0)
+            NotifProfileCorner.Parent = NotifProfile
+            
+            local NotifProfileStroke = Instance.new("UIStroke")
+            NotifProfileStroke.Color = Color3.fromRGB(255, 215, 0)
+            NotifProfileStroke.Thickness = 2
+            NotifProfileStroke.Parent = NotifProfile
+            
+            local CrownLabel = Instance.new("TextLabel")
+            CrownLabel.Size = UDim2.new(1, -100, 0, 20)
+            CrownLabel.Position = UDim2.new(0, 90, 0, 0)
+            CrownLabel.BackgroundTransparency = 1
+            CrownLabel.Text = "👑LIPZY HUB👑"
+            CrownLabel.TextColor3 = Color3.fromRGB(255, 215, 0)
+            CrownLabel.Font = Enum.Font.GothamBold
+            CrownLabel.TextSize = 14
+            CrownLabel.TextXAlignment = Enum.TextXAlignment.Left
+            CrownLabel.Parent = NotifFrame
+            
+            local NotifMsg = Instance.new("TextLabel")
+            NotifMsg.Size = UDim2.new(1, -100, 1, -25)
+            NotifMsg.Position = UDim2.new(0, 90, 0, 20)
+            NotifMsg.BackgroundTransparency = 1
+            NotifMsg.Text = message
+            NotifMsg.TextColor3 = Color3.fromRGB(255, 255, 255)
+            NotifMsg.Font = Enum.Font.Gotham
+            NotifMsg.TextSize = 16
+            NotifMsg.TextXAlignment = Enum.TextXAlignment.Left
+            NotifMsg.TextYAlignment = Enum.TextYAlignment.Top
+            NotifMsg.Parent = NotifFrame
+            
+            TweenService:Create(NotifFrame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, -250, 0, 50)}):Play()
+            
+            task.delay(3, function()
+                TweenService:Create(NotifFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Position = UDim2.new(0.5, -250, 0, -150)}):Play()
+                task.wait(0.5)
+                NotifGui:Destroy()
+            end)
+        end)
+    end
+end
+
 SendBtn.MouseButton1Click:Connect(function()
-    local _0x7a1b_input = string.upper(string.gsub(CodeTextBox.Text, "%s", ""))
-    CodeTextBox.Text = "MASUKKAN CODE DI SINI"
+    if hasRedeemed then
+        ResultLabel.Text = "Kode sudah digunakan!"
+        ResultLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+        return
+    end
     
-    if _0x7a1b_input == "" or _0x7a1b_input == "MASUKKANCODEDISINI" then return end
+    local code = string.upper(CodeInput.Text)
+    local isValid = false
     
-    local _0x7a1b_valid = false
-    for _, _0x7a1b_vc in ipairs(ValidCodes) do
-        if _0x7a1b_input == _0x7a1b_vc then
-            _0x7a1b_valid = true
+    for _, c in ipairs(validCodes) do
+        if c == code then
+            isValid = true
             break
         end
     end
     
-    if not _0x7a1b_valid then
-        CodeTextBox.Text = "CODE TIDAK VALID!"
-        CodeTextBox.TextColor3 = Color3.fromRGB(255, 50, 50)
-        task.delay(2, function()
-            if CodeTextBox.Text == "CODE TIDAK VALID!" then
-                CodeTextBox.Text = "MASUKKAN CODE DI SINI"
-                CodeTextBox.TextColor3 = Color3.fromRGB(200, 200, 220)
-            end
+    if isValid then
+        hasRedeemed = true
+        isAdmin = true -- Ubah status internal
+        
+        -- Simpan status secara permanen ke file executor
+        pcall(function()
+            writefile(SaveFileName, "PREMIUM")
         end)
-        return
+        
+        ResultLabel.Text = "BERHASIL! Akun kini PREMIUM."
+        ResultLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
+        CodeInput.Text = ""
+        
+        -- Panggil fungsi update UI
+        updatePlayerStatusToPremium()
+    else
+        ResultLabel.Text = "Kode Tidak Valid!"
+        ResultLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
     end
-    
-    if RedeemedCodes[_0x7a1b_input] then
-        CodeTextBox.Text = "CODE SUDAH DIGUNAKAN!"
-        CodeTextBox.TextColor3 = Color3.fromRGB(255, 150, 50)
-        task.delay(2, function()
-            if CodeTextBox.Text == "CODE SUDAH DIGUNAKAN!" then
-                CodeTextBox.Text = "MASUKKAN CODE DI SINI"
-                CodeTextBox.TextColor3 = Color3.fromRGB(200, 200, 220)
-            end
-        end)
-        return
-    end
-    
-    RedeemedCodes[_0x7a1b_input] = true
-    SaveRedeemedCodes()
-    UnlockPremium()
-    
-    CodeTextBox.Text = "BERHASIL! ANDA PREMIUM"
-    CodeTextBox.TextColor3 = Color3.fromRGB(100, 255, 100)
-    task.delay(3, function()
-        if CodeTextBox.Text == "BERHASIL! ANDA PREMIUM" then
-            CodeTextBox.Text = "MASUKKAN CODE DI SINI"
-            CodeTextBox.TextColor3 = Color3.fromRGB(200, 200, 220)
-        end
-    end)
 end)
--- ==========================================
-
 
 local function AddInfoLabel(container, title, value, order)
     local Label = Instance.new("TextLabel")
@@ -594,10 +740,10 @@ local function CreateStatBox(order, hasIcon)
 end
 
 local StatusLabel, StatusIcon = CreateStatBox(1, true)
-_G.LipzyStatusLabel = StatusLabel
+StatusLabelRef = StatusLabel -- Simpan referensi untuk update nanti
 StatusIcon.Image = "rbxassetid://95842412229310"
 
-if isAdmin or isPremium then
+if isAdmin then
     StatusLabel.Text = "PREMIUM"
     StatusLabel.TextColor3 = Color3.fromRGB(255, 215, 0)
 else
@@ -728,16 +874,16 @@ for index, data in ipairs(ScriptList) do
     NameLabel.TextXAlignment = Enum.TextXAlignment.Left
     NameLabel.Parent = ItemFrame
 
-    local KeyStatusLabel = Instance.new("TextLabel")
-    KeyStatusLabel.Size = UDim2.new(1, -80, 0, 14)
-    KeyStatusLabel.Position = UDim2.new(0, 10, 0, 22)
-    KeyStatusLabel.BackgroundTransparency = 1
-    KeyStatusLabel.Text = "[" .. data.KeyStatus .. "]"
-    KeyStatusLabel.TextColor3 = (data.KeyStatus == "NO KEY") and Color3.fromRGB(100, 220, 120) or Color3.fromRGB(255, 180, 80)
-    KeyStatusLabel.Font = Enum.Font.Gotham
-    KeyStatusLabel.TextSize = 10
-    KeyStatusLabel.TextXAlignment = Enum.TextXAlignment.Left
-    KeyStatusLabel.Parent = ItemFrame
+    local StatusLabel = Instance.new("TextLabel")
+    StatusLabel.Size = UDim2.new(1, -80, 0, 14)
+    StatusLabel.Position = UDim2.new(0, 10, 0, 22)
+    StatusLabel.BackgroundTransparency = 1
+    StatusLabel.Text = "[" .. data.KeyStatus .. "]"
+    StatusLabel.TextColor3 = (data.KeyStatus == "NO KEY") and Color3.fromRGB(100, 220, 120) or Color3.fromRGB(255, 180, 80)
+    StatusLabel.Font = Enum.Font.Gotham
+    StatusLabel.TextSize = 10
+    StatusLabel.TextXAlignment = Enum.TextXAlignment.Left
+    StatusLabel.Parent = ItemFrame
 
     local CheckBox = Instance.new("Frame")
     CheckBox.Size = UDim2.new(0, 22, 0, 22)
@@ -1371,6 +1517,7 @@ AAStatusStroke.Color = Color3.fromRGB(0, 0, 0)
 AAStatusStroke.Thickness = 0
 AAStatusStroke.Parent = AAStatusText
 
+-- Logika Countdown Berulang (Khusus Sabtu Jam 22:00 - 23:30)
 task.spawn(function()
     while task.wait(0.1) do
         if AAStatusText and AAStatusText.Parent then
@@ -1493,24 +1640,24 @@ ListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
     ListFrame.Size = UDim2.new(1, 0, 0, ListLayout.AbsoluteContentSize.Y)
 end)
 
-local SaveFileName = "LipzyHub_DivineSpawnList.json"
+local SaveFileNameDivine = "LipzyHub_DivineSpawnList.json"
 local DivineSpawnData = {}
 
 local function SaveDivineList()
-    if pcall(function() return writefile(SaveFileName, "") end) then
+    if pcall(function() return writefile(SaveFileNameDivine, "") end) then
         local success, json = pcall(function()
             return game:GetService("HttpService"):JSONEncode(DivineSpawnData)
         end)
         if success then
-            writefile(SaveFileName, json)
+            writefile(SaveFileNameDivine, json)
         end
     end
 end
 
 local function LoadDivineList()
-    if pcall(function() return readfile(SaveFileName) end) then
+    if pcall(function() return readfile(SaveFileNameDivine) end) then
         local success, json = pcall(function()
-            return game:GetService("HttpService"):JSONDecode(readfile(SaveFileName))
+            return game:GetService("HttpService"):JSONDecode(readfile(SaveFileNameDivine))
         end)
         if success and type(json) == "table" then
             DivineSpawnData = json
@@ -1626,254 +1773,247 @@ task.spawn(function()
     end
 end)
 
--- ==========================================
--- FUNGSI SETUP FITUR ADMIN
--- ==========================================
-local function SetupAdminFeatures()
-    if not AdminPage then return end
-    if AdminPage:FindFirstChild("MessageFrame") then return end
+-- Blok Admin Asli (Hanya jalan jika isAdmin true dari awal ATAU setelah redeem)
+if isAdmin and AdminPageInstance then
+     local function PopulateAdminPage(page)
+         local MessageFrame = Instance.new("Frame")
+         MessageFrame.Size = UDim2.new(1, -20, 0, 100)
+         MessageFrame.Position = UDim2.new(0, 10, 0, 40)
+         MessageFrame.BackgroundColor3 = Color3.fromRGB(35, 20, 55)
+         MessageFrame.BorderSizePixel = 0
+         MessageFrame.Parent = page
 
-    local MessageFrame = Instance.new("Frame")
-    MessageFrame.Name = "MessageFrame"
-    MessageFrame.Size = UDim2.new(1, -20, 0, 100)
-    MessageFrame.Position = UDim2.new(0, 10, 0, 40)
-    MessageFrame.BackgroundColor3 = Color3.fromRGB(35, 20, 55)
-    MessageFrame.BorderSizePixel = 0
-    MessageFrame.Parent = AdminPage
+         local MessageCorner = Instance.new("UICorner")
+         MessageCorner.CornerRadius = UDim.new(0, 8)
+         MessageCorner.Parent = MessageFrame
 
-    local MessageCorner = Instance.new("UICorner")
-    MessageCorner.CornerRadius = UDim.new(0, 8)
-    MessageCorner.Parent = MessageFrame
+         local MessageBox = Instance.new("TextBox")
+         MessageBox.Size = UDim2.new(1, -20, 0, 40)
+         MessageBox.Position = UDim2.new(0, 10, 0, 10)
+         MessageBox.BackgroundColor3 = Color3.fromRGB(25, 15, 38)
+         MessageBox.Text = "MESSAGE.."
+         MessageBox.TextColor3 = Color3.fromRGB(200, 200, 220)
+         MessageBox.Font = Enum.Font.Gotham
+         MessageBox.TextSize = 14
+         MessageBox.ClearTextOnFocus = true
+         MessageBox.Parent = MessageFrame
 
-    local MessageBox = Instance.new("TextBox")
-    MessageBox.Size = UDim2.new(1, -20, 0, 40)
-    MessageBox.Position = UDim2.new(0, 10, 0, 10)
-    MessageBox.BackgroundColor3 = Color3.fromRGB(25, 15, 38)
-    MessageBox.Text = "MESSAGE.."
-    MessageBox.TextColor3 = Color3.fromRGB(200, 200, 220)
-    MessageBox.Font = Enum.Font.Gotham
-    MessageBox.TextSize = 14
-    MessageBox.ClearTextOnFocus = true
-    MessageBox.Parent = MessageFrame
+         local MessageCorner2 = Instance.new("UICorner")
+         MessageCorner2.CornerRadius = UDim.new(0, 6)
+         MessageCorner2.Parent = MessageBox
 
-    local MessageCorner2 = Instance.new("UICorner")
-    MessageCorner2.CornerRadius = UDim.new(0, 6)
-    MessageCorner2.Parent = MessageBox
+         local SendBtnAdmin = Instance.new("TextButton")
+         SendBtnAdmin.Size = UDim2.new(1, -20, 0, 35)
+         SendBtnAdmin.Position = UDim2.new(0, 10, 1, -45)
+         SendBtnAdmin.BackgroundColor3 = Color3.fromRGB(120, 40, 190)
+         SendBtnAdmin.Text = "SEND"
+         SendBtnAdmin.TextColor3 = Color3.fromRGB(255, 255, 255)
+         SendBtnAdmin.Font = Enum.Font.GothamBold
+         SendBtnAdmin.TextSize = 14
+         SendBtnAdmin.Parent = MessageFrame
 
-    local SendBtnAdmin = Instance.new("TextButton")
-    SendBtnAdmin.Name = "SendBtn"
-    SendBtnAdmin.Size = UDim2.new(1, -20, 0, 35)
-    SendBtnAdmin.Position = UDim2.new(0, 10, 1, -45)
-    SendBtnAdmin.BackgroundColor3 = Color3.fromRGB(120, 40, 190)
-    SendBtnAdmin.Text = "SEND"
-    SendBtnAdmin.TextColor3 = Color3.fromRGB(255, 255, 255)
-    SendBtnAdmin.Font = Enum.Font.GothamBold
-    SendBtnAdmin.TextSize = 14
-    SendBtnAdmin.Parent = MessageFrame
+         local SendCorner = Instance.new("UICorner")
+         SendCorner.CornerRadius = UDim.new(0, 6)
+         SendCorner.Parent = SendBtnAdmin
 
-    local SendCorner = Instance.new("UICorner")
-    SendCorner.CornerRadius = UDim.new(0, 6)
-    SendCorner.Parent = SendBtnAdmin
+         SendBtnAdmin.MouseButton1Click:Connect(function()
+             local message = MessageBox.Text
+             if message == "" or message == "MESSAGE.." then return end
 
-    SendBtnAdmin.MouseButton1Click:Connect(function()
-        local message = MessageBox.Text
-        if message == "" or message == "MESSAGE.." then return end
+             local NotifGui = Instance.new("ScreenGui")
+             NotifGui.Name = "LipzyNotification"
+             NotifGui.Parent = game.CoreGui
+             NotifGui.IgnoreGuiInset = true
 
-        local NotifGui = Instance.new("ScreenGui")
-        NotifGui.Name = "LipzyNotification"
-        NotifGui.Parent = game.CoreGui
-        NotifGui.IgnoreGuiInset = true
+             local NotifFrame = Instance.new("Frame")
+             NotifFrame.Size = UDim2.new(0, 500, 0, 100)
+             NotifFrame.Position = UDim2.new(0.5, -250, 0, -150)
+             NotifFrame.BackgroundColor3 = Color3.fromRGB(30, 18, 48)
+             NotifFrame.BorderSizePixel = 0
+             NotifFrame.Parent = NotifGui
 
-        local NotifFrame = Instance.new("Frame")
-        NotifFrame.Size = UDim2.new(0, 500, 0, 100)
-        NotifFrame.Position = UDim2.new(0.5, -250, 0, -150)
-        NotifFrame.BackgroundColor3 = Color3.fromRGB(30, 18, 48)
-        NotifFrame.BorderSizePixel = 0
-        NotifFrame.Parent = NotifGui
+             local NotifCorner = Instance.new("UICorner")
+             NotifCorner.CornerRadius = UDim.new(0, 10)
+             NotifCorner.Parent = NotifFrame
 
-        local NotifCorner = Instance.new("UICorner")
-        NotifCorner.CornerRadius = UDim.new(0, 10)
-        NotifCorner.Parent = NotifFrame
+             local NotifStroke = Instance.new("UIStroke")
+             NotifStroke.Color = Color3.fromRGB(140, 45, 220)
+             NotifStroke.Thickness = 2
+             NotifStroke.Parent = NotifFrame
 
-        local NotifStroke = Instance.new("UIStroke")
-        NotifStroke.Color = Color3.fromRGB(140, 45, 220)
-        NotifStroke.Thickness = 2
-        NotifStroke.Parent = NotifFrame
+             local NotifProfile = Instance.new("ImageLabel")
+             NotifProfile.Size = UDim2.new(0, 60, 0, 60)
+             NotifProfile.Position = UDim2.new(0, 20, 0.5, -30)
+             NotifProfile.BackgroundColor3 = Color3.fromRGB(45, 25, 70)
+             NotifProfile.Image = Players:GetUserThumbnailAsync(LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size150x150)
+             NotifProfile.Parent = NotifFrame
 
-        local NotifProfile = Instance.new("ImageLabel")
-        NotifProfile.Size = UDim2.new(0, 60, 0, 60)
-        NotifProfile.Position = UDim2.new(0, 20, 0.5, -30)
-        NotifProfile.BackgroundColor3 = Color3.fromRGB(45, 25, 70)
-        NotifProfile.Image = Players:GetUserThumbnailAsync(LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size150x150)
-        NotifProfile.Parent = NotifFrame
+             local NotifProfileCorner = Instance.new("UICorner")
+             NotifProfileCorner.CornerRadius = UDim.new(1, 0)
+             NotifProfileCorner.Parent = NotifProfile
 
-        local NotifProfileCorner = Instance.new("UICorner")
-        NotifProfileCorner.CornerRadius = UDim.new(1, 0)
-        NotifProfileCorner.Parent = NotifProfile
+             local NotifProfileStroke = Instance.new("UIStroke")
+             NotifProfileStroke.Color = Color3.fromRGB(255, 215, 0)
+             NotifProfileStroke.Thickness = 2
+             NotifProfileStroke.Parent = NotifProfile
 
-        local NotifProfileStroke = Instance.new("UIStroke")
-        NotifProfileStroke.Color = Color3.fromRGB(255, 215, 0)
-        NotifProfileStroke.Thickness = 2
-        NotifProfileStroke.Parent = NotifProfile
+             local CrownLabel = Instance.new("TextLabel")
+             CrownLabel.Size = UDim2.new(1, -100, 0, 20)
+             CrownLabel.Position = UDim2.new(0, 90, 0, 0)
+             CrownLabel.BackgroundTransparency = 1
+             CrownLabel.Text = "👑LIPZY HUB👑"
+             CrownLabel.TextColor3 = Color3.fromRGB(255, 215, 0)
+             CrownLabel.Font = Enum.Font.GothamBold
+             CrownLabel.TextSize = 14
+             CrownLabel.TextXAlignment = Enum.TextXAlignment.Left
+             CrownLabel.Parent = NotifFrame
 
-        local CrownLabel = Instance.new("TextLabel")
-        CrownLabel.Size = UDim2.new(1, -100, 0, 20)
-        CrownLabel.Position = UDim2.new(0, 90, 0, 0)
-        CrownLabel.BackgroundTransparency = 1
-        CrownLabel.Text = "👑LIPZY HUB👑"
-        CrownLabel.TextColor3 = Color3.fromRGB(255, 215, 0)
-        CrownLabel.Font = Enum.Font.GothamBold
-        CrownLabel.TextSize = 14
-        CrownLabel.TextXAlignment = Enum.TextXAlignment.Left
-        CrownLabel.Parent = NotifFrame
+             local NotifMsg = Instance.new("TextLabel")
+             NotifMsg.Size = UDim2.new(1, -100, 1, -25)
+             NotifMsg.Position = UDim2.new(0, 90, 0, 20)
+             NotifMsg.BackgroundTransparency = 1
+             NotifMsg.Text = message
+             NotifMsg.TextColor3 = Color3.fromRGB(255, 255, 255)
+             NotifMsg.Font = Enum.Font.Gotham
+             NotifMsg.TextSize = 16
+             NotifMsg.TextXAlignment = Enum.TextXAlignment.Left
+             NotifMsg.TextYAlignment = Enum.TextYAlignment.Top
+             NotifMsg.Parent = NotifFrame
 
-        local NotifMsg = Instance.new("TextLabel")
-        NotifMsg.Size = UDim2.new(1, -100, 1, -25)
-        NotifMsg.Position = UDim2.new(0, 90, 0, 20)
-        NotifMsg.BackgroundTransparency = 1
-        NotifMsg.Text = message
-        NotifMsg.TextColor3 = Color3.fromRGB(255, 255, 255)
-        NotifMsg.Font = Enum.Font.Gotham
-        NotifMsg.TextSize = 16
-        NotifMsg.TextXAlignment = Enum.TextXAlignment.Left
-        NotifMsg.TextYAlignment = Enum.TextYAlignment.Top
-        NotifMsg.Parent = NotifFrame
+             TweenService:Create(NotifFrame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, -250, 0, 50)}):Play()
 
-        TweenService:Create(NotifFrame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, -250, 0, 50)}):Play()
+             task.delay(3, function()
+                 TweenService:Create(NotifFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Position = UDim2.new(0.5, -250, 0, -150)}):Play()
+                 task.wait(0.5)
+                 NotifGui:Destroy()
+             end)
+         end)
 
-        task.delay(3, function()
-            TweenService:Create(NotifFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Position = UDim2.new(0.5, -250, 0, -150)}):Play()
-            task.wait(0.5)
-            NotifGui:Destroy()
-        end)
-    end)
+         local OwnerScriptYPos = 150
+         local OwnerScriptFrame = Instance.new("Frame")
+         OwnerScriptFrame.Size = UDim2.new(1, -20, 0, 40)
+         OwnerScriptFrame.Position = UDim2.new(0, 10, 0, OwnerScriptYPos)
+         OwnerScriptFrame.BackgroundColor3 = Color3.fromRGB(35, 20, 55)
+         OwnerScriptFrame.BorderSizePixel = 0
+         OwnerScriptFrame.Parent = page
 
-    local OwnerScriptYPos = 150
-    local OwnerScriptFrame = Instance.new("Frame")
-    OwnerScriptFrame.Size = UDim2.new(1, -20, 0, 40)
-    OwnerScriptFrame.Position = UDim2.new(0, 10, 0, OwnerScriptYPos)
-    OwnerScriptFrame.BackgroundColor3 = Color3.fromRGB(35, 20, 55)
-    OwnerScriptFrame.BorderSizePixel = 0
-    OwnerScriptFrame.Parent = AdminPage
+         local OwnerScriptCorner = Instance.new("UICorner")
+         OwnerScriptCorner.CornerRadius = UDim.new(0, 8)
+         OwnerScriptCorner.Parent = OwnerScriptFrame
 
-    local OwnerScriptCorner = Instance.new("UICorner")
-    OwnerScriptCorner.CornerRadius = UDim.new(0, 8)
-    OwnerScriptCorner.Parent = OwnerScriptFrame
+         local OwnerTextLabel = Instance.new("TextLabel")
+         OwnerTextLabel.Size = UDim2.new(0, 150, 1, 0)
+         OwnerTextLabel.Position = UDim2.new(0, 10, 0, 0)
+         OwnerTextLabel.BackgroundTransparency = 1
+         OwnerTextLabel.Text = "OWNER SCRIPT"
+         OwnerTextLabel.TextColor3 = Color3.fromRGB(200, 200, 220)
+         OwnerTextLabel.Font = Enum.Font.GothamBold
+         OwnerTextLabel.TextSize = 14
+         OwnerTextLabel.TextXAlignment = Enum.TextXAlignment.Left
+         OwnerTextLabel.Parent = OwnerScriptFrame
 
-    local OwnerTextLabel = Instance.new("TextLabel")
-    OwnerTextLabel.Size = UDim2.new(0, 150, 1, 0)
-    OwnerTextLabel.Position = UDim2.new(0, 10, 0, 0)
-    OwnerTextLabel.BackgroundTransparency = 1
-    OwnerTextLabel.Text = "OWNER SCRIPT"
-    OwnerTextLabel.TextColor3 = Color3.fromRGB(200, 200, 220)
-    OwnerTextLabel.Font = Enum.Font.GothamBold
-    OwnerTextLabel.TextSize = 14
-    OwnerTextLabel.TextXAlignment = Enum.TextXAlignment.Left
-    OwnerTextLabel.Parent = OwnerScriptFrame
+         local ToggleBg = Instance.new("Frame")
+         ToggleBg.Size = UDim2.new(0, 50, 0, 26)
+         ToggleBg.Position = UDim2.new(1, -60, 0.5, -13)
+         ToggleBg.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+         ToggleBg.Parent = OwnerScriptFrame
 
-    local ToggleBg = Instance.new("Frame")
-    ToggleBg.Size = UDim2.new(0, 50, 0, 26)
-    ToggleBg.Position = UDim2.new(1, -60, 0.5, -13)
-    ToggleBg.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-    ToggleBg.Parent = OwnerScriptFrame
+         local ToggleCorner = Instance.new("UICorner")
+         ToggleCorner.CornerRadius = UDim.new(1, 0)
+         ToggleCorner.Parent = ToggleBg
 
-    local ToggleCorner = Instance.new("UICorner")
-    ToggleCorner.CornerRadius = UDim.new(1, 0)
-    ToggleCorner.Parent = ToggleBg
+         local ToggleCircle = Instance.new("Frame")
+         ToggleCircle.Size = UDim2.new(0, 20, 0, 20)
+         ToggleCircle.Position = UDim2.new(0, 3, 0.5, -10)
+         ToggleCircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+         ToggleCircle.Parent = ToggleBg
 
-    local ToggleCircle = Instance.new("Frame")
-    ToggleCircle.Size = UDim2.new(0, 20, 0, 20)
-    ToggleCircle.Position = UDim2.new(0, 3, 0.5, -10)
-    ToggleCircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    ToggleCircle.Parent = ToggleBg
+         local ToggleCircleCorner = Instance.new("UICorner")
+         ToggleCircleCorner.CornerRadius = UDim.new(1, 0)
+         ToggleCircleCorner.Parent = ToggleCircle
 
-    local ToggleCircleCorner = Instance.new("UICorner")
-    ToggleCircleCorner.CornerRadius = UDim.new(1, 0)
-    ToggleCircleCorner.Parent = ToggleCircle
+         local isOwnerScriptEnabled = false
+         local headBillboard = nil
+         local rainbowConnection = nil
 
-    local isOwnerScriptEnabled = false
-    local headBillboard = nil
-    local rainbowConnection = nil
+         local function ApplyBillboard(character)
+             if headBillboard then headBillboard:Destroy() end
+             if rainbowConnection then rainbowConnection:Disconnect() end
+             if not character or not character:FindFirstChild("Head") then return end
 
-    local function ApplyBillboard(character)
-        if headBillboard then headBillboard:Destroy() end
-        if rainbowConnection then rainbowConnection:Disconnect() end
-        if not character or not character:FindFirstChild("Head") then return end
+             headBillboard = Instance.new("BillboardGui")
+             headBillboard.Name = "OwnerScriptBillboard"
+             headBillboard.Adornee = character.Head
+             headBillboard.Size = UDim2.new(0, 220, 0, 50)
+             headBillboard.StudsOffset = Vector3.new(0, 2.5, 0)
+             headBillboard.AlwaysOnTop = true
+             headBillboard.Parent = character.Head
 
-        headBillboard = Instance.new("BillboardGui")
-        headBillboard.Name = "OwnerScriptBillboard"
-        headBillboard.Adornee = character.Head
-        headBillboard.Size = UDim2.new(0, 220, 0, 50)
-        headBillboard.StudsOffset = Vector3.new(0, 2.5, 0)
-        headBillboard.AlwaysOnTop = true
-        headBillboard.Parent = character.Head
+             local ownerText = Instance.new("TextLabel")
+             ownerText.Name = "OwnerText"
+             ownerText.Size = UDim2.new(1, 0, 1, 0)
+             ownerText.BackgroundTransparency = 1
+             ownerText.Font = Enum.Font.GothamBold
+             ownerText.TextSize = 24
+             ownerText.Parent = headBillboard
 
-        local ownerText = Instance.new("TextLabel")
-        ownerText.Name = "OwnerText"
-        ownerText.Size = UDim2.new(1, 0, 1, 0)
-        ownerText.BackgroundTransparency = 1
-        ownerText.Font = Enum.Font.GothamBold
-        ownerText.TextSize = 24
-        ownerText.Parent = headBillboard
+             local textStroke = Instance.new("UIStroke")
+             textStroke.Color = Color3.fromRGB(0, 0, 0)
+             textStroke.Thickness = 3
+             textStroke.Parent = ownerText
 
-        local textStroke = Instance.new("UIStroke")
-        textStroke.Color = Color3.fromRGB(0, 0, 0)
-        textStroke.Thickness = 3
-        textStroke.Parent = ownerText
+             if LocalPlayer.Name == "Yanzzz_1023" then
+                 ownerText.Text = "👑OWNER👑"
+                 ownerText.TextColor3 = Color3.fromRGB(255, 220, 0)
+             elseif LocalPlayer.Name == "LifzxAfter2" then
+                 ownerText.Text = "👑ADMIN👑"
+                 rainbowConnection = RunService.RenderStepped:Connect(function()
+                     local hue = (tick() % 5) / 5
+                     ownerText.TextColor3 = Color3.fromHSV(hue, 1, 1)
+                 end)
+             else
+                 ownerText.Text = "👑VIP👑"
+                 ownerText.TextColor3 = Color3.fromRGB(200, 100, 255)
+             end
+         end
 
-        if LocalPlayer.Name == "Yanzzz_1023" then
-            ownerText.Text = "👑OWNER👑"
-            ownerText.TextColor3 = Color3.fromRGB(255, 220, 0)
-        elseif LocalPlayer.Name == "LifzxAfter2" then
-            ownerText.Text = "👑ADMIN👑"
-            rainbowConnection = RunService.RenderStepped:Connect(function()
-                local hue = (tick() % 5) / 5
-                ownerText.TextColor3 = Color3.fromHSV(hue, 1, 1)
-            end)
-        else
-            ownerText.Text = "👑VIP👑"
-            ownerText.TextColor3 = Color3.fromRGB(200, 100, 255)
-        end
-    end
+         local OwnerScriptBtn = Instance.new("TextButton")
+         OwnerScriptBtn.Size = UDim2.new(1, 0, 1, 0)
+         OwnerScriptBtn.BackgroundTransparency = 1
+         OwnerScriptBtn.Text = ""
+         OwnerScriptBtn.Parent = OwnerScriptFrame
 
-    local OwnerScriptBtn = Instance.new("TextButton")
-    OwnerScriptBtn.Size = UDim2.new(1, 0, 1, 0)
-    OwnerScriptBtn.BackgroundTransparency = 1
-    OwnerScriptBtn.Text = ""
-    OwnerScriptBtn.Parent = OwnerScriptFrame
+         OwnerScriptBtn.MouseButton1Click:Connect(function()
+             isOwnerScriptEnabled = not isOwnerScriptEnabled
+             if isOwnerScriptEnabled then
+                 TweenService:Create(ToggleCircle, TweenInfo.new(0.2), {Position = UDim2.new(1, -23, 0.5, -10), BackgroundColor3 = Color3.fromRGB(0, 255, 0)}):Play()
+                 TweenService:Create(ToggleBg, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 120, 40)}):Play()
+                 if LocalPlayer.Character then
+                     ApplyBillboard(LocalPlayer.Character)
+                 end
+             else
+                 TweenService:Create(ToggleCircle, TweenInfo.new(0.2), {Position = UDim2.new(0, 3, 0.5, -10), BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+                 TweenService:Create(ToggleBg, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(60, 60, 60)}):Play()
+                 if headBillboard then
+                     headBillboard:Destroy()
+                     headBillboard = nil
+                 end
+                 if rainbowConnection then
+                     rainbowConnection:Disconnect()
+                     rainbowConnection = nil
+                 end
+             end
+         end)
 
-    OwnerScriptBtn.MouseButton1Click:Connect(function()
-        isOwnerScriptEnabled = not isOwnerScriptEnabled
-        if isOwnerScriptEnabled then
-            TweenService:Create(ToggleCircle, TweenInfo.new(0.2), {Position = UDim2.new(1, -23, 0.5, -10), BackgroundColor3 = Color3.fromRGB(0, 255, 0)}):Play()
-            TweenService:Create(ToggleBg, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 120, 40)}):Play()
-            if LocalPlayer.Character then
-                ApplyBillboard(LocalPlayer.Character)
-            end
-        else
-            TweenService:Create(ToggleCircle, TweenInfo.new(0.2), {Position = UDim2.new(0, 3, 0.5, -10), BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-            TweenService:Create(ToggleBg, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(60, 60, 60)}):Play()
-            if headBillboard then
-                headBillboard:Destroy()
-                headBillboard = nil
-            end
-            if rainbowConnection then
-                rainbowConnection:Disconnect()
-                rainbowConnection = nil
-            end
-        end
-    end)
-
-    LocalPlayer.CharacterAdded:Connect(function(char)
-        if isOwnerScriptEnabled then
-            char:WaitForChild("Head")
-            ApplyBillboard(char)
-        end
-    end)
-end
-
-if isAdmin or isPremium then
-    SetupAdminFeatures()
+         LocalPlayer.CharacterAdded:Connect(function(char)
+             if isOwnerScriptEnabled then
+                 char:WaitForChild("Head")
+                 ApplyBillboard(char)
+             end
+         end)
+     end
+     
+     PopulateAdminPage(AdminPageInstance)
 end
 
 print("Lipzy Hub V5.2 Loaded Successfully!")
